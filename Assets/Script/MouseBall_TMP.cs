@@ -1,175 +1,241 @@
 using UnityEngine;
 using TMPro;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(LineRenderer))]
-public class MouseBall : MonoBehaviour
+namespace SeongnamSiGyeonggiDoSouthKorea
 {
-    // public 변수
-    [Header("발사 설정")]
-    public float forceMultiplier = 5f;        // 발사 힘 계수
-    public float maxForce = 4f;                // 최대 발사 힘
-    public float deceleration = 0.5f;          // 감속률
-    public float energyLossFactor = 0.8f;      // 충돌 시 에너지 손실 계수
-
-    [Header("공 개수, UI 설정")]
-    public static int ballCounter = 3;         // 남은 공 개수
-    public TextMeshProUGUI ballCounterText;    // UI에 표시할 텍스트
-
-    // private 변수
-    private Rigidbody2D rb;
-    private LineRenderer lineRenderer;
-
-    // 마우스 입력 관련
-    private Vector2 startMousePos;
-    private Vector2 endMousePos;
-    private bool isDragging = false;
-    private bool isDead = false;
-    private bool isLaunched = false;
-
-    // 시작 위치 저장 (Hole에 닿았을 때만 복귀)
-    private Vector3 initialPosition;
-
-    void Start()
+    // [RequireComponent(typeof(LineRenderer))] // Line Renderer를 사용하지 않는다면 이 줄은 제거.
+    public class MouseBall : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody2D>();
-        lineRenderer = GetComponent<LineRenderer>();
+        // 물리 관련 설정
+        [Header("물리 설정")]
+        public float forceMultiplier = 5f;         // 발사 힘 계수
+        public float maxForce = 4f;                // 최대 발사 힘
+        public float deceleration = 0.5f;          // 감속률
+        public float energyLossFactor = 0.8f;      // 충돌 시 에너지 손실 계수
 
-        rb.gravityScale = 0f;
-        rb.drag = 0f;
+        // UI 관련
+        [Header("UI 설정")]
+        public TextMeshProUGUI ballCounterText;    // UI에 표시할 텍스트
+        public static int ballCounter = 3;         // 남은 공 개수
 
-        // 라인 렌더러 초기 설정
-        //lineRenderer.positionCount = 2;
-        //lineRenderer.enabled = false;
-        //lineRenderer.startWidth = 0.1f;
-        //lineRenderer.endWidth = 0.1f;
+        // 시각적 요소
+        [Header("시각적 요소 설정")]
+        public GameObject arrowIndicator;          // 화살표 스프라이트
+        public GameObject dotLineIndicator;        // 화살표와 공 사이의 점 스프라이트 (SpriteRenderer의 Draw Mode: Tiled)
+        public float arrowDistance = 0.75f; // 화살표가 공에서 얼마나 멀리 떨어질지
+        public float dotLineDistance = 0.3f; // 점 스프라이트 길이 감소 (안하면 너무 길어짐)
 
-        initialPosition = transform.position;
+        [Header("힘에 따른 색상 변화")]
+        public Color minForceColor = Color.green;  // 최소 힘일 때의 색상 (초록색)
+        public Color maxForceColor = Color.red;    // 최대 힘일 때의 색상 (빨간색)
 
-        UpdateCounterText(); // 시작 시 UI 업데이트
-    }
 
-    void Update()
-    {
-        // 드래그 시작
-        if (Input.GetMouseButtonDown(0))
+        private Rigidbody2D rb;
+
+        private Vector2 startMousePos;
+        private Vector2 endMousePos;
+
+        private bool isDragging = false;
+        private bool isDead = false;
+        private bool isLaunched = false;
+
+        private Vector3 initialPosition;
+
+
+        private void Awake()
         {
-            isDragging = true;
-            startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //lineRenderer.enabled = true;
+            rb = GetComponent<Rigidbody2D>();
         }
 
-        // 드래그 중: 라인 표시 및 방향 계산
-        if (isDragging)
+        void Start()
         {
-            Vector2 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 dragVector = startMousePos - currentMousePos;
+            rb.gravityScale = 0f;
+            rb.drag = 0f;
 
-            float dragMagnitude = dragVector.magnitude;
-            Vector2 clampedDirection = dragVector;
+            initialPosition = transform.position;
 
-            // 최대 거리 제한
-            if (dragMagnitude > maxForce)
+            UpdateCounterText(); // 시작 시 UI 업데이트
+
+            if (arrowIndicator != null)
             {
-                clampedDirection = dragVector.normalized * maxForce;
-                dragMagnitude = maxForce;
+                arrowIndicator.SetActive(false); // 시작할 때 화살표 비활성화
             }
 
-            // 라인 시각화
-            //lineRenderer.SetPosition(0, transform.position);
-            //lineRenderer.SetPosition(1, transform.position + (Vector3)clampedDirection);
-
-            // 세기에 따라 라인 색상 변화
-            //Color dragColor = Color.Lerp(Color.green, Color.red, dragMagnitude / maxForce);
-
-            //lineRenderer.startColor = dragColor;
-            //lineRenderer.endColor = dragColor;
+            if (dotLineIndicator != null)
+            {
+                dotLineIndicator.SetActive(false); // 시작할 때 점선 비활성화
+            }
         }
 
-        // 드래그 종료 → 힘 가해서 발사
-        if (Input.GetMouseButtonUp(0) && isDragging)
+        void Update()
         {
-            endMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 dragVector = startMousePos - endMousePos;
+            // 드래그 시작
+            if (Input.GetMouseButtonDown(0))
+            {
+                isDragging = true;
+                startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            // 최대 힘 제한
-            if (dragVector.magnitude > maxForce)
-                dragVector = dragVector.normalized * maxForce;
+                if (arrowIndicator != null)
+                {
+                    arrowIndicator.SetActive(true); // 화살표 활성화
+                }
 
-            // 힘을 가해 발사
-            rb.AddForce(dragVector * forceMultiplier, ForceMode2D.Impulse);
-            isLaunched = true;
+                if (dotLineIndicator != null)
+                {
+                    dotLineIndicator.SetActive(true); // 점선 활성화
+                }
+            }
 
-            //lineRenderer.enabled = false;
-            isDragging = false;
+            // 드래그 중
+            if (isDragging)
+            {
+                Vector2 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 dragVector = startMousePos - currentMousePos; // 마우스 드래그 벡터
+
+                // 드래그 길이를 최대 힘으로 제한하고, 그 길이를 바탕으로 힘의 비율 계산
+                float currentDragMagnitude = Mathf.Min(dragVector.magnitude, maxForce);
+                // 힘의 비율 (0.0 ~ 1.0) 계산: 당긴 힘 / 최대 힘
+                float forceRatio = currentDragMagnitude / maxForce;
+
+                Vector2 clampedDirection = dragVector.normalized;                // 방향 벡터
+                float angle = Mathf.Atan2(clampedDirection.y, clampedDirection.x) * Mathf.Rad2Deg; // 회전 각도
+
+                // Lerp를 사용하여 힘의 비율에 따라 색상 보간
+                Color lerpedColor = Color.Lerp(minForceColor, maxForceColor, forceRatio);
+
+
+                // 화살표 제어
+                if (arrowIndicator != null)
+                {
+                    arrowIndicator.SetActive(true); // 화살표 활성화
+                    arrowIndicator.transform.rotation = Quaternion.Euler(0, 0, angle); // 회전
+                    // 화살표 위치는 제한된 드래그 크기에 비례하여 조절
+                    arrowIndicator.transform.position = transform.position + (Vector3)clampedDirection * currentDragMagnitude * arrowDistance;
+
+                    // 화살표 스프라이트 렌더러 색상 변경
+                    SpriteRenderer arrowRenderer = arrowIndicator.GetComponent<SpriteRenderer>();
+                    if (arrowRenderer != null)
+                    {
+                        arrowRenderer.color = lerpedColor;
+                    }
+                }
+
+                // 점선 제어
+                if (dotLineIndicator != null)
+                {
+                    dotLineIndicator.SetActive(true); // 점선 활성화
+                    dotLineIndicator.transform.position = transform.position; // 시작 위치
+                    dotLineIndicator.transform.rotation = Quaternion.Euler(0, 0, angle); // 회전
+
+                    SpriteRenderer dotRenderer = dotLineIndicator.GetComponent<SpriteRenderer>();
+                    if (dotRenderer != null && arrowIndicator != null)
+                    {
+                        // 점선 길이는 화살표 위치와 공 사이의 거리를 기반으로 계산
+                        float lineLength = (arrowIndicator.transform.position - transform.position).magnitude;
+                        dotRenderer.size = new Vector2(lineLength * dotLineDistance, dotRenderer.size.y);
+
+                        // 점선 스프라이트 렌더러 색상 변경
+                        dotRenderer.color = lerpedColor;
+                    }
+                }
+            }
+
+
+
+            // 드래그 종료 → 힘 가해서 발사
+            if (Input.GetMouseButtonUp(0) && isDragging)
+            {
+                endMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 dragVector = startMousePos - endMousePos;
+
+                // 최대 힘 제한
+                if (dragVector.magnitude > maxForce)
+                    dragVector = dragVector.normalized * maxForce;
+
+                // 힘을 가해 발사 (공은 마우스가 당겨진 방향의 반대로 발사)
+                rb.AddForce(dragVector * forceMultiplier, ForceMode2D.Impulse);
+                isLaunched = true;
+
+                if (arrowIndicator != null)
+                {
+                    arrowIndicator.SetActive(false); // 화살표 비활성화
+                }
+
+                if (dotLineIndicator != null)
+                {
+                    dotLineIndicator.SetActive(false); // 점선 비활성화
+                }
+
+                isDragging = false; // isDragging 변수 거짓으로 변경
+            }
+
+            // 속도 0.5 이하 → 즉시 멈추고 카운트 감소
+            if (!isDead && isLaunched && rb.velocity.magnitude <= 0.5f)
+            {
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+
+                isDead = true;
+                DecreaseBallCountOnly();  // 위치는 유지하고 카운트만 감소
+            }
         }
 
-        // 속도 0.5 이하 → 즉시 멈추고 카운트 감소
-        if (!isDead && isLaunched && rb.velocity.magnitude <= 0.5f)
+        void FixedUpdate()
         {
+            // 감속 적용 (속도 0.5 이상일 때만)
+            if (rb.velocity.magnitude > 0.5f)
+            {
+                rb.velocity *= (1 - deceleration * Time.fixedDeltaTime);
+            }
+        }
+
+        // 충돌 시 에너지 손실
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            rb.velocity *= energyLossFactor;
+        }
+
+        // 변경 제안 : OnTriggerEnter2D 의 판정을 각 구멍에서 처리하는 편이 좋아 보임 - 이시현
+        // Hole에 닿았을 경우만 위치 리셋
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!isDead && other.CompareTag("Hole"))
+            {
+                isDead = true;
+                ResetBallAndDecreaseCount();
+            }
+        }
+
+        // 공 멈췄을 때 카운트만 감소
+        void DecreaseBallCountOnly()
+        {
+            ballCounter = Mathf.Max(0, ballCounter - 1);
+            UpdateCounterText();
+            isLaunched = false;
+            isDead = false;
+        }
+
+        // Hole에 빠졌을 때 위치 리셋 + 카운트 감소
+        void ResetBallAndDecreaseCount()
+        {
+            ballCounter = Mathf.Max(0, ballCounter - 1);
+            UpdateCounterText();
+
+            transform.position = initialPosition;
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0f;
 
-            isDead = true;
-            DecreaseBallCountOnly();  // 위치는 유지하고 카운트만 감소
+            isDead = false;
+            isLaunched = false;
         }
-    }
 
-    void FixedUpdate()
-    {
-        // 감속 적용 (속도 0.5 이상일 때만)
-        if (rb.velocity.magnitude > 0.5f)
+        // UI 텍스트 업데이트
+        void UpdateCounterText()
         {
-            rb.velocity *= (1 - deceleration * Time.fixedDeltaTime);
-        }
-    }
-
-    // 충돌 시 에너지 손실
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        rb.velocity *= energyLossFactor;
-    }
-
-    // 변경 제안 : OnTriggerEnter2D 의 판정을 각 구멍에서 처리하는 편이 좋아 보임 - 이시현
-    // Hole에 닿았을 경우만 위치 리셋
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!isDead && other.CompareTag("Hole"))
-        {
-            isDead = true;
-            ResetBallAndDecreaseCount();
-        }
-    }
-
-    // 공 멈췄을 때 카운트만 감소
-    void DecreaseBallCountOnly()
-    {
-        ballCounter = Mathf.Max(0, ballCounter - 1);
-        UpdateCounterText();
-        isLaunched = false;
-        isDead = false;
-    }
-
-    // Hole에 빠졌을 때 위치 리셋 + 카운트 감소
-    void ResetBallAndDecreaseCount()
-    {
-        ballCounter = Mathf.Max(0, ballCounter - 1);
-        UpdateCounterText();
-
-        transform.position = initialPosition;
-        rb.velocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-
-        isDead = false;
-        isLaunched = false;
-    }
-
-    // UI 텍스트 업데이트
-    void UpdateCounterText()
-    {
-        if (ballCounterText != null)
-        {
-            ballCounterText.text = "Balls: " + ballCounter;
+            if (ballCounterText != null)
+            {
+                ballCounterText.text = "Balls: " + ballCounter;
+            }
         }
     }
 }
