@@ -79,6 +79,7 @@ public class MouseBall : MonoBehaviour
 
             // 세기에 따라 라인 색상 변화
             Color dragColor = Color.Lerp(Color.green, Color.red, dragMagnitude / maxForce);
+
             lineRenderer.startColor = dragColor;
             lineRenderer.endColor = dragColor;
         }
@@ -127,6 +128,7 @@ public class MouseBall : MonoBehaviour
         rb.velocity *= energyLossFactor;
     }
 
+    // 변경 제안 : OnTriggerEnter2D 의 판정을 각 구멍에서 처리하는 편이 좋아 보임 - 이시현
     // Hole에 닿았을 경우만 위치 리셋
     void OnTriggerEnter2D(Collider2D other)
     {
