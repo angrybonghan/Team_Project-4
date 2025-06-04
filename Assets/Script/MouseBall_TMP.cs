@@ -5,6 +5,18 @@ using TMPro;
 [RequireComponent(typeof(LineRenderer))]
 public class MouseBall : MonoBehaviour
 {
+    // public 변수
+    [Header("발사 설정")]
+    public float forceMultiplier = 5f;        // 발사 힘 계수
+    public float maxForce = 4f;                // 최대 발사 힘
+    public float deceleration = 0.5f;          // 감속률
+    public float energyLossFactor = 0.8f;      // 충돌 시 에너지 손실 계수
+
+    [Header("공 개수, UI 설정")]
+    public static int ballCounter = 3;         // 남은 공 개수
+    public TextMeshProUGUI ballCounterText;    // UI에 표시할 텍스트
+
+    // private 변수
     private Rigidbody2D rb;
     private LineRenderer lineRenderer;
 
@@ -15,16 +27,6 @@ public class MouseBall : MonoBehaviour
     private bool isDead = false;
     private bool isLaunched = false;
 
-    // 발사 설정
-    public float forceMultiplier = 5f;        // 발사 힘 계수
-    public float maxForce = 4f;               // 최대 발사 힘
-    public float deceleration = 0.5f;         // 감속률
-    public float energyLossFactor = 0.8f;     // 충돌 시 에너지 손실 계수
-
-    // 공 개수 및 UI
-    public static int ballCounter = 3;        // 남은 공 개수
-    public TextMeshProUGUI ballCounterText;   // UI에 표시할 텍스트
-
     // 시작 위치 저장 (Hole에 닿았을 때만 복귀)
     private Vector3 initialPosition;
 
@@ -33,14 +35,14 @@ public class MouseBall : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
 
-        rb.gravityScale = 0f;  
+        rb.gravityScale = 0f;
         rb.drag = 0f;
 
         // 라인 렌더러 초기 설정
-        lineRenderer.positionCount = 2;
-        lineRenderer.enabled = false;
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
+        //lineRenderer.positionCount = 2;
+        //lineRenderer.enabled = false;
+        //lineRenderer.startWidth = 0.1f;
+        //lineRenderer.endWidth = 0.1f;
 
         initialPosition = transform.position;
 
@@ -54,7 +56,7 @@ public class MouseBall : MonoBehaviour
         {
             isDragging = true;
             startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            lineRenderer.enabled = true;
+            //lineRenderer.enabled = true;
         }
 
         // 드래그 중: 라인 표시 및 방향 계산
@@ -74,14 +76,14 @@ public class MouseBall : MonoBehaviour
             }
 
             // 라인 시각화
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, transform.position + (Vector3)clampedDirection);
+            //lineRenderer.SetPosition(0, transform.position);
+            //lineRenderer.SetPosition(1, transform.position + (Vector3)clampedDirection);
 
             // 세기에 따라 라인 색상 변화
-            Color dragColor = Color.Lerp(Color.green, Color.red, dragMagnitude / maxForce);
+            //Color dragColor = Color.Lerp(Color.green, Color.red, dragMagnitude / maxForce);
 
-            lineRenderer.startColor = dragColor;
-            lineRenderer.endColor = dragColor;
+            //lineRenderer.startColor = dragColor;
+            //lineRenderer.endColor = dragColor;
         }
 
         // 드래그 종료 → 힘 가해서 발사
@@ -98,7 +100,7 @@ public class MouseBall : MonoBehaviour
             rb.AddForce(dragVector * forceMultiplier, ForceMode2D.Impulse);
             isLaunched = true;
 
-            lineRenderer.enabled = false;
+            //lineRenderer.enabled = false;
             isDragging = false;
         }
 
@@ -171,4 +173,3 @@ public class MouseBall : MonoBehaviour
         }
     }
 }
-
