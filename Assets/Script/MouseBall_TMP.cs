@@ -20,10 +20,15 @@ namespace SeongnamSiGyeonggiDoSouthKorea
 
         // 시각적 요소
         [Header("시각적 요소 설정")]
-        public GameObject arrowIndicator;          // 화살표 스프라이트
-        public GameObject dotLineIndicator;        // 화살표와 공 사이의 점 스프라이트 (SpriteRenderer의 Draw Mode: Tiled)
-        public float arrowDistance = 0.75f; // 화살표가 공에서 얼마나 멀리 떨어질지
-        public float dotLineDistance = 0.3f; // 점 스프라이트 길이 감소 (안하면 너무 길어짐)
+        public GameObject VisualUI; // 드래그를 제외하고 보이지 않아야하는 개체들의 부모 오브젝트
+        public GameObject arrowIndicator;   // 화살표 스프라이트
+        public GameObject dotLineIndicator;     // 화살표와 공 사이의 점 스프라이트 (SpriteRenderer의 Draw Mode: Tiled)
+        public GameObject stick;    // 당구 막대 (큐대?) && 죄송, 이시현(본인)이 그 막대기 뭐라 부르는지를 모름;;;;
+        public GameObject stickPower; // 당구 막대의 파워 게이지 도트
+        public float minStickPowerX = -0.5f;      // 최소 힘일 때 stickPower의 X 좌표
+        public float maxStickPowerX = -2.1f;      // 최대 힘일 때 stickPower의 X 좌표
+        public float arrowDistance = 0.75f;     // 화살표가 공에서 얼마나 멀리 떨어질지
+        public float dotLineDistance = 0.3f;    // 점 스프라이트 길이 감소 (안하면 너무 길어짐)
 
         [Header("힘에 따른 색상 변화")]
         public Color minForceColor = Color.green;  // 최소 힘일 때의 색상 (초록색)
@@ -56,14 +61,9 @@ namespace SeongnamSiGyeonggiDoSouthKorea
 
             UpdateCounterText(); // 시작 시 UI 업데이트
 
-            if (arrowIndicator != null)
+            if (VisualUI != null)
             {
-                arrowIndicator.SetActive(false); // 시작할 때 화살표 비활성화
-            }
-
-            if (dotLineIndicator != null)
-            {
-                dotLineIndicator.SetActive(false); // 시작할 때 점선 비활성화
+                VisualUI.SetActive(false); // 시작할 때 VisualUI 투명화
             }
         }
 
@@ -75,14 +75,9 @@ namespace SeongnamSiGyeonggiDoSouthKorea
                 isDragging = true;
                 startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                if (arrowIndicator != null)
+                if (VisualUI != null)
                 {
-                    arrowIndicator.SetActive(true); // 화살표 활성화
-                }
-
-                if (dotLineIndicator != null)
-                {
-                    dotLineIndicator.SetActive(true); // 점선 활성화
+                    VisualUI.SetActive(true); // VisualUI 활성화
                 }
             }
 
@@ -94,7 +89,7 @@ namespace SeongnamSiGyeonggiDoSouthKorea
 
                 // 드래그 길이를 최대 힘으로 제한하고, 그 길이를 바탕으로 힘의 비율 계산
                 float currentDragMagnitude = Mathf.Min(dragVector.magnitude, maxForce);
-                // 힘의 비율 (0.0 ~ 1.0) 계산: 당긴 힘 / 최대 힘
+                // 힘 비율 (0.0..1.0) 계산: 당긴 힘 / 최대 힘
                 float forceRatio = currentDragMagnitude / maxForce;
 
                 Vector2 clampedDirection = dragVector.normalized;                // 방향 벡터
@@ -138,6 +133,25 @@ namespace SeongnamSiGyeonggiDoSouthKorea
                         dotRenderer.color = lerpedColor;
                     }
                 }
+
+                // 당구막대 제어
+                if (stick != null)
+                {
+                    stick.transform.rotation = Quaternion.Euler(0, 0, angle);
+                }
+
+                // 당구막대 파워 제어
+                if (stick != null)
+                {
+                    stick.transform.rotation = Quaternion.Euler(0, 0, angle);
+                }
+
+                // 당구막대 파워 제어
+                if (stickPower != null)
+                {
+                    // Lerp를 사용하여 힘의 비율에 따라 X 좌표 보간
+                    stickPower.transform.localPosition = new Vector3((Mathf.Lerp(minStickPowerX, maxStickPowerX, forceRatio)), stickPower.transform.localPosition.y, stickPower.transform.localPosition.z);
+                }
             }
 
 
@@ -156,14 +170,9 @@ namespace SeongnamSiGyeonggiDoSouthKorea
                 rb.AddForce(dragVector * forceMultiplier, ForceMode2D.Impulse);
                 isLaunched = true;
 
-                if (arrowIndicator != null)
+                if (VisualUI != null)
                 {
-                    arrowIndicator.SetActive(false); // 화살표 비활성화
-                }
-
-                if (dotLineIndicator != null)
-                {
-                    dotLineIndicator.SetActive(false); // 점선 비활성화
+                    VisualUI.SetActive(false); // VisualUI 비활성화
                 }
 
                 isDragging = false; // isDragging 변수 거짓으로 변경
