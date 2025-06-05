@@ -4,14 +4,12 @@ using TMPro;
 namespace SeongnamSiGyeonggiDoSouthKorea
 {
     // [RequireComponent(typeof(LineRenderer))] // Line Renderer를 사용하지 않는다면 이 줄은 제거.
-    public class MouseBall : MonoBehaviour
+    public class BallMovement : MonoBehaviour
     {
         // 물리 관련 설정
         [Header("물리 설정")]
         public float forceMultiplier = 5f;         // 발사 힘 계수
         public float maxForce = 4f;                // 최대 발사 힘
-        public float deceleration = 0.5f;          // 감속률
-        public float energyLossFactor = 0.8f;      // 충돌 시 에너지 손실 계수
 
         // UI 관련
         [Header("UI 설정")]
@@ -35,6 +33,7 @@ namespace SeongnamSiGyeonggiDoSouthKorea
         public Color maxForceColor = Color.red;    // 최대 힘일 때의 색상 (빨간색)
 
 
+        public GameManager gm;
         private Rigidbody2D rb;
 
         private Vector2 startMousePos;
@@ -59,7 +58,7 @@ namespace SeongnamSiGyeonggiDoSouthKorea
 
             initialPosition = transform.position;
 
-            UpdateCounterText(); // 시작 시 UI 업데이트
+            //UpdateCounterText(); // 시작 시 UI 업데이트
 
             if (VisualUI != null)
             {
@@ -72,6 +71,11 @@ namespace SeongnamSiGyeonggiDoSouthKorea
             // 드래그 시작
             if (Input.GetMouseButtonDown(0))
             {
+                if (!GameManager.canPlay)
+                {
+                    return;
+                }
+
                 isDragging = true;
                 startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -176,36 +180,24 @@ namespace SeongnamSiGyeonggiDoSouthKorea
                 }
 
                 isDragging = false; // isDragging 변수 거짓으로 변경
-            }
+                GameManager.canPlay=false;
+                Debug.Log("공 침!");
 
-            // 속도 0.5 이하 → 즉시 멈추고 카운트 감소
-            if (!isDead && isLaunched && rb.velocity.magnitude <= 0.5f)
-            {
-                rb.velocity = Vector2.zero;
-                rb.angularVelocity = 0f;
-
-                isDead = true;
-                DecreaseBallCountOnly();  // 위치는 유지하고 카운트만 감소
             }
         }
 
         void FixedUpdate()
         {
-            // 감속 적용 (속도 0.5 이상일 때만)
-            if (rb.velocity.magnitude > 0.5f)
-            {
-                rb.velocity *= (1 - deceleration * Time.fixedDeltaTime);
-            }
+            
         }
 
-        // 충돌 시 에너지 손실
-        void OnCollisionEnter2D(Collision2D collision)
-        {
-            rb.velocity *= energyLossFactor;
-        }
+        
 
-        // 변경 제안 : OnTriggerEnter2D 의 판정을 각 구멍에서 처리하는 편이 좋아 보임 - 이시현
-        // Hole에 닿았을 경우만 위치 리셋
+        /*
+         
+        이 밑으로 전부 게임매니저에서 할당하는 편이 조금 더 깔끔할 듯
+
+
         void OnTriggerEnter2D(Collider2D other)
         {
             if (!isDead && other.CompareTag("Hole"))
@@ -214,6 +206,7 @@ namespace SeongnamSiGyeonggiDoSouthKorea
                 ResetBallAndDecreaseCount();
             }
         }
+
 
         // 공 멈췄을 때 카운트만 감소
         void DecreaseBallCountOnly()
@@ -237,7 +230,7 @@ namespace SeongnamSiGyeonggiDoSouthKorea
             isDead = false;
             isLaunched = false;
         }
-
+        
         // UI 텍스트 업데이트
         void UpdateCounterText()
         {
@@ -246,5 +239,6 @@ namespace SeongnamSiGyeonggiDoSouthKorea
                 ballCounterText.text = "Balls: " + ballCounter;
             }
         }
+        */
     }
 }
