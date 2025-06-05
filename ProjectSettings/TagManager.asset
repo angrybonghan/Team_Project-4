@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Hole
   - PlayerBall
-  - Ball
+  - MergeBall
   layers:
   - Default
   - TransparentFX

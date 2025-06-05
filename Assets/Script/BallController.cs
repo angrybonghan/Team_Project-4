@@ -4,7 +4,7 @@ using TMPro;
 namespace SeongnamSiGyeonggiDoSouthKorea
 {
     // [RequireComponent(typeof(LineRenderer))] // Line Renderer를 사용하지 않는다면 이 줄은 제거.
-    public class BallMovement : MonoBehaviour
+    public class BallController : MonoBehaviour
     {
         // 물리 관련 설정
         [Header("물리 설정")]
@@ -32,22 +32,22 @@ namespace SeongnamSiGyeonggiDoSouthKorea
         public Color minForceColor = Color.green;  // 최소 힘일 때의 색상 (초록색)
         public Color maxForceColor = Color.red;    // 최대 힘일 때의 색상 (빨간색)
 
-
-        public GameManager gm;
         private Rigidbody2D rb;
+        private SpriteRenderer spriteRenderer;
 
         private Vector2 startMousePos;
         private Vector2 endMousePos;
 
         private bool isDragging = false;
-        private bool isDead = false;
-        private bool isLaunched = false;
+        //private bool isDead = false;
+        //private bool isLaunched = false;
 
         private Vector3 initialPosition;
 
 
         private void Awake()
         {
+            spriteRenderer = GetComponent<SpriteRenderer>();
             rb = GetComponent<Rigidbody2D>();
         }
 
@@ -172,7 +172,7 @@ namespace SeongnamSiGyeonggiDoSouthKorea
 
                 // 힘을 가해 발사 (공은 마우스가 당겨진 방향의 반대로 발사)
                 rb.AddForce(dragVector * forceMultiplier, ForceMode2D.Impulse);
-                isLaunched = true;
+                //isLaunched = true;
 
                 if (VisualUI != null)
                 {
@@ -185,12 +185,6 @@ namespace SeongnamSiGyeonggiDoSouthKorea
 
             }
         }
-
-        void FixedUpdate()
-        {
-            
-        }
-
         
 
         /*
