@@ -27,11 +27,12 @@ public class BallStopper : MonoBehaviour
             rb.angularVelocity = 0f;
         }
 
-        // 충돌 시 에너지 손실
+        // 충돌 시 에너지 손실 (재질을 바꾸는 것으로 변경)
+        /*
         void OnCollisionEnter2D(Collision2D collision)
         {
             rb.velocity *= energyLossFactor;
         }
-
+        */
     }
 }
