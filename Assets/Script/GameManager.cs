@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
+        Debug.Log("GameOver 함수 작동!"); // 테스트 코드
         // 이후 UI가 정돈되면 작성
     }
 }
