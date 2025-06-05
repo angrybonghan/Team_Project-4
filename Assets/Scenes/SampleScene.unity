@@ -179,7 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0000
+  m_text: "!@#$%^&*()_+[]{};':\"<>,.1234567890\nABCDEFGHIJKIMNOPQRSTUVWXYZ\n\uAC0F\uBC55\uBD8F\uC33F\uAFC7\uBEAD\uAFC3\uC7D0\uD34C\uD368\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2369c98b1e787a74fa34d3b1d7b0b8fa, type: 2}
   m_sharedMaterial: {fileID: -7947926939669172431, guid: 2369c98b1e787a74fa34d3b1d7b0b8fa, type: 2}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 266689379}
   - component: {fileID: 266689378}
   m_Layer: 0
-  m_Name: PlayerrBall
+  m_Name: PlayerBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

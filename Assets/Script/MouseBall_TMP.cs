@@ -150,7 +150,7 @@ namespace SeongnamSiGyeonggiDoSouthKorea
                 if (stickPower != null)
                 {
                     // Lerp를 사용하여 힘의 비율에 따라 X 좌표 보간
-                    stickPower.transform.localPosition = new Vector3((Mathf.Lerp(minStickPowerX, maxStickPowerX, forceRatio)), stickPower.transform.localPosition.y, stickPower.transform.localPosition.z);
+                    stickPower.transform.localPosition = new Vector3(Mathf.Lerp(minStickPowerX, maxStickPowerX, forceRatio), stickPower.transform.localPosition.y, stickPower.transform.localPosition.z);
                 }
             }
 
