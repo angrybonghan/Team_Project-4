@@ -1113,6 +1113,10 @@ PrefabInstance:
       propertyPath: holeID
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
+      propertyPath: animationPrefabs
+      value: 
+      objectReference: {fileID: 3077848677574800558, guid: a1bc63d14d97de1448b2f543a33633f0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1666,6 +1670,10 @@ PrefabInstance:
       propertyPath: holeID
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
+      propertyPath: animationPrefabs
+      value: 
+      objectReference: {fileID: 3077848677574800558, guid: ba3d96c9e8b6f8648ad7d07ab3df5cd6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1835,6 +1843,10 @@ PrefabInstance:
       propertyPath: holeID
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
+      propertyPath: animationPrefabs
+      value: 
+      objectReference: {fileID: 3077848677574800558, guid: 2092d43f150403b478591662ba863894, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1981,6 +1993,10 @@ PrefabInstance:
       propertyPath: holeID
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
+      propertyPath: animationPrefabs
+      value: 
+      objectReference: {fileID: 3077848677574800558, guid: f14d49c90831f304594083e7e49a6209, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2335,6 +2351,10 @@ PrefabInstance:
       propertyPath: holeID
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
+      propertyPath: animationPrefabs
+      value: 
+      objectReference: {fileID: 3077848677574800558, guid: 543bd649c9c61d84ab25d44e020fad23, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3322,6 +3342,10 @@ PrefabInstance:
       propertyPath: holeID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
+      propertyPath: animationPrefabs
+      value: 
+      objectReference: {fileID: 3077848677574800558, guid: 0ff7009ab72fd84439f3718f0e78e507, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

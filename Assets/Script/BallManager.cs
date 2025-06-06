@@ -55,6 +55,6 @@ public class BallManager : MonoBehaviour
 
     public void PlayMergeAnimation()
     {
-        GameObject newAnimation = Instantiate(animationPrefabs, transform.position, transform.rotation);
+        GameObject Animation = Instantiate(animationPrefabs, transform.position, transform.rotation);
     }
 }
