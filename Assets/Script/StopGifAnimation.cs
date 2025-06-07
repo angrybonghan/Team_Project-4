@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StopGifAnimation : MonoBehaviour
@@ -12,3 +10,11 @@ public class StopGifAnimation : MonoBehaviour
         Destroy(gameObject, destroyDelay);
     }
 }
+
+/*
+음무흐흐하하하하하하
+나는 주석의 마왕이당
+모든 코드를 주석으로 바꿔서
+너희들의 코드를 엉@망으로 만들어주마!!!!!!!!!!!!!!!!!!!!!
+으히히하하하하하하하하ㅏ하하하하하하ㅏㅎ!!!!
+*/
