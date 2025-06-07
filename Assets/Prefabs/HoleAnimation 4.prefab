@@ -22,11 +22,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1186015937192358156, guid: a0ebcc096bed69d42a3383c4d2ce245a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.096
       objectReference: {fileID: 0}
     - target: {fileID: 1186015937192358156, guid: a0ebcc096bed69d42a3383c4d2ce245a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.166
       objectReference: {fileID: 0}
     - target: {fileID: 3392181503314604773, guid: a0ebcc096bed69d42a3383c4d2ce245a, type: 3}
       propertyPath: Gif
@@ -35,6 +35,14 @@ PrefabInstance:
     - target: {fileID: 3475043503710761718, guid: a0ebcc096bed69d42a3383c4d2ce245a, type: 3}
       propertyPath: destroyDelay
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483225341356409108, guid: a0ebcc096bed69d42a3383c4d2ce245a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6483225341356409108, guid: a0ebcc096bed69d42a3383c4d2ce245a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6483225341356409108, guid: a0ebcc096bed69d42a3383c4d2ce245a, type: 3}
       propertyPath: m_LocalPosition.x
