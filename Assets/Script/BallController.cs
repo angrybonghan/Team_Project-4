@@ -178,8 +178,6 @@ public class BallController : MonoBehaviour
 
             isDragging = false; // isDragging 변수 거짓으로 변경
             GameManager.canPlay=false;
-            Debug.Log("공 침!");
-
         }
     }
 }

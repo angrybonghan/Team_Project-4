@@ -5,11 +5,14 @@ public class GameManager : MonoBehaviour
 {
     [Header("공 표시 UI 마커")]
     public GameObject displayBallMarker;
+    [Header("남은 시도 횟수")]
+    public int attemptsLeft = 10;
+    public TextMeshProUGUI attemptsText;
 
     public static bool canPlay = true;  // 전체 공이 정지해 게임 플레이가 가능한가?
     public static bool isGameOver = false; // 게임 오버되었는가?
-    public static int ballNumber = 1;   // 전체 공의 숫자 (레벨) 수치
-    public static int scoredBallInChalk = 0;   // 한 초크에 들어간 공의 수
+    public static int ballNumber;   // 전체 공의 숫자 (레벨) 수치
+    public static int scoredBallInChalk;   // 한 초크에 들어간 공의 수
 
     private bool anyBallMoving;  // 아무 공이나 움직이는가?
     private displayBall displayBall; // 스크립트 참조
@@ -18,6 +21,7 @@ public class GameManager : MonoBehaviour
     {
         ballNumber = 1;
         scoredBallInChalk = 0;
+        attemptsText.text = attemptsLeft.ToString();
         displayBall = displayBallMarker.GetComponent<displayBall>();
     }
 
@@ -36,8 +40,20 @@ public class GameManager : MonoBehaviour
             if (!anyBallMoving)
             {
                 canPlay = true;
-                Debug.Log("플레이 가능");
-                if (scoredBallInChalk != 0) // 공이 하나도 들어가지 않는 경우를 대비
+                attemptsLeft--; // 남은 기회 -1
+                attemptsText.text = attemptsLeft.ToString(); // 남은 기회 표시
+                ballNumber += scoredBallInChalk; // 공 숫자 지정
+
+                if (ballNumber == 9) // 게임 승리 or 패배 판정
+                {
+                    GameWin(); // 승
+                }
+                else if (attemptsLeft == 0)
+                {
+                    GameOver(); // 패
+                }
+
+                if (scoredBallInChalk != 0 && ballNumber != 9) // 공이 하나도 들어가지 않는 경우를 대비
                 {
                     BallLevelSet();
                     BallMergeAnimation();
@@ -68,8 +84,6 @@ public class GameManager : MonoBehaviour
 
     void BallLevelSet() // 현재 레벨에 맞는 모양으로 공 모양 변경
     {
-        ballNumber += scoredBallInChalk;
-
         BallManager[] foundBallManagers = FindObjectsOfType<BallManager>();
         foreach (BallManager bm in foundBallManagers)
         {
@@ -92,4 +106,9 @@ public class GameManager : MonoBehaviour
         // 이후 UI가 정돈되면 작성
     }
 
+
+    void GameWin()
+    {
+        Debug.Log("게임 승리!");
+    }
 }
