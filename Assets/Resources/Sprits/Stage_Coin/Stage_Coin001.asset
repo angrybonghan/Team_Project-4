@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6940cdda447048efa58605bd546f9920, type: 3}
+  m_Name: Stage_Coin001
+  m_EditorClassIdentifier: 
+  Frames:
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 5d472d9e30a78db48be0af86349a37a6, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 73c7b168e5b442d4983c02e2fa95ab38, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 7a88303c480102d49af63e647c0e5354, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 0db7e8d15b5d7044582795c7a8e21cba, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: fd2a2c732d4566c42b2699b343be8b90, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: db154a6b548c53d47adff312babe35d2, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 56cf5232560d0c04693bf673d64b5f74, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 54fb1c35bc1b45941a62340cb1f45493, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: b2d8919e41f41c0439adaa1eaa69bd60, type: 3}
