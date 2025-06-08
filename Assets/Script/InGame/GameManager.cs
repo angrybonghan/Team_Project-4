@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     public static int scoredBallInChalk;   // 한 초크에 들어간 공의 수
 
     private bool anyBallMoving;  // 아무 공이나 움직이는가?
+    private bool gameManagerActivate=true;
     private displayBall displayBall; // 스크립트 참조
 
     private void Start()
@@ -41,54 +43,66 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isGameOver)
+        if (gameManagerActivate)
         {
-            StartCoroutine(fadeOutScreenForGameover());
-            isGameOver = false;
-        }
-
-        if (isGameWin)
-        {
-            GameWin();
-            isGameWin = false;
-        }
-
-        if (!canPlay)
-        {
-            CheckAllBalls();
-            if (!anyBallMoving)
+            if (isGameOver)
             {
-                canPlay = true;
+                StartCoroutine(fadeOutScreenForGameover());
+                gameManagerActivate=false;
+                isGameOver = false;
+            }
 
-                if (ballNumber != 8)
+            if (isGameWin)
+            {
+                GameWin();
+                gameManagerActivate = false;
+                isGameWin = false;
+            }
+
+            if (!canPlay)
+            {
+                CheckAllBalls();
+                if (!anyBallMoving)
                 {
-                    ballNumber += scoredBallInChalk; // 공 숫자 지정
-                    while (ballNumber > 8)
+                    canPlay = true;
+
+                    if (ballNumber != 8)
                     {
-                        ballNumber--;
+                        ballNumber += scoredBallInChalk; // 공 숫자 지정
+                        while (ballNumber > 8)
+                        {
+                            ballNumber--;
+                            attemptsLeft--;
+                        }
+                    }
+                    else
+                    {
                         attemptsLeft--;
                     }
-                }
-                else
-                {
-                    attemptsLeft--;
-                }
-                attemptsLeft--; // 남은 기회 -1
-                attemptsText.text = attemptsLeft.ToString(); // 남은 기회 표시
+                    attemptsLeft--; // 남은 기회 -1
+                    attemptsText.text = attemptsLeft.ToString(); // 남은 기회 표시
 
-                Vector3 playerBallPosition = playerBall.transform.position;
-                if (playerBallPosition.x < boardMinX || playerBallPosition.x > boardMaxX ||
-                    playerBallPosition.y < boardMinY || playerBallPosition.y > boardMaxY)
-                {
-                    playerBall.transform.position = Vector2.zero; //Vector2.zero = 원점 (X0,Y0)
-                }
+                    if (attemptsLeft <= 0)
+                    {
+
+                        attemptsText.text = "X";
+                        StartCoroutine(fadeOutScreenForGameover());
+                    }
+
+                    Vector3 playerBallPosition = playerBall.transform.position;
+                    if (playerBallPosition.x < boardMinX || playerBallPosition.x > boardMaxX ||
+                        playerBallPosition.y < boardMinY || playerBallPosition.y > boardMaxY)
+                    {
+                        playerBall.transform.position = Vector2.zero; //Vector2.zero = 원점 (X0,Y0)
+                    }
 
                     if (scoredBallInChalk != 0 && ballNumber != 9) // 공이 하나도 들어가지 않는 경우를 대비
-                {
-                    BallLevelSet();
-                    BallMergeAnimation();
-                    scoredBallInChalk = 0;
-                    displayBall.DisplayBallReset();
+                    {
+                        BallLevelSet();
+                        BallMergeAnimation();
+                        scoredBallInChalk = 0;
+                        displayBall.DisplayBallReset();
+                    }
                 }
             }
         }
@@ -132,9 +146,7 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        Debug.Log("GameOver 함수 작동!"); // 테스트 코드
-        // 이후 UI가 정돈되면 작성
-
+        SceneManager.LoadScene("GameOver");
     }
 
 
