@@ -37,9 +37,9 @@ public class BallManager : MonoBehaviour
 
     public void SetSprite(int level)
     {
-        if (level > 8 || level < 0 || level==null)
+        if (level > 8 || level < 0)
         {
-            Debug.LogError("배열에 맞는 숫자가 아니거나, NULL");
+            Debug.LogError("배열에 맞는 숫자가 아님");
             return;
         }
         spriteRenderer.sprite = ballSprites[level-1];

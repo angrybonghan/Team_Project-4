@@ -1,16 +1,29 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [Header("공 표시 UI 마커")]
     public GameObject displayBallMarker;
+    [Header("플레이어 공")]
+    public GameObject playerBall;
+    [Header("보드 범위 설정")]
+    public float boardMinX = -2.5f; // X축 최소 보드 범위
+    public float boardMaxX = 2.5f;  // X축 최대 보드 범위
+    public float boardMinY = -3f; // Y축 최소 보드 범위
+    public float boardMaxY = 2f;  // Y축 최대 보드 범위
     [Header("남은 시도 횟수")]
     public int attemptsLeft = 10;
     public TextMeshProUGUI attemptsText;
+    [Header("화면전환용 이미지")]
+    public Image screenChanger;
+
 
     public static bool canPlay = true;  // 전체 공이 정지해 게임 플레이가 가능한가?
     public static bool isGameOver = false; // 게임 오버되었는가?
+    public static bool isGameWin = false; // 게임 승리했는가?
     public static int ballNumber;   // 전체 공의 숫자 (레벨) 수치
     public static int scoredBallInChalk;   // 한 초크에 들어간 공의 수
 
@@ -30,8 +43,14 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver)
         {
-            GameOver();
+            StartCoroutine(fadeOutScreenForGameover());
             isGameOver = false;
+        }
+
+        if (isGameWin)
+        {
+            GameWin();
+            isGameWin = false;
         }
 
         if (!canPlay)
@@ -40,20 +59,31 @@ public class GameManager : MonoBehaviour
             if (!anyBallMoving)
             {
                 canPlay = true;
+
+                if (ballNumber != 8)
+                {
+                    ballNumber += scoredBallInChalk; // 공 숫자 지정
+                    while (ballNumber > 8)
+                    {
+                        ballNumber--;
+                        attemptsLeft--;
+                    }
+                }
+                else
+                {
+                    attemptsLeft--;
+                }
                 attemptsLeft--; // 남은 기회 -1
                 attemptsText.text = attemptsLeft.ToString(); // 남은 기회 표시
-                ballNumber += scoredBallInChalk; // 공 숫자 지정
 
-                if (ballNumber == 9) // 게임 승리 or 패배 판정
+                Vector3 playerBallPosition = playerBall.transform.position;
+                if (playerBallPosition.x < boardMinX || playerBallPosition.x > boardMaxX ||
+                    playerBallPosition.y < boardMinY || playerBallPosition.y > boardMaxY)
                 {
-                    GameWin(); // 승
-                }
-                else if (attemptsLeft == 0)
-                {
-                    GameOver(); // 패
+                    playerBall.transform.position = Vector2.zero; //Vector2.zero = 원점 (X0,Y0)
                 }
 
-                if (scoredBallInChalk != 0 && ballNumber != 9) // 공이 하나도 들어가지 않는 경우를 대비
+                    if (scoredBallInChalk != 0 && ballNumber != 9) // 공이 하나도 들어가지 않는 경우를 대비
                 {
                     BallLevelSet();
                     BallMergeAnimation();
@@ -104,11 +134,29 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameOver 함수 작동!"); // 테스트 코드
         // 이후 UI가 정돈되면 작성
+
     }
 
 
     void GameWin()
     {
         Debug.Log("게임 승리!");
+    }
+
+    IEnumerator fadeOutScreenForGameover()
+    {
+        for (int i = 0; i < 50; i++)
+        {
+            Color currentColor = screenChanger.color;
+            currentColor.a += 0.02f;
+            screenChanger.color = currentColor;
+            yield return Sleep(0.01);
+        }
+        GameOver();
+    }
+
+    IEnumerator Sleep(double SleepSeconds)
+    {
+        yield return new WaitForSeconds((float)SleepSeconds);
     }
 }

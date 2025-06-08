@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6940cdda447048efa58605bd546f9920, type: 3}
+  m_Name: Scene_Changer
+  m_EditorClassIdentifier: 
+  Frames:
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 50265f249f3f7bc419fd2156e566267b, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: a03d70812cefb0f48bc1d562fa7b4445, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 3b649fe7626e4614cbcb8fd2483a83a2, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 73409381663349e4c9832b19a07e4c3c, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 5c4d79151d39bec4c8f12a1bdf06f04d, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 6ed7db37b217e9e4084770e166e1bd73, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: aa4de294a828da04bae2cb31b41bfe49, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 74ccef053bbcdcf40a4d194cf74ecbc7, type: 3}
