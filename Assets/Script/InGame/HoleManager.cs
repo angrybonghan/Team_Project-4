@@ -9,6 +9,7 @@ public class HoleManager : MonoBehaviour
 
     private Rigidbody2D rb;
 
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         switch (other.tag)

@@ -32,17 +32,29 @@ public class GameManager : MonoBehaviour
     private bool gameManagerActivate=true;
     private displayBall displayBall; // 스크립트 참조
 
+    private void Awake()
+    {
+        gameManagerActivate = true;
+        canPlay = true;
+    }
+
     private void Start()
     {
         ballNumber = 1;
         scoredBallInChalk = 0;
         attemptsText.text = attemptsLeft.ToString();
         displayBall = displayBallMarker.GetComponent<displayBall>();
+        
     }
 
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            scoredBallInChalk++;
+        }
+
         if (gameManagerActivate)
         {
             if (isGameOver)

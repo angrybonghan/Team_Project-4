@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2447837848232143573}
-  - component: {fileID: 1573955727469906919}
+  - component: {fileID: 3005069113521226549}
   - component: {fileID: 9092578483007728230}
   - component: {fileID: 8095745805407857648}
   m_Layer: 5
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchoredPosition: {x: -96.409996, y: 3.4999998}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1573955727469906919
+--- !u!114 &3005069113521226549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 678892379153018534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fd77d0ad88c79f4687e7dc2748d759f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f7636dfca613c144bf4579adc70baa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ballSprites:
