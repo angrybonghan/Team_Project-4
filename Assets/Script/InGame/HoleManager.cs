@@ -43,7 +43,7 @@ public class HoleManager : MonoBehaviour
                 }
                 break;
             default:
-                Debug.LogError("[!!!] 태그가 뭣도 아닌 것이 구멍에 들어옴");
+                Debug.LogError("[???] 태그가 뭣도 아닌 것이 구멍에 들어옴");
                 break;
         }
     }

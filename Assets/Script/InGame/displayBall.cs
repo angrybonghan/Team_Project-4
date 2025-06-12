@@ -20,10 +20,6 @@ public class displayBall : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            DisplayBallCount++;
-        }
 
         if (DisplayBallCount > 0)
         {

@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -55,7 +57,14 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             scoredBallInChalk++;
+            displayBall.DisplayBallCount++;
         }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            RandomPick();
+        }
+        
 
         if (gameManagerActivate)
         {
@@ -200,4 +209,41 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds((float)SleepSeconds);
     }
+
+    void RandomPick()
+    {
+        GameObject[] eightBallObjects = GameObject.FindGameObjectsWithTag("8Ball");
+        GameObject[] mergeBallObjects = GameObject.FindGameObjectsWithTag("MergeBall");
+        List<GameObject> targetBallObjects = eightBallObjects.Concat(mergeBallObjects).ToList();
+
+        int randomIndex = Random.Range(0, targetBallObjects.Count);
+        GameObject selectedBall = targetBallObjects[randomIndex];
+
+        switch (selectedBall.gameObject.tag)
+        {
+            case "MergeBall":
+                Destroy(selectedBall);
+                scoredBallInChalk++;
+                displayBall.DisplayBallCount++;
+                break;
+
+            case "8Ball":
+                Destroy(selectedBall);
+                if (ballNumber == 8)
+                {
+                    GameWin();
+                }
+                else
+                {
+                    GameOver();
+                }
+                break;
+
+            default:
+                Debug.LogError("[???] 태그가 뭣도 아닌 것이 스킬의 대상이 됨");
+                break;
+        }
+
+    }
+
 }
