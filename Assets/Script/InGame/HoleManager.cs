@@ -24,7 +24,7 @@ public class HoleManager : MonoBehaviour
                 gameManager.attemptsLeft--; // 플레이어 공이 들어갈 시 남은 초크 --
                 gameManager.attemptsText.text = gameManager.attemptsLeft.ToString(); // 텍스트 UI 업데이트
                 rb = other.GetComponent<Rigidbody2D>();
-                other.transform.position = new Vector2(0, 999999);
+                other.transform.position = new Vector2(999999, 999999);
                 rb.velocity = Vector2.zero;
 
                 PlayAnimation();

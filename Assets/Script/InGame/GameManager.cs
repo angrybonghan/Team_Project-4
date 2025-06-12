@@ -77,21 +77,18 @@ public class GameManager : MonoBehaviour
                 if (!anyBallMoving)
                 {
                     canPlay = true;
+                    ballNumber += scoredBallInChalk; // 공 숫자 지정
 
-                    if (ballNumber != 8)
+                    if (ballNumber > 8)
                     {
-                        ballNumber += scoredBallInChalk; // 공 숫자 지정
-                        while (ballNumber > 8)
+                        while (ballNumber != 8)
                         {
                             ballNumber--;
                             attemptsLeft--;
                         }
                     }
-                    else
-                    {
-                        attemptsLeft--;
-                    }
-                    attemptsLeft--; // 남은 기회 -1
+
+                    attemptsLeft--;
                     attemptsText.text = attemptsLeft.ToString(); // 남은 기회 표시
 
                     if (attemptsLeft <= 0)

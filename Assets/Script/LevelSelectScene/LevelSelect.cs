@@ -70,3 +70,8 @@ public class LevelSelect : MonoBehaviour
         transform.position = levelPos;
     }
 }
+
+
+// 밤을 새버려서
+// 지능이 감소한다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// 나의뇌가살아있는가? = hamburger;
