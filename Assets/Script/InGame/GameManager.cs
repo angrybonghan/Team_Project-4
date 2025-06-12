@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public static int scoredBallInChalk;   // 한 초크에 들어간 공의 수
 
     private bool anyBallMoving;  // 아무 공이나 움직이는가?
+    private bool isBallEight;
     private bool gameManagerActivate=true;
     private displayBall displayBall; // 스크립트 참조
 
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         ballNumber = 1;
         scoredBallInChalk = 0;
+        isBallEight = false;
         attemptsText.text = attemptsLeft.ToString();
         displayBall = displayBallMarker.GetComponent<displayBall>();
         
@@ -79,12 +81,23 @@ public class GameManager : MonoBehaviour
                     canPlay = true;
                     ballNumber += scoredBallInChalk; // 공 숫자 지정
 
+
                     if (ballNumber > 8)
                     {
+                        scoredBallInChalk = 1;
                         while (ballNumber != 8)
                         {
                             ballNumber--;
                             attemptsLeft--;
+                        }
+                    }
+
+                    if (scoredBallInChalk > 1) // 들어간 공 - 1 만큼 초크 회복 (콤보)
+                    {
+                        while (scoredBallInChalk != 1)
+                        {
+                            attemptsLeft++;
+                            scoredBallInChalk--;
                         }
                     }
 
@@ -98,6 +111,8 @@ public class GameManager : MonoBehaviour
                         StartCoroutine(fadeOutScreenForGameover());
                     }
 
+                    // 플레이어 공이 벽을 뚫었거나 (버그)
+                    // 구멍 안에 들어갔다면 원점으로 되돌아오기
                     Vector3 playerBallPosition = playerBall.transform.position;
                     if (playerBallPosition.x < boardMinX || playerBallPosition.x > boardMaxX ||
                         playerBallPosition.y < boardMinY || playerBallPosition.y > boardMaxY)
@@ -105,12 +120,17 @@ public class GameManager : MonoBehaviour
                         playerBall.transform.position = Vector2.zero; //Vector2.zero = 원점 (X0,Y0)
                     }
 
-                    if (scoredBallInChalk != 0 && ballNumber != 9) // 공이 하나도 들어가지 않는 경우를 대비
+                    if (scoredBallInChalk != 0 && ballNumber != 9 && !isBallEight) // 공이 하나도 들어가지 않는 경우를 대비
                     {
                         BallLevelSet();
                         BallMergeAnimation();
                         scoredBallInChalk = 0;
                         displayBall.DisplayBallReset();
+                    }
+
+                    if (ballNumber == 8)
+                    {
+                        isBallEight = true;
                     }
                 }
             }
