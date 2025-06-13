@@ -15,8 +15,8 @@ public class HoleManager : MonoBehaviour
             case "MergeBall":   // 이 구멍에 머지볼이 들어옴
                 Destroy(other.gameObject);
                 PlayAnimation(); // 애니메이션 실행 함수
-                GameManager.scoredBallInChalk += 1; //현재 초크에 들어간 공의 수를 늘리기
-                displayBall.DisplayBallCount += 1;
+                GameManager.scoredBallInChalk ++; //현재 초크에 들어간 공의 수를 늘리기
+                displayBall.DisplayBallCount ++;
                 break;
             case "PlayerBall":  // 플레이어 공이 구멍에 들어가면 그냥 저멀리 보내버림
                 GameManager.attemptsLeft--; // 플레이어 공이 들어갈 시 남은 초크 --
@@ -40,6 +40,24 @@ public class HoleManager : MonoBehaviour
                     GameManager.isGameOver = true;
                 }
                 break;
+
+            case "OB_Level_Up":
+                Destroy(other.gameObject);
+                PlayAnimation(); // 애니메이션 실행
+                GameManager.scoredBallInChalk += 2; //현재 초크에 들어간 공의 수를 두개 늘리기
+                displayBall.DisplayBallCount += 2;
+                break;
+
+            case "OB_Level_Down":
+                Destroy(other.gameObject);
+                PlayAnimation(); // 애니메이션 실행
+                if (GameManager.ballNumber >= 1)
+                {
+                    GameManager.ballNumber -= 2;
+                    GameManager.scoredBallInChalk++;
+                }
+                break;
+
             default:
                 Debug.LogError("[???] 태그가 뭣도 아닌 것이 구멍에 들어옴");
                 break;

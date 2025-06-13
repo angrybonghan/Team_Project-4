@@ -9,6 +9,8 @@ TagManager:
   - MergeBall
   - DisplayBall
   - 8Ball
+  - OB_Level_Up
+  - OB_Level_Down
   layers:
   - Default
   - TransparentFX

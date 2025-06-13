@@ -96,9 +96,7 @@ public class GameManager : MonoBehaviour
                 {
                     canPlay = true;
                     ballNumber += scoredBallInChalk; // 공 숫자 지정
-                    Debug.Log($"scoredBallInChalk - {scoredBallInChalk}");
                     attemptsLeft--;
-                    Debug.Log("기본 초크 감소");
                     displayBall.DisplayBallReset();
 
                     if (ballNumber > 8)
@@ -108,7 +106,6 @@ public class GameManager : MonoBehaviour
                         {
                             ballNumber--;
                             attemptsLeft--;
-                            Debug.Log($"오버 초크 감소 - {ballNumber}");
                         }
                     }
 
@@ -120,7 +117,6 @@ public class GameManager : MonoBehaviour
                             scoredBallInChalk--;
                         }
                     }
-                    scoredBallInChalk = 0;
 
                     
                     attemptsText.text = attemptsLeft.ToString(); // 남은 기회 표시
@@ -141,7 +137,7 @@ public class GameManager : MonoBehaviour
                         playerBall.transform.position = Vector2.zero; //Vector2.zero = 원점 (X0,Y0)
                     }
 
-                    if (ballNumber != 9 && !isBallEight) // 공이 하나도 들어가지 않는 경우를 대비
+                    if (scoredBallInChalk != 0 && !isBallEight) // 공이 하나도 들어가지 않았거나 이미 8볼일 경우 무시
                     {
                         BallLevelSet();
                         BallMergeAnimation();
@@ -161,10 +157,10 @@ public class GameManager : MonoBehaviour
     {
         anyBallMoving = false; // 안전빵 리셋
 
-        BallManager[] allBilliardGameObjects = FindObjectsOfType<BallManager>();
+        BallDeceleration[] allBilliardGameObjects = FindObjectsOfType<BallDeceleration>();
         // 두 GameObject 배열을 하나로 합침 (Concat)
 
-        foreach (BallManager ball in allBilliardGameObjects)
+        foreach (BallDeceleration ball in allBilliardGameObjects)
         {
             Rigidbody2D rb = ball.GetComponent<Rigidbody2D>(); // 볼에서 Rigidbody2D 뽑
             if (rb != null && Mathf.Abs(rb.velocity.magnitude) >= 0.5f) // 해당 볼이 움직이고 있는지 확인

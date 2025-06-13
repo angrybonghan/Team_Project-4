@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EightBallMovement : MonoBehaviour
+public class BallDeceleration : MonoBehaviour
 {
     [Header("자연 속도 감소값")]
     public float deceleration = 0.5f; // 자연적 속도 감소

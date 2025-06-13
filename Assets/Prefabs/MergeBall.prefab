@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8210780191022551497}
   - component: {fileID: 3785689074126095861}
+  - component: {fileID: 3123655273336738868}
   - component: {fileID: 2928091170286886755}
   - component: {fileID: 2692955047327209386}
   - component: {fileID: 4417183919641181906}
@@ -47,7 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb44ae5ba110e644db4b2fe290aed395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deceleration: 0.5
   ballSprites:
   - {fileID: 21300000, guid: e366259a11af2a841a5f14da6d44b127, type: 3}
   - {fileID: 21300000, guid: a53d593fa55a6c24ebdd5302bbd1269c, type: 3}
@@ -58,6 +58,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cd9d5dcfd25e58f4d80047b167846f93, type: 3}
   - {fileID: 21300000, guid: ea2f73af3a052d6408590fcb2eb125a2, type: 3}
   animationPrefabs: {fileID: 8623613538640493818, guid: a0ebcc096bed69d42a3383c4d2ce245a, type: 3}
+--- !u!114 &3123655273336738868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4515312195232984709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd25c854da8a944dbb0bc5b2a99903b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deceleration: 0.5
 --- !u!212 &2928091170286886755
 SpriteRenderer:
   m_ObjectHideFlags: 0
