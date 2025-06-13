@@ -52,9 +52,20 @@ public class LevelSelect : MonoBehaviour
             CoinSet();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return)) // 엔터 키 감지 : 해당 신으로 이동
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) // 엔터 키
         {
-            SceneManager.LoadScene("Stage_" + selectedLevel);
+            int levelAccess = DataManager.GetLevelAccess(); // 레벨 입장 가능 여부 판단
+
+            Debug.Log($"levelAccess : {levelAccess}");
+
+            if (selectedLevel <= levelAccess)
+            {
+                SceneManager.LoadScene("Stage_" + selectedLevel);
+            }
+            else
+            {
+                // 입장 권한이 없음 (이전 스테이지를 완료하지 못함)
+            }
         }
     }
 
