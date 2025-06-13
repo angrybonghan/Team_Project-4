@@ -10,16 +10,23 @@ public class GameManager : MonoBehaviour
 {
     [Header("공 표시 UI 마커")]
     public GameObject displayBallMarker;
+
     [Header("플레이어 공")]
     public GameObject playerBall;
+
     [Header("보드 범위 설정")]
     public float boardMinX = -2.5f; // X축 최소 보드 범위
     public float boardMaxX = 2.5f;  // X축 최대 보드 범위
     public float boardMinY = -3f; // Y축 최소 보드 범위
     public float boardMaxY = 2f;  // Y축 최대 보드 범위
+
     [Header("남은 시도 횟수")]
-    public int attemptsLeft = 10;
-    public TextMeshProUGUI attemptsText;
+    public int attemptsLeftReference=10;
+    public static int attemptsLeft;
+    public TextMeshProUGUI attemptsTextReference;
+
+    public static TextMeshProUGUI attemptsText;
+
     [Header("화면전환용 이미지")]
     public Image screenChanger;
 
@@ -30,15 +37,17 @@ public class GameManager : MonoBehaviour
     public static int ballNumber;   // 전체 공의 숫자 (레벨) 수치
     public static int scoredBallInChalk;   // 한 초크에 들어간 공의 수
 
-    private bool anyBallMoving;  // 아무 공이나 움직이는가?
-    private bool isBallEight;
+    public static bool isBallEight; // 공이 8에 도달했는가
+
+    private bool anyBallMoving;  // 아무 공이나 움직이는가
     private bool gameManagerActivate=true;
-    private displayBall displayBall; // 스크립트 참조
 
     private void Awake()
     {
         gameManagerActivate = true;
         canPlay = true;
+        attemptsLeft = attemptsLeftReference;
+        attemptsText = attemptsTextReference;
     }
 
     private void Start()
@@ -47,8 +56,6 @@ public class GameManager : MonoBehaviour
         scoredBallInChalk = 0;
         isBallEight = false;
         attemptsText.text = attemptsLeft.ToString();
-        displayBall = displayBallMarker.GetComponent<displayBall>();
-        
     }
 
 
@@ -89,28 +96,33 @@ public class GameManager : MonoBehaviour
                 {
                     canPlay = true;
                     ballNumber += scoredBallInChalk; // 공 숫자 지정
-
+                    Debug.Log($"scoredBallInChalk - {scoredBallInChalk}");
+                    attemptsLeft--;
+                    Debug.Log("기본 초크 감소");
+                    displayBall.DisplayBallReset();
 
                     if (ballNumber > 8)
                     {
                         scoredBallInChalk = 1;
-                        while (ballNumber != 8)
+                        while (ballNumber > 8)
                         {
                             ballNumber--;
                             attemptsLeft--;
+                            Debug.Log($"오버 초크 감소 - {ballNumber}");
                         }
                     }
 
                     if (scoredBallInChalk > 1) // 들어간 공 - 1 만큼 초크 회복 (콤보)
                     {
-                        while (scoredBallInChalk != 1)
+                        while (scoredBallInChalk > 1)
                         {
                             attemptsLeft++;
                             scoredBallInChalk--;
                         }
                     }
+                    scoredBallInChalk = 0;
 
-                    attemptsLeft--;
+                    
                     attemptsText.text = attemptsLeft.ToString(); // 남은 기회 표시
 
                     if (attemptsLeft <= 0)
@@ -129,15 +141,14 @@ public class GameManager : MonoBehaviour
                         playerBall.transform.position = Vector2.zero; //Vector2.zero = 원점 (X0,Y0)
                     }
 
-                    if (scoredBallInChalk != 0 && ballNumber != 9 && !isBallEight) // 공이 하나도 들어가지 않는 경우를 대비
+                    if (ballNumber != 9 && !isBallEight) // 공이 하나도 들어가지 않는 경우를 대비
                     {
                         BallLevelSet();
                         BallMergeAnimation();
                         scoredBallInChalk = 0;
-                        displayBall.DisplayBallReset();
                     }
 
-                    if (ballNumber == 8)
+                    if (ballNumber >= 8)
                     {
                         isBallEight = true;
                     }
@@ -229,7 +240,7 @@ public class GameManager : MonoBehaviour
 
             case "8Ball":
                 Destroy(selectedBall);
-                if (ballNumber == 8)
+                if (isBallEight)
                 {
                     GameWin();
                 }

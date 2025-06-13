@@ -18,6 +18,7 @@ public class DialogueTrigger : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
     }
 
