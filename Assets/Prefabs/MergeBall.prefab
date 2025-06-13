@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2928091170286886755}
   - component: {fileID: 2692955047327209386}
   - component: {fileID: 4417183919641181906}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MergeBall
   m_TagString: MergeBall
   m_Icon: {fileID: 0}

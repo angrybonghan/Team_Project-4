@@ -2,26 +2,30 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    // 물리 관련 설정
     [Header("물리 설정")]
-    public float forceMultiplier = 5f;             // 발사 힘 계수
-    public float maxForce = 4f;                    // 최대 발사 힘
-    public float minLaunchDragMagnitude = 0.25f;    // 발사를 위한 최소 드래그 길이
+    public float forceMultiplier = 5f; // 공 파워 배율
+    public float maxForce = 4f; // 최대 공 파워
+    public float minLaunchDragMagnitude = 0.25f; // 최소 마우스 드래그 길이
 
     [Header("시각적 요소 설정")]
-    public GameObject VisualUI; // 드래그를 제외하고 보이지 않아야하는 개체들의 부모 오브젝트
-    public GameObject arrowIndicator;    // 화살표 스프라이트
-    public GameObject dotLineIndicator;      // 화살표와 공 사이의 점 스프라이트 (SpriteRenderer의 Draw Mode: Tiled)
-    public GameObject stick;     // 당구 막대 (큐대?)
-    public GameObject stickPower; // 당구 막대의 파워 게이지 도트
-    public float minStickPowerX = -0.5f;       // 최소 힘일 때 stickPower의 X 좌표
-    public float maxStickPowerX = -2.1f;       // 최대 힘일 때 stickPower의 X 좌표
-    public float arrowDistance = 0.75f;       // 화살표가 공에서 얼마나 멀리 떨어질지
-    public float dotLineDistance = 0.3f;    // 점 스프라이트 길이 감소 (안하면 너무 길어짐)
+    public GameObject VisualUI; // 드래그할때만 나올 오브젝트들의 엄마 UI
+    public GameObject arrowIndicator; // 화살표
+    public GameObject dotLineIndicator; // 화살표 꼬리에 나올 점선
+    public GameObject stick; // 당구 막대기
+    public GameObject stickPower; // 당구 막대기에 표시될 파워 게이지
+    public float minStickPowerX = -0.5f; //최고, 최소 막대기 파워 위치
+    public float maxStickPowerX = -2.1f;
+    public float arrowDistance = 0.75f; // 화살표가 최대로 늘어날 수 있는 거리
+    public float arrowSensitivity = 1.0f; // 화살표 늘어나는 감도
+    public float dotLineDistance = 0.3f; // 점 스프라이트 길이 감소 (안하면 너무 길어짐)
+
+    // Raycast를 위한 레이어 마스크
+    [Header("Raycast 설정")]
+    public LayerMask obstacleLayer; // 레이캐스트 레이어
 
     [Header("힘에 따른 색상 변화")]
-    public Color minForceColor = Color.green;    // 최소 힘일 때의 색상 (초록색)
-    public Color maxForceColor = Color.red;    // 최대 힘일 때의 색상 (빨간색)
+    public Color minForceColor = Color.green;
+    public Color maxForceColor = Color.red;
 
     private Rigidbody2D rb;
 
@@ -29,7 +33,7 @@ public class BallController : MonoBehaviour
     private Vector2 endMousePos;
 
     private bool isDragging = false;
-    private bool hasReachedMinDrag = false; //최소 드래그 길이에 도달했는지?
+    private bool hasReachedMinDrag = false;
 
     private void Awake()
     {
@@ -43,13 +47,12 @@ public class BallController : MonoBehaviour
 
         if (VisualUI != null)
         {
-            VisualUI.SetActive(false); // 시작할 때 VisualUI 비활성화
+            VisualUI.SetActive(false);
         }
     }
 
     void Update()
     {
-        // 드래그 시작
         if (Input.GetMouseButtonDown(0))
         {
             if (!GameManager.canPlay)
@@ -58,62 +61,84 @@ public class BallController : MonoBehaviour
             }
 
             isDragging = true;
-            hasReachedMinDrag = false; // 드래그 시작 시 초기화
+            hasReachedMinDrag = false;
             startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             if (VisualUI != null)
             {
-                VisualUI.SetActive(true); // VisualUI 활성화
+                VisualUI.SetActive(true);
             }
         }
 
-        // 드래그 중
         if (isDragging)
         {
+            // 마우스 위치를 구하고, 시작 위치에서 빼서 드래그 거리를 구함
             Vector2 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 dragVector = startMousePos - currentMousePos; // 마우스 드래그 벡터
-            float rawDragMagnitude = dragVector.magnitude; // 실제 드래그 길이
+            Vector2 dragVector = startMousePos - currentMousePos;
+            float rawDragMagnitude = dragVector.magnitude;
 
-            //최소 드래그 길이에 도달했는지 확인 및 재진입 시 취소
-            if (rawDragMagnitude >= minLaunchDragMagnitude)
+            
+            if (rawDragMagnitude >= minLaunchDragMagnitude) // 한번 최소 길이를 넘었는지 확인
             {
-                hasReachedMinDrag = true; // 최소 드래그 길이에 도달했음
+                hasReachedMinDrag = true;
             }
-            // 만약 한 번이라도 최소 길이에 도달했었는데, 현재 드래그 길이가 다시 최소 길이 이하로 내려왔다면 드래그 취소
-            else if (hasReachedMinDrag && rawDragMagnitude < minLaunchDragMagnitude)
+            else if (hasReachedMinDrag && rawDragMagnitude < minLaunchDragMagnitude) // 최소 길이를 넘고 다시 돌아오면 취소
             {
-                isDragging = false; // 드래그 상태 해제
-                hasReachedMinDrag = false; // 다음 드래그를 위해 초기화
+                // UI 끄고 어쩌고저쩌고 다함
+                isDragging = false;
+                hasReachedMinDrag = false;
 
-                if (VisualUI != null)
+                if (VisualUI != null) 
                 {
-                    VisualUI.SetActive(false); // UI 비활성화
+                    VisualUI.SetActive(false);
                 }
-                // GameManager.canPlay는 발사 실패이므로 true 유지하겠음
-                return; // 루프 빠@@꾸리
+                return;
             }
 
-            // 드래그 길이를 최대 힘으로 제한하고, 그 길이를 바탕으로 힘의 비율 계산
-            float currentDragMagnitude = Mathf.Min(rawDragMagnitude, maxForce);
-            // 힘 비율 (0.0..1.0) 계산: 당긴 힘 / 최대 힘
+            float currentDragMagnitude = Mathf.Min(rawDragMagnitude, maxForce); // 마우스 드래그 길이
             float forceRatio = currentDragMagnitude / maxForce;
+            //Debug.Log($"currentDragMagnitude = {currentDragMagnitude}");
+            //Debug.Log($"forceRatio = {forceRatio}");
 
-            Vector2 clampedDirection = dragVector.normalized;        // 방향 벡터
-            float angle = Mathf.Atan2(clampedDirection.y, clampedDirection.x) * Mathf.Rad2Deg; // 회전 각도
-
-            // Lerp를 사용하여 힘의 비율에 따라 색상 보간
+            Vector2 clampedDirection = dragVector.normalized;
+            float angle = Mathf.Atan2(clampedDirection.y, clampedDirection.x) * Mathf.Rad2Deg;
             Color lerpedColor = Color.Lerp(minForceColor, maxForceColor, forceRatio);
 
+            // 레이캐스트
+            Vector2 raycastOrigin = transform.position; // 레이 위치 결정
+            float raycastDistance = Mathf.Min(currentDragMagnitude * forceMultiplier * arrowSensitivity, arrowDistance * forceMultiplier);
+            // ↑ 레이 길이에 리미트 걸음
+
+            // 레이 발싸!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!@@@@
+            RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, clampedDirection, raycastDistance, obstacleLayer);
+
+            Vector3 arrowTargetPosition; // 화살표가 박힌 위치, 안 박혔으면 최대 길이 위치
+            float actualLineLength; // 실제 점선 길이
+            // 여기서 변수 선언하는 이유 모르겠으면 이시현 DM으로 물어보셈 ㅇㅇ
+            // 아니다 그냥 여기서 말하겠음
+            // 밑에 if 안에서 두개의 독립적인 작동을 해야하잖아 이 빵@빵탱아~~
+
+            if (hit.collider != null)
+            {
+                // 충돌 지점에서 멈춥니다.
+                arrowTargetPosition = hit.point;
+                actualLineLength = (hit.point - raycastOrigin).magnitude;
+                //Debug.Log($"화살표가 {hit.collider.name}에 충돌함"); ← 걍 테스트용 로그
+            }
+            else
+            {
+                // 충돌하지 않으면 최대치로 설정
+                arrowTargetPosition = raycastOrigin + (Vector2)clampedDirection * raycastDistance;
+                actualLineLength = raycastDistance;
+            }
 
             // 화살표 제어
             if (arrowIndicator != null)
             {
-                arrowIndicator.SetActive(true); // 화살표 활성화
-                arrowIndicator.transform.rotation = Quaternion.Euler(0, 0, angle); // 회전
-                // 화살표 위치는 제한된 드래그 크기에 비례하여 조절
-                arrowIndicator.transform.position = transform.position + (Vector3)clampedDirection * currentDragMagnitude * arrowDistance;
+                arrowIndicator.SetActive(true);
+                arrowIndicator.transform.rotation = Quaternion.Euler(0, 0, angle);
+                arrowIndicator.transform.position = arrowTargetPosition; // 레이캐스트 최종위치
 
-                // 화살표 스프라이트 렌더러 색상 변경
                 SpriteRenderer arrowRenderer = arrowIndicator.GetComponent<SpriteRenderer>();
                 if (arrowRenderer != null)
                 {
@@ -124,18 +149,15 @@ public class BallController : MonoBehaviour
             // 점선 제어
             if (dotLineIndicator != null)
             {
-                dotLineIndicator.SetActive(true); // 점선 활성화
-                dotLineIndicator.transform.position = transform.position; // 시작 위치
-                dotLineIndicator.transform.rotation = Quaternion.Euler(0, 0, angle); // 회전
+                dotLineIndicator.SetActive(true);
+                dotLineIndicator.transform.position = transform.position;
+                dotLineIndicator.transform.rotation = Quaternion.Euler(0, 0, angle);
 
                 SpriteRenderer dotRenderer = dotLineIndicator.GetComponent<SpriteRenderer>();
-                if (dotRenderer != null && arrowIndicator != null)
+                if (dotRenderer != null)
                 {
-                    // 점선 길이는 화살표 위치와 공 사이의 거리를 기반으로 계산
-                    float lineLength = (arrowIndicator.transform.position - transform.position).magnitude;
-                    dotRenderer.size = new Vector2(lineLength * dotLineDistance, dotRenderer.size.y);
-
-                    // 점선 스프라이트 렌더러 색상 변경
+                    // 점선 길이는 실제 계산된 길이를 사용합니다.
+                    dotRenderer.size = new Vector2(actualLineLength * dotLineDistance, dotRenderer.size.y);
                     dotRenderer.color = lerpedColor;
                 }
             }
@@ -149,49 +171,42 @@ public class BallController : MonoBehaviour
             // 당구막대 파워 게이지 제어
             if (stickPower != null)
             {
-                // Lerp를 사용하여 힘의 비율에 따라 X 좌표 보간
                 stickPower.transform.localPosition = new Vector3(Mathf.Lerp(minStickPowerX, maxStickPowerX, forceRatio), stickPower.transform.localPosition.y, stickPower.transform.localPosition.z);
             }
         }
 
-
-
-        // 드래그 종료 → 힘 가해서 발사 또는 발사 취소
+        // 드래그 종료
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             endMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 dragVector = startMousePos - endMousePos;
 
-            // 최소 드래그 길이 체크
             if (dragVector.magnitude < minLaunchDragMagnitude)
             {
-                // 발사 취소 시 초기화 작업
                 if (VisualUI != null)
                 {
-                    VisualUI.SetActive(false); // UI 비활성화
+                    VisualUI.SetActive(false);
                 }
-                isDragging = false; // 드래그 상태 해제
-                hasReachedMinDrag = false; // 다음 드래그를 위해 초기화
-                return; // 함수 종료
+                isDragging = false;
+                hasReachedMinDrag = false;
+                return;
             }
 
-            // 최대 힘 제한
             if (dragVector.magnitude > maxForce)
             {
                 dragVector = dragVector.normalized * maxForce;
             }
 
-            // 힘을 가해 발사 (공은 마우스가 당겨진 방향의 반대로 발사)
             rb.AddForce(dragVector * forceMultiplier, ForceMode2D.Impulse);
 
             if (VisualUI != null)
             {
-                VisualUI.SetActive(false); // VisualUI 비활성화
+                VisualUI.SetActive(false);
             }
 
-            isDragging = false; // isDragging 변수 거짓으로 변경
-            hasReachedMinDrag = false; // 다음 드래그를 위해 초기화
-            GameManager.canPlay = false; // 성공적으로 발사했으므로 플레이 불가능 상태로 변경
+            isDragging = false;
+            hasReachedMinDrag = false;
+            GameManager.canPlay = false;
         }
     }
 }

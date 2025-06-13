@@ -16,7 +16,6 @@ public class HoleManager : MonoBehaviour
                 Destroy(other.gameObject);
                 PlayAnimation(); // 애니메이션 실행 함수
                 GameManager.scoredBallInChalk += 1; //현재 초크에 들어간 공의 수를 늘리기
-                Debug.Log("MergeBall 홀매니저");
                 displayBall.DisplayBallCount += 1;
                 break;
             case "PlayerBall":  // 플레이어 공이 구멍에 들어가면 그냥 저멀리 보내버림
