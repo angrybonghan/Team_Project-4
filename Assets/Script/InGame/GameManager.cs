@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public static bool canPlay = true;  // 전체 공이 정지해 게임 플레이가 가능한가?
     public static bool isGameOver = false; // 게임 오버되었는가?
     public static bool isGameWin = false; // 게임 승리했는가?
+    public static bool isChaosballActivate = false;
     public static int ballNumber;   // 전체 공의 숫자 (레벨) 수치
     public static int scoredBallInChalk;   // 한 초크에 들어간 공의 수
 
@@ -44,8 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        gameManagerActivate = true;
-        canPlay = true;
+        
         attemptsLeft = attemptsLeftReference;
         attemptsText = attemptsTextReference;
     }
@@ -55,6 +55,9 @@ public class GameManager : MonoBehaviour
         ballNumber = 1;
         scoredBallInChalk = 0;
         isBallEight = false;
+        gameManagerActivate = true;
+        canPlay = true;
+        isChaosballActivate = false;
         attemptsText.text = attemptsLeft.ToString();
     }
 
@@ -148,6 +151,40 @@ public class GameManager : MonoBehaviour
                     {
                         isBallEight = true;
                     }
+
+                    if (isChaosballActivate)
+                    {
+                        isChaosballActivate=false;
+
+                        BallDeceleration[] allBallDecelerationScripts = FindObjectsOfType<BallDeceleration>();
+
+                        List<GameObject> ballObjects = new List<GameObject>();
+                        List<Vector3> originalPositions = new List<Vector3>();
+
+                        foreach (BallDeceleration ballScript in allBallDecelerationScripts)
+                        {
+                            ballObjects.Add(ballScript.gameObject);
+                            originalPositions.Add(ballScript.transform.position);
+                        }
+                        List<Vector3> shuffledPositions = new List<Vector3>(originalPositions);
+
+                        int n = shuffledPositions.Count;
+                        for (int i = 0; i < n; i++)
+                        {
+                            int randomIndex = Random.Range(i, n);
+                            Vector3 temp = shuffledPositions[i];
+                            shuffledPositions[i] = shuffledPositions[randomIndex];
+                            shuffledPositions[randomIndex] = temp;
+                        }
+                        for (int i = 0; i < ballObjects.Count; i++)
+                        {
+                            GameObject currentBall = ballObjects[i];
+                            Vector3 newPosition = shuffledPositions[i];
+
+                            currentBall.transform.position = newPosition;
+                        }
+                    }
+
                 }
             }
         }

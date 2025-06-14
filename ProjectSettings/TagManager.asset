@@ -11,6 +11,8 @@ TagManager:
   - 8Ball
   - OB_Level_Up
   - OB_Level_Down
+  - OB_Copy
+  - OB_Chaos
   layers:
   - Default
   - TransparentFX

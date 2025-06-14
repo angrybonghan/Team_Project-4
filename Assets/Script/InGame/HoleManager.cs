@@ -79,6 +79,12 @@ public class HoleManager : MonoBehaviour
                 Destroy(other.gameObject);
                 break;
 
+            case "OB_Chaos":
+                PlayAnimation(); // 애니메이션 실행
+                Destroy(other.gameObject);
+                GameManager.isChaosballActivate = true;
+                break;
+
             default:
                 Debug.LogError("[???] 태그가 뭣도 아닌 것이 구멍에 들어옴");
                 break;
