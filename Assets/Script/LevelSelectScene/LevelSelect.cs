@@ -60,7 +60,7 @@ public class LevelSelect : MonoBehaviour
 
             if (selectedLevel <= levelAccess)
             {
-                SceneManager.LoadScene("Stage_" + selectedLevel);
+                ScreenTransition.Goto("Stage_" + selectedLevel,0.5f,0.5f);
             }
             else
             {

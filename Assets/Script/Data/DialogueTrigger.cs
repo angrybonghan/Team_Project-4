@@ -36,17 +36,41 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnSceneLoadedCallback(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Stage_1")
+        switch (scene.name)
         {
-            // 오류방지
-            if (dialogueSO != null && dialogueSO.Length > 0 && dialogueSO[0] != null)
-            {
-                DialogueManager.StartDialogue(dialogueSO[0]);
-            }
-            else
-            {
-                Debug.LogWarning("DialogueSO 배열이 없음");
-            }
+            case "Stage_1":
+                StartDialogue(1);
+                break;
+
+            case "Stage_2":
+                StartDialogue(2);
+                break;
+
+            case "Stage_3":
+                StartDialogue(3);
+                break;
+
+            case "Stage_4":
+                StartDialogue(4);
+                break;
+
+            case "Stage_5":
+                StartDialogue(5);
+                break;
+
+        }
+    }
+
+    private void StartDialogue(int index)
+    {
+        // 오류방지
+        if (dialogueSO[index-1] != null)
+        {
+            DialogueManager.StartDialogue(dialogueSO[0]);
+        }
+        else
+        {
+            Debug.LogWarning("DialogueSO 배열이 없음");
         }
     }
 }

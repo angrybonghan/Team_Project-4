@@ -26,26 +26,25 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI attemptsTextReference;
 
     public static TextMeshProUGUI attemptsText;
-
+    /*
     [Header("화면전환용 이미지")]
     public Image screenChanger;
-
+    */
 
     public static bool canPlay = true;  // 전체 공이 정지해 게임 플레이가 가능한가?
     public static bool isGameOver = false; // 게임 오버되었는가?
     public static bool isGameWin = false; // 게임 승리했는가?
-    public static bool isChaosballActivate = false;
+    public static bool isChaosballActivate = false; // 카오스 볼 작동
+    public static bool isBallEight; // 공이 8에 도달했는가
+
     public static int ballNumber;   // 전체 공의 숫자 (레벨) 수치
     public static int scoredBallInChalk;   // 한 초크에 들어간 공의 수
 
-    public static bool isBallEight; // 공이 8에 도달했는가
 
     private bool anyBallMoving;  // 아무 공이나 움직이는가
-    private bool gameManagerActivate=true;
 
     private void Awake()
     {
-        
         attemptsLeft = attemptsLeftReference;
         attemptsText = attemptsTextReference;
     }
@@ -55,7 +54,7 @@ public class GameManager : MonoBehaviour
         ballNumber = 1;
         scoredBallInChalk = 0;
         isBallEight = false;
-        gameManagerActivate = true;
+        DataManager.isGameActionable = true;
         canPlay = true;
         isChaosballActivate = false;
         attemptsText.text = attemptsLeft.ToString();
@@ -64,32 +63,44 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            scoredBallInChalk++;
-            displayBall.DisplayBallCount++;
+            GameUnPause();
         }
 
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            RandomPick();
+            GamePause();
         }
-        
 
-        if (gameManagerActivate)
+
+        if (DataManager.isGameActionable)
         {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                scoredBallInChalk++;
+                displayBall.DisplayBallCount++;
+            }
+
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                RandomPick();
+            }
+
             if (isGameOver)
             {
-                StartCoroutine(fadeOutScreenForGameover());
-                gameManagerActivate=false;
+                //StartCoroutine(fadeOutScreenForGameover());
+                DataManager.isGameActionable = false;
                 isGameOver = false;
+                return;
             }
 
             if (isGameWin)
             {
                 GameWin();
-                gameManagerActivate = false;
+                DataManager.isGameActionable = false;
                 isGameWin = false;
+                return;
             }
 
             if (!canPlay)
@@ -121,14 +132,14 @@ public class GameManager : MonoBehaviour
                         }
                     }
 
-                    
+
                     attemptsText.text = attemptsLeft.ToString(); // 남은 기회 표시
 
                     if (attemptsLeft <= 0)
                     {
 
                         attemptsText.text = "X";
-                        StartCoroutine(fadeOutScreenForGameover());
+                        //StartCoroutine(fadeOutScreenForGameover());
                     }
 
                     // 플레이어 공이 벽을 뚫었거나 (버그)
@@ -154,7 +165,7 @@ public class GameManager : MonoBehaviour
 
                     if (isChaosballActivate)
                     {
-                        isChaosballActivate=false;
+                        isChaosballActivate = false;
 
                         BallDeceleration[] allBallDecelerationScripts = FindObjectsOfType<BallDeceleration>();
 
@@ -184,7 +195,6 @@ public class GameManager : MonoBehaviour
                             currentBall.transform.position = newPosition;
                         }
                     }
-
                 }
             }
         }
@@ -236,7 +246,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("게임 승리!");
     }
-
+    /*
     IEnumerator fadeOutScreenForGameover()
     {
         for (int i = 0; i < 50; i++)
@@ -244,16 +254,11 @@ public class GameManager : MonoBehaviour
             Color currentColor = screenChanger.color;
             currentColor.a += 0.02f;
             screenChanger.color = currentColor;
-            yield return Sleep(0.01);
+            yield return new WaitForSeconds(0.01f);
         }
         GameOver();
     }
-
-    IEnumerator Sleep(double SleepSeconds)
-    {
-        yield return new WaitForSeconds((float)SleepSeconds);
-    }
-
+    */
     void RandomPick()
     {
         GameObject[] eightBallObjects = GameObject.FindGameObjectsWithTag("8Ball");
@@ -289,5 +294,19 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    public static void GamePause()
+    {
+        Time.timeScale = 0f;
+        DataManager.isGameActionable =false;
+    }
+
+    public static void GameUnPause()
+    {
+        Time.timeScale = 1f;
+        DataManager.isGameActionable =true;
+    }
+
+
 
 }

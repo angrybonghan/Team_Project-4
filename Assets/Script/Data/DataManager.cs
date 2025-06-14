@@ -12,6 +12,9 @@ public class DataManager : MonoBehaviour
     public static int previousLevel { get; private set; }
 
 
+    public static bool isGameActionable = false; // 전체 게임이 작동 가능한지 (일시정지 또는 게임오버)
+
+
     void Awake()
     {
         if (Instance == null) // 신 변경에도 유지하는 싱글톤
@@ -25,6 +28,7 @@ public class DataManager : MonoBehaviour
             return;
         }
         LoadData();
+        isGameActionable=false;
     }
 
     private void LoadData() // 데이터 불러오기

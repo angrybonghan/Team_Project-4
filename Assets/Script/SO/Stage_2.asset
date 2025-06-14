@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d52157b57505264e80df86df0ccc0c2, type: 3}
+  m_Name: Stage_2
+  m_EditorClassIdentifier: 
+  characterImage:
+  - {fileID: 21300000, guid: 3cbe77b21c3a20c45a7780ab858c3cd6, type: 3}
+  - {fileID: 21300000, guid: d0924a74f315bc840a7d12f1367a2ea1, type: 3}
+  characterName:
+  - "\uB784\uC138\uC774"
+  - "\uB2C8\uCF54"
+  DialogueText:
+  - "\uB784\uC138\uC774\uAC00 \uCE60 \uB300\uC0AC"
+  - "\uB2C8\uCF54\uAC00 \uCE60 \uB300\uC0AC"

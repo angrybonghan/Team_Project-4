@@ -10,17 +10,6 @@ public class ButtonManager : MonoBehaviour
     public void onStartButtonClicked()
     {
         GameObject Animation = Instantiate(animationPrefabs, transform.position, transform.rotation);
-        StartCoroutine(GoToSelectScene());
-    }
-
-    IEnumerator GoToSelectScene()
-    {
-        yield return Sleep(0.6);
-        SceneManager.LoadScene("SelectStage");
-    }
-
-    IEnumerator Sleep(double SleepSeconds)
-    {
-        yield return new WaitForSeconds((float)SleepSeconds);
+        ScreenTransition.Goto("SelectStage", 0.6f, 0.6f);
     }
 }
