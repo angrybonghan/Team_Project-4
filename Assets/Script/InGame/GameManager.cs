@@ -15,10 +15,10 @@ public class GameManager : MonoBehaviour
     public GameObject playerBall;
 
     [Header("보드 범위 설정")]
-    public float boardMinX = -2.5f; // X축 최소 보드 범위
-    public float boardMaxX = 2.5f;  // X축 최대 보드 범위
-    public float boardMinY = -3f; // Y축 최소 보드 범위
-    public float boardMaxY = 2f;  // Y축 최대 보드 범위
+    public static float boardMinX = -2.5f; // X축 최소 보드 범위
+    public static float boardMaxX = 2.5f;  // X축 최대 보드 범위
+    public static float boardMinY = -3f; // Y축 최소 보드 범위
+    public static float boardMaxY = 2f;  // Y축 최대 보드 범위
 
     [Header("남은 시도 횟수")]
     public int attemptsLeftReference=10;

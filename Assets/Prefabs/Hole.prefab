@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationPrefabs: {fileID: 0}
+  eightBallPrefabs: {fileID: 8319038721229698459, guid: 421b8acc877f0134fb9f3bee3002a570, type: 3}
 --- !u!58 &5244446902647310281
 CircleCollider2D:
   m_ObjectHideFlags: 0

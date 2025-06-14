@@ -5,6 +5,9 @@ public class HoleManager : MonoBehaviour
     [Header("이 구멍의 애니메이션 프리팹")]
     public GameObject animationPrefabs;
 
+    [Header("8볼 프리팹")]
+    public GameObject eightBallPrefabs;
+
     private Rigidbody2D rb;
 
 
@@ -41,21 +44,31 @@ public class HoleManager : MonoBehaviour
                 }
                 break;
 
-            case "OB_Level_Up":
+            case "OB_Level_Up": //레벨 업 볼
                 Destroy(other.gameObject);
                 PlayAnimation(); // 애니메이션 실행
                 GameManager.scoredBallInChalk += 2; //현재 초크에 들어간 공의 수를 두개 늘리기
                 displayBall.DisplayBallCount += 2;
                 break;
 
-            case "OB_Level_Down":
+            case "OB_Level_Down":   //레벨 다운 볼
                 Destroy(other.gameObject);
                 PlayAnimation(); // 애니메이션 실행
-                if (GameManager.ballNumber >= 1)
+                if (GameManager.ballNumber >= 1)    // 공 레벨이 0 아래로 내려가지는 않음
                 {
-                    GameManager.ballNumber -= 2;
-                    GameManager.scoredBallInChalk++;
+                    GameManager.ballNumber -= 2;    // 전체 공 레벨을 2 내린다
+                    GameManager.scoredBallInChalk++;    // 초크에 공을 하나 넣은 판정을 준다 (공 업데이트를 시키기 위함)
+                    // 고로 -2 + 1 = -1
+                    // 최종적으로 1만 빠짐
                 }
+                break;
+
+            case "OB_Copy":
+                Destroy(other.gameObject);
+                PlayAnimation(); // 애니메이션 실행
+
+
+
                 break;
 
             default:

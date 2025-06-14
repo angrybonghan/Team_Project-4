@@ -86,4 +86,10 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public void ResetData()
+    {
+        PlayerPrefs.SetInt(levelAccessKey, 1);
+        PlayerPrefs.SetInt(previousLevelKey, 1);
+        PlayerPrefs.Save();
+    }
 }
