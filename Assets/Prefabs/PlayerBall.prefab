@@ -135,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceMultiplier: 4
   maxForce: 2
+  minLaunchDragMagnitude: 0.25
   VisualUI: {fileID: 4671119946852881381}
   arrowIndicator: {fileID: 1363029172805500172}
   dotLineIndicator: {fileID: 777379899803286632}
@@ -143,7 +144,11 @@ MonoBehaviour:
   minStickPowerX: -0.5
   maxStickPowerX: -2.1
   arrowDistance: 0.5
+  arrowSensitivity: 1
   dotLineDistance: 0.9
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
   minForceColor: {r: 0, g: 1, b: 0, a: 1}
   maxForceColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &4791471407285258651
@@ -158,7 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb44ae5ba110e644db4b2fe290aed395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deceleration: 0.5
   ballSprites:
   - {fileID: 21300000, guid: 897d01e2c49a6a544aa57b283ddbeeee, type: 3}
   - {fileID: 21300000, guid: 82cfd5990504cc543ab64c61908a02ba, type: 3}
@@ -247,7 +251,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &5274329702081201410
 CircleCollider2D:
   m_ObjectHideFlags: 0

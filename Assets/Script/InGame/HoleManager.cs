@@ -54,7 +54,7 @@ public class HoleManager : MonoBehaviour
             case "OB_Level_Down":   //레벨 다운 볼
                 Destroy(other.gameObject);
                 PlayAnimation(); // 애니메이션 실행
-                if (GameManager.ballNumber >= 1)    // 공 레벨이 0 아래로 내려가지는 않음
+                if (GameManager.ballNumber >= 2)    // 공 레벨이 0 아래로 내려가지는 않음
                 {
                     GameManager.ballNumber -= 2;    // 전체 공 레벨을 2 내린다
                     GameManager.scoredBallInChalk++;    // 초크에 공을 하나 넣은 판정을 준다 (공 업데이트를 시키기 위함)
@@ -64,11 +64,19 @@ public class HoleManager : MonoBehaviour
                 break;
 
             case "OB_Copy":
-                Destroy(other.gameObject);
                 PlayAnimation(); // 애니메이션 실행
 
-
-
+                for (int i = 0; i < 2; i++)
+                {
+                    Vector3 CopyPos = new Vector3
+                        (
+                        UnityEngine.Random.Range(-1f, 1f),
+                        UnityEngine.Random.Range(-1f, 1f),
+                        0
+                        );
+                    GameObject EightBall = Instantiate(eightBallPrefabs, CopyPos, transform.rotation);
+                }
+                Destroy(other.gameObject);
                 break;
 
             default:
