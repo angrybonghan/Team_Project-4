@@ -14,6 +14,7 @@ TagManager:
   - OB_Copy
   - OB_Chaos
   - OB_SpeedUp
+  - OB_Shield
   layers:
   - Default
   - TransparentFX

@@ -55,6 +55,7 @@ public class HoleManager : MonoBehaviour
             case "OB_Level_Down":   //레벨 다운 볼
                 Destroy(other.gameObject);
                 PlayAnimation(); // 애니메이션 실행
+                GameManager.isBallEight = false;
                 if (GameManager.ballNumber >= 2)    // 공 레벨이 0 아래로 내려가지는 않음
                 {
                     GameManager.ballNumber -= 2;    // 전체 공 레벨을 2 내린다
@@ -90,6 +91,14 @@ public class HoleManager : MonoBehaviour
                 PlayAnimation(); // 애니메이션 실행
                 Destroy(other.gameObject);
                 GameManager.SpeedBallChance = 2;
+                break;
+
+            case "OB_Shield":
+                PlayAnimation(); // 애니메이션 실행
+                Destroy(other.gameObject);
+
+                
+
                 break;
 
             default:
