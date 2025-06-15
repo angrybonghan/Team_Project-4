@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         canPlay = true;
         isChaosballActivate = false;
         attemptsText.text = attemptsLeft.ToString();
-        DataManager.SetLevelAccess(nextLevelNumber-1);
+        DataManager.SetPreviousLevel(nextLevelNumber-1);
     }
 
 

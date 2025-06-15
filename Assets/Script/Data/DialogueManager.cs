@@ -59,11 +59,6 @@ public class DialogueManager : MonoBehaviour
         operationNumber = operationNumberInput;
         Debug.Log($"operationNumber : {operationNumber}");
 
-        if (operationNumber == 0)
-        {
-            DataManager.isGameActionable = false;
-        }
-
         instance.dialogueUIPanel.SetActive(true);
         instance.currentDialogue = dialogue;
         instance.currentDialogueIndex = 0;

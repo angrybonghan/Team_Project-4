@@ -286,6 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffd95423a17c3947ba9f494d5166d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextLevelNumber: 2
   displayBallMarker: {fileID: 0}
   playerBall: {fileID: 1645240438}
   boardMinX_: -2.5
@@ -294,6 +295,7 @@ MonoBehaviour:
   boardMaxY_: 2
   attemptsLeft_: 10
   attemptsText_: {fileID: 0}
+  victoryAnimation: {fileID: 0}
 --- !u!4 &454702635
 Transform:
   m_ObjectHideFlags: 0
@@ -2678,6 +2680,7 @@ SceneRoots:
   - {fileID: 1915711041}
   - {fileID: 1589324942}
   - {fileID: 454702635}
+  - {fileID: 1702660232}
   - {fileID: 1558113973}
   - {fileID: 1085950599}
   - {fileID: 525857209}
@@ -2692,4 +2695,3 @@ SceneRoots:
   - {fileID: 488062825}
   - {fileID: 1300495448}
   - {fileID: 2018398685}
-  - {fileID: 1702660232}

@@ -64,9 +64,11 @@ public class DialogueTrigger : MonoBehaviour
     private void StartDialogue(int index, int operationNumberInput)
     {
         // 오류방지
-        if (dialogueSO[index-1] != null)
+        index--;
+
+        if (dialogueSO[index] != null)
         {
-            DialogueManager.StartDialogue(dialogueSO[0], operationNumberInput);
+            DialogueManager.StartDialogue(dialogueSO[index], operationNumberInput);
         }
         else
         {

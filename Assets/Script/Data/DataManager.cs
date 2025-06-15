@@ -31,7 +31,16 @@ public class DataManager : MonoBehaviour
         isGameActionable=false;
     }
 
-    private void LoadData() // 데이터 불러오기
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.E)&&Input.GetKeyDown(KeyCode.R))
+        {
+            ResetData();
+            Debug.Log("데이터 리셋 작동");
+        }
+    }
+
+    public static void LoadData() // 데이터 불러오기
     {
         bool needsSave = false; // 보정이 한 번만 작동되도록 함
 
@@ -70,11 +79,13 @@ public class DataManager : MonoBehaviour
 
     public static int GetLevelAccess() // 래벨 접근 권한 반환 (불러옴)
     {
+        LoadData();
         return levelAccess;
     }
 
     public static int GetPreviousLevel() // 이전 레벨 반환 (불러옴)
     {
+        LoadData();
         return previousLevel;
     }
 
@@ -95,6 +106,7 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetInt(levelAccessKey, 1);
         PlayerPrefs.SetInt(previousLevelKey, 1);
         PlayerPrefs.Save();
+        LoadData();
     }
 
     public static void GamePause() // 일시정지
