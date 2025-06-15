@@ -39,9 +39,9 @@ public class GameManager : MonoBehaviour
     public static bool isGameOver = false; // 게임 오버되었는가?
     public static bool isGameWin = false; // 게임 승리했는가?
     public static bool isChaosBallActivate = false; // 카오스 볼 작동
-    public static bool isSpeedBallActivate = false;
     public static bool isBallEight; // 공이 8에 도달했는가
 
+    public static int SpeedBallChance = 0;
     public static int ballNumber;   // 전체 공의 숫자 (레벨) 수치
     public static int scoredBallInChalk;   // 한 초크에 들어간 공의 수
 
@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
         isBallEight = false;
         canPlay = true;
         isChaosBallActivate = false;
+        SpeedBallChance = 0;
         attemptsText.text = attemptsLeft.ToString();
         DataManager.SetPreviousLevel(nextLevelNumber-1);
     }
@@ -85,6 +86,11 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.J))
             {
                 RandomPick();
+            }
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                SpeedBallChance++;
             }
 
             if (isGameOver)
@@ -190,6 +196,10 @@ public class GameManager : MonoBehaviour
                         }
                     }
 
+                    if (SpeedBallChance >= 1)
+                    {
+                        SpeedBallChance--;
+                    }
 
                     if (ballNumber >= 8)
                     {

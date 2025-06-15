@@ -146,6 +146,7 @@ MonoBehaviour:
   arrowDistance: 0.5
   arrowSensitivity: 1
   dotLineDistance: 0.9
+  playerBallAfterimage: {fileID: 7895975073601629277, guid: 08ecc96b20b535245acbbe430ad1a631, type: 3}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0

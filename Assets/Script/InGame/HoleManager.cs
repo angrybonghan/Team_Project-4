@@ -89,7 +89,7 @@ public class HoleManager : MonoBehaviour
             case "OB_SpeedUp":
                 PlayAnimation(); // 애니메이션 실행
                 Destroy(other.gameObject);
-                GameManager.isSpeedBallActivate = true;
+                GameManager.SpeedBallChance = 2;
                 break;
 
             default:

@@ -57,7 +57,6 @@ public class DialogueManager : MonoBehaviour
         // 다 있으면 실행
 
         operationNumber = operationNumberInput;
-        Debug.Log($"operationNumber : {operationNumber}");
 
         instance.dialogueUIPanel.SetActive(true);
         instance.currentDialogue = dialogue;

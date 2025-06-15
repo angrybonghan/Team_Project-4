@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -18,6 +19,9 @@ public class BallController : MonoBehaviour
     public float arrowDistance = 0.75f; // 화살표가 최대로 늘어날 수 있는 거리
     public float arrowSensitivity = 1.0f; // 화살표 늘어나는 감도
     public float dotLineDistance = 0.3f; // 점 스프라이트 길이 감소 (안하면 너무 길어짐)
+
+    [Header("플레이어 공 잔상")]
+    public GameObject playerBallAfterimage;
 
     // Raycast를 위한 레이어 마스크
     [Header("Raycast 설정")]
@@ -197,7 +201,17 @@ public class BallController : MonoBehaviour
                 dragVector = dragVector.normalized * maxForce;
             }
 
-            rb.AddForce(dragVector * forceMultiplier, ForceMode2D.Impulse);
+            if (GameManager.SpeedBallChance >= 1)
+            {
+                rb.AddForce(dragVector * forceMultiplier * 1.5f, ForceMode2D.Impulse);
+                StartCoroutine(afterImage());
+            }
+            else
+            {
+                rb.AddForce(dragVector * forceMultiplier, ForceMode2D.Impulse);
+            }
+
+            
 
             if (VisualUI != null)
             {
@@ -207,6 +221,16 @@ public class BallController : MonoBehaviour
             isDragging = false;
             hasReachedMinDrag = false;
             GameManager.canPlay = false;
+        }
+    }
+
+    IEnumerator afterImage()
+    {
+        yield return null;
+        while (!GameManager.canPlay)
+        {
+            GameObject AfterImage = Instantiate(playerBallAfterimage, transform.position, transform.rotation);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 }
