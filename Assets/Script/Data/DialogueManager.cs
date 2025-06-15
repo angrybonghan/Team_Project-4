@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    private static DialogueManager instance; // 싱글톤을 위한
+    public static DialogueManager instance { get; private set; } // 싱글톤을 위한
 
     [Header("UI Components")]
     public GameObject dialogueUIPanel; // Dialogue UI 전체를 감싸는 패널 (활성화/비활성화용)
@@ -17,6 +17,7 @@ public class DialogueManager : MonoBehaviour
 
     private DialogueSO currentDialogue;
     private int currentDialogueIndex;
+    public static int operationNumber;
 
     // 현재 대사 타이핑이 완료되었는지 여부
     private bool isTypingComplete = false;
@@ -34,7 +35,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public static void StartDialogue(DialogueSO dialogue)
+    public static void StartDialogue(DialogueSO dialogue, int operationNumberInput)
     {
         if (instance == null) // null 오류 원천차단
         {
@@ -54,6 +55,14 @@ public class DialogueManager : MonoBehaviour
         }
 
         // 다 있으면 실행
+
+        operationNumber = operationNumberInput;
+        Debug.Log($"operationNumber : {operationNumber}");
+
+        if (operationNumber == 0)
+        {
+            DataManager.isGameActionable = false;
+        }
 
         instance.dialogueUIPanel.SetActive(true);
         instance.currentDialogue = dialogue;
@@ -87,8 +96,6 @@ public class DialogueManager : MonoBehaviour
             }
         }
         isTypingComplete = true; // 타이핑 완료
-
-        // 다음 대화 진행을 위한 대기 로직은 Update()에서 처리
     }
 
     private void EndDialogue() // 대화 종료 시 초기화
@@ -101,7 +108,14 @@ public class DialogueManager : MonoBehaviour
         characterNameUI.text = "";
         characterImageUI.sprite = null;
         instance.dialogueUIPanel.SetActive(false);
+
+
+        if (operationNumber == 0)
+        {
+            DataManager.isGameActionable = true;
+        }
     }
+
     void Update()
     {
         if (isDialogueActive && Input.GetKeyDown(KeyCode.Space)) // 대화가 활성화된 상태에서 스페이스바 누름

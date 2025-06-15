@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using System.Linq;
 
 public class GameManager : MonoBehaviour
@@ -15,21 +13,22 @@ public class GameManager : MonoBehaviour
     public GameObject playerBall;
 
     [Header("보드 범위 설정")]
-    public static float boardMinX = -2.5f; // X축 최소 보드 범위
-    public static float boardMaxX = 2.5f;  // X축 최대 보드 범위
-    public static float boardMinY = -3f; // Y축 최소 보드 범위
-    public static float boardMaxY = 2f;  // Y축 최대 보드 범위
+    public float boardMinX_ = -2.5f;
+    public float boardMaxX_ = 2.5f;
+    public float boardMinY_ = -3f;
+    public float boardMaxY_ = 2f;
+
+    public static float boardMinX ; // X축 최소 보드 범위
+    public static float boardMaxX;  // X축 최대 보드 범위
+    public static float boardMinY; // Y축 최소 보드 범위
+    public static float boardMaxY;  // Y축 최대 보드 범위
 
     [Header("남은 시도 횟수")]
-    public int attemptsLeftReference=10;
+    public int attemptsLeft_ = 10;
     public static int attemptsLeft;
-    public TextMeshProUGUI attemptsTextReference;
+    public TextMeshProUGUI attemptsText_;
 
     public static TextMeshProUGUI attemptsText;
-    /*
-    [Header("화면전환용 이미지")]
-    public Image screenChanger;
-    */
 
     public static bool canPlay = true;  // 전체 공이 정지해 게임 플레이가 가능한가?
     public static bool isGameOver = false; // 게임 오버되었는가?
@@ -45,8 +44,13 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        attemptsLeft = attemptsLeftReference;
-        attemptsText = attemptsTextReference;
+        attemptsLeft = attemptsLeft_;
+        attemptsText = attemptsText_;
+
+        boardMinX = boardMinX_;
+        boardMaxX = boardMaxX_;
+        boardMinY = boardMinY_;
+        boardMaxY = boardMaxY_;
     }
 
     private void Start()
@@ -54,7 +58,6 @@ public class GameManager : MonoBehaviour
         ballNumber = 1;
         scoredBallInChalk = 0;
         isBallEight = false;
-        DataManager.isGameActionable = true;
         canPlay = true;
         isChaosballActivate = false;
         attemptsText.text = attemptsLeft.ToString();
@@ -89,7 +92,7 @@ public class GameManager : MonoBehaviour
 
             if (isGameOver)
             {
-                //StartCoroutine(fadeOutScreenForGameover());
+                ScreenTransition.Goto("GameOver", 0.5f, 0f);
                 DataManager.isGameActionable = false;
                 isGameOver = false;
                 return;
@@ -110,8 +113,8 @@ public class GameManager : MonoBehaviour
                 {
                     canPlay = true;
                     ballNumber += scoredBallInChalk; // 공 숫자 지정
-                    attemptsLeft--;
                     displayBall.DisplayBallReset();
+                    attemptsLeft--;
 
                     if (ballNumber > 8)
                     {
@@ -158,11 +161,6 @@ public class GameManager : MonoBehaviour
                         scoredBallInChalk = 0;
                     }
 
-                    if (ballNumber >= 8)
-                    {
-                        isBallEight = true;
-                    }
-
                     if (isChaosballActivate)
                     {
                         isChaosballActivate = false;
@@ -194,6 +192,12 @@ public class GameManager : MonoBehaviour
 
                             currentBall.transform.position = newPosition;
                         }
+                    }
+
+
+                    if (ballNumber >= 8)
+                    {
+                        isBallEight = true;
                     }
                 }
             }
@@ -246,19 +250,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("게임 승리!");
     }
-    /*
-    IEnumerator fadeOutScreenForGameover()
-    {
-        for (int i = 0; i < 50; i++)
-        {
-            Color currentColor = screenChanger.color;
-            currentColor.a += 0.02f;
-            screenChanger.color = currentColor;
-            yield return new WaitForSeconds(0.01f);
-        }
-        GameOver();
-    }
-    */
+
     void RandomPick()
     {
         GameObject[] eightBallObjects = GameObject.FindGameObjectsWithTag("8Ball");
@@ -306,7 +298,5 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         DataManager.isGameActionable =true;
     }
-
-
 
 }

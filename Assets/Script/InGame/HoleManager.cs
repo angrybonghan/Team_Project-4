@@ -41,6 +41,7 @@ public class HoleManager : MonoBehaviour
                 else
                 {
                     GameManager.isGameOver = true;
+                    Debug.Log("123");
                 }
                 break;
 

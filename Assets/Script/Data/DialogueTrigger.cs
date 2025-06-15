@@ -6,7 +6,7 @@ public class DialogueTrigger : MonoBehaviour
     [Header("대화 데이터 SO 배열")]
     public DialogueSO[] dialogueSO;
 
-    private static DialogueTrigger instance; // 싱글톤을 위한
+    public static DialogueTrigger instance { get; private set; } // 싱글톤을 위한
 
     void Awake()
     {
@@ -39,34 +39,34 @@ public class DialogueTrigger : MonoBehaviour
         switch (scene.name)
         {
             case "Stage_1":
-                StartDialogue(1);
+                StartDialogue(1, 0);
                 break;
 
             case "Stage_2":
-                StartDialogue(2);
+                StartDialogue(2, 0);
                 break;
 
             case "Stage_3":
-                StartDialogue(3);
+                StartDialogue(3, 0);
                 break;
 
             case "Stage_4":
-                StartDialogue(4);
+                StartDialogue(4, 0);
                 break;
 
             case "Stage_5":
-                StartDialogue(5);
+                StartDialogue(5, 0);
                 break;
 
         }
     }
 
-    private void StartDialogue(int index)
+    private void StartDialogue(int index, int operationNumberInput)
     {
         // 오류방지
         if (dialogueSO[index-1] != null)
         {
-            DialogueManager.StartDialogue(dialogueSO[0]);
+            DialogueManager.StartDialogue(dialogueSO[0], operationNumberInput);
         }
         else
         {

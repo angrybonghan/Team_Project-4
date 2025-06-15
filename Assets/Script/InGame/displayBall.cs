@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -18,14 +19,20 @@ public class displayBall : MonoBehaviour
     public float cellGap = 24.1025f;
 
     [Header("콤보 표시용 텍스트")]
-    public TextMeshProUGUI comboTextReference;
+    public TextMeshProUGUI comboText_;
     public static TextMeshProUGUI ComboText; // static 은 인스펙터에 안 뜬다.
+
+    [Header("콤보 애니메이션 프리팹")]
+    public GameObject comboAnimationPrefabs_;
+    public static GameObject comboAnimationPrefabs;
 
     public static int DisplayBallCount = 0;
     private static int existingDisplayBallCount=0;
+    private Coroutine comboCoroutine;
 
     void Awake()
     {
+
         if (Instance == null)
         {
             Instance = this;
@@ -36,7 +43,10 @@ public class displayBall : MonoBehaviour
             return;
         }
 
-        ComboText = comboTextReference;
+        ComboText = comboText_;
+        comboAnimationPrefabs = comboAnimationPrefabs_;
+        
+        existingDisplayBallCount = 0;
         DisplayBallReset();
     }
 
@@ -51,6 +61,12 @@ public class displayBall : MonoBehaviour
 
     public static void DisplayBallReset() // 보드 UI에 존재하는 표시용 공 제거
     {
+        if (existingDisplayBallCount > 1 && !GameManager.isBallEight)
+        {
+            ComboText.text = $"[초크 {existingDisplayBallCount - 1}개 회복됨]";
+            Instance.comboCoroutine = Instance.StartCoroutine(Instance.comboAnimation());
+        }
+        
         DisplayBallCount = 0;
         existingDisplayBallCount = 0;
 
@@ -59,9 +75,8 @@ public class displayBall : MonoBehaviour
         {
             Destroy(ball);
         }
-
-        ComboText.gameObject.SetActive(false); // 텍스트 리셋
-        ComboText.text = "UHH, NOPE.";
+        
+        ComboText.gameObject.SetActive(false);
         Instance.transform.position = startPosition;
     }
 
@@ -71,11 +86,15 @@ public class displayBall : MonoBehaviour
         Display.transform.SetParent(this.transform.parent, false);
         transform.position = new Vector2(transform.position.x + cellGap, transform.position.y);
         existingDisplayBallCount++;
+    }
 
-        if (existingDisplayBallCount > 1 && GameManager.ballNumber < 8)
-        {
-            ComboText.gameObject.SetActive(true);
-            ComboText.text = $"[COMBO × {existingDisplayBallCount}]";
-        }
+    IEnumerator comboAnimation()
+    {
+        GameObject Animation = Instantiate(comboAnimationPrefabs);
+        yield return new WaitForSeconds(0.5f);
+        ComboText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.1f);
+        ComboText.gameObject.SetActive(false);
+        comboCoroutine=null;
     }
 }

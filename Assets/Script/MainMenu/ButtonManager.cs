@@ -9,6 +9,11 @@ public class ButtonManager : MonoBehaviour
 
     public void onStartButtonClicked()
     {
+        if (ScreenTransition.isActive)
+        {
+            return;
+        }
+
         GameObject Animation = Instantiate(animationPrefabs, transform.position, transform.rotation);
         ScreenTransition.Goto("SelectStage", 0.6f, 0.6f);
     }

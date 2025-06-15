@@ -6,8 +6,8 @@ public class ScreenTransition : MonoBehaviour
 {
     public static ScreenTransition Instance { get; private set; }
 
+    public static bool isActive = true;
     private float operatingFrequency = 30; // 작동 주기
-    private static bool isActive = true;
     private SpriteRenderer spriteRenderer;
     private Coroutine currentTransitionCoroutine;
 
@@ -56,7 +56,10 @@ public class ScreenTransition : MonoBehaviour
         {
             return;
         }
+
         isActive = true;
+        DataManager.isGameActionable = false;
+
         Instance.currentTransitionCoroutine = Instance.StartCoroutine(Instance.Transition(targetScene, fadeInTime, fadeOutTime));
     }
 

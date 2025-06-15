@@ -55,7 +55,7 @@ public class BallController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!GameManager.canPlay)
+            if (!GameManager.canPlay || !DataManager.isGameActionable)
             {
                 return;
             }
