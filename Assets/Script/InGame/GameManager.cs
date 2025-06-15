@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("다음 레벨 번호")]
+    public int nextLevelNumber = 2;  
+
     [Header("공 표시 UI 마커")]
     public GameObject displayBallMarker;
 
@@ -29,6 +31,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI attemptsText_;
 
     public static TextMeshProUGUI attemptsText;
+
+    [Header("게임 승리 애니메이션")]
+    public GameObject victoryAnimation;
 
     public static bool canPlay = true;  // 전체 공이 정지해 게임 플레이가 가능한가?
     public static bool isGameOver = false; // 게임 오버되었는가?
@@ -61,21 +66,12 @@ public class GameManager : MonoBehaviour
         canPlay = true;
         isChaosballActivate = false;
         attemptsText.text = attemptsLeft.ToString();
+        DataManager.SetLevelAccess(nextLevelNumber-1);
     }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            GameUnPause();
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            GamePause();
-        }
-
 
         if (DataManager.isGameActionable)
         {
@@ -92,8 +88,7 @@ public class GameManager : MonoBehaviour
 
             if (isGameOver)
             {
-                ScreenTransition.Goto("GameOver", 0.5f, 0f);
-                DataManager.isGameActionable = false;
+                GameOver();
                 isGameOver = false;
                 return;
             }
@@ -242,13 +237,16 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        SceneManager.LoadScene("GameOver");
+        ScreenTransition.Goto("GameOver", 0.5f, 0f);
+        DataManager.isGameActionable = false;
     }
 
 
     void GameWin()
     {
-        Debug.Log("게임 승리!");
+        DataManager.SetLevelAccess(nextLevelNumber);
+        GameObject victoryAnim = Instantiate(victoryAnimation);
+        ScreenTransition.Goto("SelectStage", 2.2f, 0.5f);
     }
 
     void RandomPick()
@@ -285,18 +283,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-    }
-
-    public static void GamePause()
-    {
-        Time.timeScale = 0f;
-        DataManager.isGameActionable =false;
-    }
-
-    public static void GameUnPause()
-    {
-        Time.timeScale = 1f;
-        DataManager.isGameActionable =true;
     }
 
 }

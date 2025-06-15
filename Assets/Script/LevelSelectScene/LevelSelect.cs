@@ -32,42 +32,46 @@ public class LevelSelect : MonoBehaviour
         CameraTargetPos = new Vector3(levelPos.x,levelPos.y,levelPos.z-10f);
         Camera.transform.position = Vector3.Lerp(Camera.transform.position, CameraTargetPos, CameraSpeed*Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) // 왼쪽 화살표 : 선택된 스테이지 감소
+        if (DataManager.isGameActionable)
         {
-            if (selectedLevel == 1)
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) // 왼쪽 화살표 : 선택된 스테이지 감소
             {
-                return;
+                if (selectedLevel == 1)
+                {
+                    return;
+                }
+                selectedLevel--;
+                CoinSet();
             }
-            selectedLevel--;
-            CoinSet();
+
+            if (Input.GetKeyDown(KeyCode.RightArrow)) // 오른쪽 화살표 : 선택된 스테이지 증가
+            {
+                if (selectedLevel == 8)
+                {
+                    return;
+                }
+                selectedLevel++;
+                CoinSet();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) // 엔터 키
+            {
+                int levelAccess = DataManager.GetLevelAccess(); // 레벨 입장 가능 여부 판단
+
+                Debug.Log($"levelAccess : {levelAccess}");
+
+                if (selectedLevel <= levelAccess)
+                {
+                    DataManager.SetPreviousLevel(levelAccess);
+                    ScreenTransition.Goto("Stage_" + selectedLevel, 0.5f, 0.5f);
+                }
+                else
+                {
+                    // 입장 권한이 없음 (이전 스테이지를 완료하지 못함)
+                }
+            }
         }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow)) // 오른쪽 화살표 : 선택된 스테이지 증가
-        {
-            if (selectedLevel == 8)
-            {
-                return;
-            }
-            selectedLevel++;
-            CoinSet();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) // 엔터 키
-        {
-            int levelAccess = DataManager.GetLevelAccess(); // 레벨 입장 가능 여부 판단
-
-            Debug.Log($"levelAccess : {levelAccess}");
-
-            if (selectedLevel <= levelAccess)
-            {
-                DataManager.SetPreviousLevel(levelAccess);
-                ScreenTransition.Goto("Stage_" + selectedLevel,0.5f,0.5f);
-            }
-            else
-            {
-                // 입장 권한이 없음 (이전 스테이지를 완료하지 못함)
-            }
-        }
+        
     }
 
     void CoinSet() // 코인의 형태 결정

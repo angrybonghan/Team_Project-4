@@ -96,4 +96,16 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetInt(previousLevelKey, 1);
         PlayerPrefs.Save();
     }
+
+    public static void GamePause() // 일시정지
+    {
+        Time.timeScale = 0f;
+        DataManager.isGameActionable = false;
+    }
+
+    public static void GameUnPause() // 일시정지 해제
+    {
+        Time.timeScale = 1f;
+        DataManager.isGameActionable = true;
+    }
 }

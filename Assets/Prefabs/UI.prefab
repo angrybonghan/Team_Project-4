@@ -210,8 +210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayBallPrefab: {fileID: 678892379153018534, guid: ece915f48239dcf4fb9de70d3a71189d, type: 3}
   cellGap: 24.1025
-  comboText_: {fileID: 0}
-  comboAnimationPrefabs_: {fileID: 0}
+  comboText_: {fileID: 1050484780844985447}
+  comboAnimationPrefabs_: {fileID: 724566966344904251, guid: a84bd5ea383e2f4408753acecb664e0f, type: 3}
 --- !u!1 &3406660607537515060
 GameObject:
   m_ObjectHideFlags: 0

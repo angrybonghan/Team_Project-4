@@ -184,17 +184,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1707134032200877038, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
   m_PrefabInstance: {fileID: 3420561165639467811}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &399583523 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1050484780844985447, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
-  m_PrefabInstance: {fileID: 3420561165639467811}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &425919247
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,8 +459,9 @@ MonoBehaviour:
   boardMaxX_: 2.5
   boardMinY_: -3
   boardMaxY_: 2
-  attemptsLeft_: 10
+  attemptsLeft_: 25
   attemptsText_: {fileID: 723616020}
+  victoryAnimation: {fileID: 5767937590128293990, guid: 6a297dc9296ec444491eebec0bd9f6cc, type: 3}
 --- !u!4 &454702635
 Transform:
   m_ObjectHideFlags: 0
@@ -480,8 +470,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454702633}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4751,22 +4741,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1915711040}
-    - target: {fileID: 2855909460523238127, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
-      propertyPath: m_PlaneDistance
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 3406660607537515060, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 8747431317359181998, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
-      propertyPath: comboText_
-      value: 
-      objectReference: {fileID: 399583523}
-    - target: {fileID: 8747431317359181998, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
-      propertyPath: comboAnimationPrefabs_
-      value: 
-      objectReference: {fileID: 724566966344904251, guid: a84bd5ea383e2f4408753acecb664e0f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

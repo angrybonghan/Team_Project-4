@@ -95,9 +95,15 @@ public class ScreenTransition : MonoBehaviour
 
             yield return new WaitForSeconds(sleepTime);
         }
-
         transform.position = new Vector3(9999999999999, 9999999999999999, transform.position.z);
+
+        switch (targetScene)
+        {
+            case "SelectStage":
+                DataManager.isGameActionable = true;
+                break;
+        }
         isActive = false;
-        Instance.currentTransitionCoroutine=null;
+        Instance.currentTransitionCoroutine = null;
     }
 }
