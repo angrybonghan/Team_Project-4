@@ -22,14 +22,20 @@ public class HoleManager : MonoBehaviour
                 displayBall.DisplayBallCount ++;
                 break;
             case "PlayerBall":  // 플레이어 공이 구멍에 들어가면 그냥 저멀리 보내버림
+
+                if (GameManager.playerBall.transform.GetChild(0).gameObject.activeSelf)
+                {
+                    GameManager.playerBall.transform.GetChild(0).gameObject.SetActive(false);
+                    GameManager.attemptsLeft++; // 방어막이 있을 경우, 점수를 1 올려 상쇄
+                }
                 GameManager.attemptsLeft--; // 플레이어 공이 들어갈 시 남은 초크 --
                 GameManager.attemptsText.text = GameManager.attemptsLeft.ToString(); // 텍스트 UI 업데이트
                 rb = other.GetComponent<Rigidbody2D>();
                 other.transform.position = new Vector2(999999, 999999);
                 rb.velocity = Vector2.zero;
-
                 PlayAnimation();
                 break;
+
             case "8Ball":
                 PlayAnimation();
                 Destroy(other.gameObject);
@@ -97,7 +103,7 @@ public class HoleManager : MonoBehaviour
                 PlayAnimation(); // 애니메이션 실행
                 Destroy(other.gameObject);
 
-                
+                GameManager.playerBall.transform.GetChild(0).gameObject.SetActive(true);
 
                 break;
 

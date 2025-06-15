@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject displayBallMarker;
 
     [Header("플레이어 공")]
-    public GameObject playerBall;
+    public GameObject playerBall_;
+    public static GameObject playerBall;
 
     [Header("보드 범위 설정")]
     public float boardMinX_ = -2.5f;
@@ -57,6 +58,8 @@ public class GameManager : MonoBehaviour
         boardMaxX = boardMaxX_;
         boardMinY = boardMinY_;
         boardMaxY = boardMaxY_;
+
+        playerBall = playerBall_;
     }
 
     private void Start()
