@@ -13,6 +13,7 @@ TagManager:
   - OB_Level_Down
   - OB_Copy
   - OB_Chaos
+  - OB_SpeedUp
   layers:
   - Default
   - TransparentFX

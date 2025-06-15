@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour
     public static bool canPlay = true;  // 전체 공이 정지해 게임 플레이가 가능한가?
     public static bool isGameOver = false; // 게임 오버되었는가?
     public static bool isGameWin = false; // 게임 승리했는가?
-    public static bool isChaosballActivate = false; // 카오스 볼 작동
+    public static bool isChaosBallActivate = false; // 카오스 볼 작동
+    public static bool isSpeedBallActivate = false;
     public static bool isBallEight; // 공이 8에 도달했는가
 
     public static int ballNumber;   // 전체 공의 숫자 (레벨) 수치
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour
         scoredBallInChalk = 0;
         isBallEight = false;
         canPlay = true;
-        isChaosballActivate = false;
+        isChaosBallActivate = false;
         attemptsText.text = attemptsLeft.ToString();
         DataManager.SetPreviousLevel(nextLevelNumber-1);
     }
@@ -108,7 +109,6 @@ public class GameManager : MonoBehaviour
                 {
                     canPlay = true;
                     ballNumber += scoredBallInChalk; // 공 숫자 지정
-                    displayBall.DisplayBallReset();
                     attemptsLeft--;
 
                     if (ballNumber > 8)
@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
                         }
                     }
 
+                    displayBall.DisplayBallReset();
                     if (scoredBallInChalk > 1) // 들어간 공 - 1 만큼 초크 회복 (콤보)
                     {
                         while (scoredBallInChalk > 1)
@@ -156,9 +157,9 @@ public class GameManager : MonoBehaviour
                         scoredBallInChalk = 0;
                     }
 
-                    if (isChaosballActivate)
+                    if (isChaosBallActivate)
                     {
-                        isChaosballActivate = false;
+                        isChaosBallActivate = false;
 
                         BallDeceleration[] allBallDecelerationScripts = FindObjectsOfType<BallDeceleration>();
 

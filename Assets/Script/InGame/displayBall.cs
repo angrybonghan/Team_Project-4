@@ -61,7 +61,7 @@ public class displayBall : MonoBehaviour
 
     public static void DisplayBallReset() // 보드 UI에 존재하는 표시용 공 제거
     {
-        if (existingDisplayBallCount > 1 && !GameManager.isBallEight)
+        if (existingDisplayBallCount > 1 && GameManager.scoredBallInChalk > 1)
         {
             ComboText.text = $"[초크 {existingDisplayBallCount - 1}개 회복됨]";
             Instance.comboCoroutine = Instance.StartCoroutine(Instance.comboAnimation());

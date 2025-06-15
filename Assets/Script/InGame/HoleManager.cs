@@ -83,7 +83,13 @@ public class HoleManager : MonoBehaviour
             case "OB_Chaos":
                 PlayAnimation(); // 애니메이션 실행
                 Destroy(other.gameObject);
-                GameManager.isChaosballActivate = true;
+                GameManager.isChaosBallActivate = true;
+                break;
+
+            case "OB_SpeedUp":
+                PlayAnimation(); // 애니메이션 실행
+                Destroy(other.gameObject);
+                GameManager.isSpeedBallActivate = true;
                 break;
 
             default:
