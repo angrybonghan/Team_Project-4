@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.H))
             {
-                SpeedBallChance++;
+                SpeedBallChance=2;
             }
 
             if (isGameOver)

@@ -227,10 +227,17 @@ public class BallController : MonoBehaviour
     IEnumerator afterImage()
     {
         yield return null;
+        Vector3 lastAfterImagePosition = transform.position;
+
         while (!GameManager.canPlay)
         {
-            GameObject AfterImage = Instantiate(playerBallAfterimage, transform.position, transform.rotation);
-            yield return new WaitForSeconds(0.05f);
+            Vector3 currentPosition = transform.position;
+            if (Vector3.Distance(currentPosition, lastAfterImagePosition) > 0.175)
+            {
+                GameObject AfterImage = Instantiate(playerBallAfterimage, transform.position, transform.rotation);
+                lastAfterImagePosition = transform.position;
+            }
+            yield return null;
         }
     }
 }
