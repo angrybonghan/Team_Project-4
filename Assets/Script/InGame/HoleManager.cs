@@ -104,7 +104,6 @@ public class HoleManager : MonoBehaviour
                 Destroy(other.gameObject);
 
                 GameManager.playerBall.transform.GetChild(0).gameObject.SetActive(true);
-
                 break;
 
             default:
