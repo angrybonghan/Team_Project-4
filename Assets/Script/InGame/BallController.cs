@@ -253,6 +253,22 @@ public class BallController : MonoBehaviour
             isDragging = false;
             hasReachedMinDrag = false;
             GameManager.canPlay = false;
+
+            // 블랙홀 볼 작동
+            Debug.Log("S 1");
+
+            BlackHoleBall[] blackHoleBalls = FindObjectsOfType<BlackHoleBall>();
+
+            if (blackHoleBalls.Length == 0)
+            {
+                return; // 더 이상 진행할 필요가 없으므로 함수를 종료합니다.
+            }
+
+            // 찾은 각 BlackHoleBall에 대해 BlackHoleStart() 함수를 호출합니다.
+            foreach (BlackHoleBall blackHole in blackHoleBalls)
+            {
+                blackHole.BlackHoleStart();
+            }
         }
     }
 

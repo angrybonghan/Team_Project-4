@@ -15,6 +15,7 @@ TagManager:
   - OB_Chaos
   - OB_SpeedUp
   - OB_Shield
+  - OB_NoFunction
   layers:
   - Default
   - TransparentFX

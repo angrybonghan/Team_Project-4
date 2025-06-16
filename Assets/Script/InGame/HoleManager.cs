@@ -106,7 +106,7 @@ public class HoleManager : MonoBehaviour
                 BallController.GetShield();
                 break;
 
-            case "OB_Black_Hole":
+            case "OB_NoFunction":
                 PlayAnimation(); // 애니메이션 실행
                 Destroy(other.gameObject);
                 break;
@@ -119,6 +119,6 @@ public class HoleManager : MonoBehaviour
 
     void PlayAnimation()
     {
-        GameObject Animation = Instantiate(animationPrefabs, transform.position, transform.rotation);
+        Instantiate(animationPrefabs, transform.position, transform.rotation);
     }
 }
