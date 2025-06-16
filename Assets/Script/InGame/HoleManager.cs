@@ -28,6 +28,10 @@ public class HoleManager : MonoBehaviour
                     GameManager.attemptsLeft++;
                     BallController.unShield();
                 }
+                else
+                {
+                    SkillGuideManager.summonGuidePaper("초크 추가 감소");
+                }
 
                 GameManager.attemptsLeft--; // 플레이어 공이 들어갈 시 남은 초크 --
                 GameManager.attemptsText.text = GameManager.attemptsLeft.ToString(); // 텍스트 UI 업데이트
@@ -57,6 +61,7 @@ public class HoleManager : MonoBehaviour
                 PlayAnimation(); // 애니메이션 실행
                 GameManager.scoredBallInChalk += 2; //현재 초크에 들어간 공의 수를 두개 늘리기
                 displayBall.DisplayBallCount += 2;
+                SkillGuideManager.summonGuidePaper("보드에 볼 두 개 추가");
                 break;
 
             case "OB_Level_Down":   //레벨 다운 볼
@@ -70,6 +75,8 @@ public class HoleManager : MonoBehaviour
                     // 고로 -2 + 1 = -1
                     // 최종적으로 1만 빠짐
                 }
+
+                SkillGuideManager.summonGuidePaper("레벨 1 감소");
                 break;
 
             case "OB_Copy":
@@ -86,24 +93,29 @@ public class HoleManager : MonoBehaviour
                     GameObject EightBall = Instantiate(eightBallPrefabs, CopyPos, transform.rotation);
                 }
                 Destroy(other.gameObject);
+
+                SkillGuideManager.summonGuidePaper("8볼 복제");
                 break;
 
             case "OB_Chaos":
                 PlayAnimation(); // 애니메이션 실행
                 Destroy(other.gameObject);
                 GameManager.isChaosBallActivate = true;
+                SkillGuideManager.summonGuidePaper("뒤죽박죽");
                 break;
 
             case "OB_SpeedUp":
                 PlayAnimation(); // 애니메이션 실행
                 Destroy(other.gameObject);
                 GameManager.SpeedBallChance = 2;
+                SkillGuideManager.summonGuidePaper("치는 힘 증가");
                 break;
 
             case "OB_Shield":
                 PlayAnimation(); // 애니메이션 실행
                 Destroy(other.gameObject);
                 BallController.GetShield();
+                SkillGuideManager.summonGuidePaper("초크 감소 1회 방어");
                 break;
 
             case "OB_NoFunction":

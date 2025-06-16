@@ -11,6 +11,7 @@ public class ShockwaveBall : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        SkillGuideManager.summonGuidePaper("ÆÛ¾î¾û!!");
         EmitShockwave();
         GameObject Effect = Instantiate(effectPrefabs, transform.position, transform.rotation);
         Destroy(gameObject);

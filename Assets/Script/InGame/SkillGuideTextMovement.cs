@@ -5,7 +5,7 @@ using UnityEngine;
 public class SkillGuideTextMovement : MonoBehaviour
 {
     [Header("글자")]
-    public TextMeshPro Text;
+    public TextMeshPro guideText;
 
     private float moveSpeed = 20f;
     private float stayTime = 5; // 유지 시간
@@ -20,6 +20,8 @@ public class SkillGuideTextMovement : MonoBehaviour
 
     void Start()
     {
+        guideText.text = SkillGuideManager.guideText;
+
         startScale = transform.localScale;
         startPosition = transform.localPosition;
         startRotation = transform.localRotation;
@@ -45,12 +47,12 @@ public class SkillGuideTextMovement : MonoBehaviour
         yield return new WaitForSeconds(stayTime);
 
         targetScale = startScale;
-        targetRotation = startRotation;
+        targetRotation = Quaternion.Euler(0, 0, 90);
         targetPosition = startPosition;
 
         yield return new WaitForSeconds(10/ moveSpeed);
 
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 
 }
