@@ -30,11 +30,15 @@ public class GameManager : MonoBehaviour
     public int attemptsLeft_ = 10;
     public static int attemptsLeft;
     public TextMeshProUGUI attemptsText_;
-
     public static TextMeshProUGUI attemptsText;
 
     [Header("게임 승리 애니메이션")]
     public GameObject victoryAnimation;
+
+    [Header("랜덤 볼 애니메이션")]
+    public GameObject RandomPickAnimation;
+    [Header("랜덤 볼 기회")]
+    public int RandomPickChance = 3;
 
     public static bool canPlay = true;  // 전체 공이 정지해 게임 플레이가 가능한가?
     public static bool isGameOver = false; // 게임 오버되었는가?
@@ -84,11 +88,6 @@ public class GameManager : MonoBehaviour
             {
                 scoredBallInChalk++;
                 displayBall.DisplayBallCount++;
-            }
-
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                RandomPick();
             }
 
             if (Input.GetKeyDown(KeyCode.H))
@@ -260,44 +259,36 @@ public class GameManager : MonoBehaviour
     void GameWin()
     {
         DataManager.SetLevelAccess(nextLevelNumber);
-        GameObject victoryAnim = Instantiate(victoryAnimation);
+        Instantiate(victoryAnimation);
         ScreenTransition.Goto("SelectStage", 2.2f, 0.5f);
     }
 
-    void RandomPick()
+    public void RandomPick()
     {
-        GameObject[] eightBallObjects = GameObject.FindGameObjectsWithTag("8Ball");
-        GameObject[] mergeBallObjects = GameObject.FindGameObjectsWithTag("MergeBall");
-        List<GameObject> targetBallObjects = eightBallObjects.Concat(mergeBallObjects).ToList();
-
-        int randomIndex = Random.Range(0, targetBallObjects.Count);
-        GameObject selectedBall = targetBallObjects[randomIndex];
-
-        switch (selectedBall.gameObject.tag)
+        if (RandomPickChance <= 0)
         {
-            case "MergeBall":
-                Destroy(selectedBall);
-                scoredBallInChalk++;
-                displayBall.DisplayBallCount++;
-                break;
-
-            case "8Ball":
-                Destroy(selectedBall);
-                if (isBallEight)
-                {
-                    GameWin();
-                }
-                else
-                {
-                    GameOver();
-                }
-                break;
-
-            default:
-                Debug.LogError("[???] 태그가 뭣도 아닌 것이 스킬의 대상이 됨");
-                break;
+            return;
         }
 
+        canPlay=false;
+        attemptsLeft++;
+
+        RandomPickChance--;
+        SkillGuideManager.summonGuidePaper($"랜덤 볼! ({RandomPickChance}번 남음)");
+
+        BallDeceleration[] allBalls = FindObjectsOfType<BallDeceleration>();
+
+        int randomBallIndex = Random.Range(0, allBalls.Length);
+        BallDeceleration selectedBallScript = allBalls[randomBallIndex];
+        GameObject selectedBallObject = selectedBallScript.gameObject;
+
+        Instantiate(RandomPickAnimation, selectedBallObject.transform.position, selectedBallObject.transform.rotation);
+
+        GameObject[] allHoles = GameObject.FindGameObjectsWithTag("Hole");
+        int randomHoleIndex = Random.Range(0, allHoles.Length);
+        GameObject selectedHoleObject = allHoles[randomHoleIndex];
+
+        selectedBallObject.transform.position = selectedHoleObject.transform.position;
     }
 
 }

@@ -254,8 +254,6 @@ public class BallController : MonoBehaviour
             hasReachedMinDrag = false;
             GameManager.canPlay = false;
 
-            // 블랙홀 볼 작동
-            Debug.Log("S 1");
 
             BlackHoleBall[] blackHoleBalls = FindObjectsOfType<BlackHoleBall>();
 

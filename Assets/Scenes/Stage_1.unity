@@ -301,6 +301,8 @@ MonoBehaviour:
   attemptsLeft_: 25
   attemptsText_: {fileID: 723616020}
   victoryAnimation: {fileID: 5767937590128293990, guid: 6a297dc9296ec444491eebec0bd9f6cc, type: 3}
+  RandomPickAnimation: {fileID: 2086946608513956243, guid: 84d029928c116ab40967f4b43cf8963f, type: 3}
+  RandomPickChance: 3
 --- !u!4 &454702635
 Transform:
   m_ObjectHideFlags: 0
@@ -4063,6 +4065,22 @@ PrefabInstance:
     - target: {fileID: 279663303859566004, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574408209712941287, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 454702634}
+    - target: {fileID: 1574408209712941287, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RandomPick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574408209712941287, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574408209712941287, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1959084434038898295, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
       propertyPath: m_Pivot.x
