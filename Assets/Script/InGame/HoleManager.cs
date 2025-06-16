@@ -25,12 +25,13 @@ public class HoleManager : MonoBehaviour
 
                 if (BallController.isShieldExistence) // 방어막이 있을 경우, 점수를 1 올려 상쇄
                 {
+                    SkillGuideManager.summonGuidePaper("초크 추가 감소 방어됨!");
                     GameManager.attemptsLeft++;
                     BallController.unShield();
                 }
                 else
                 {
-                    SkillGuideManager.summonGuidePaper("초크 추가 감소");
+                    SkillGuideManager.summonGuidePaper("초크 1 추가 감소");
                 }
 
                 GameManager.attemptsLeft--; // 플레이어 공이 들어갈 시 남은 초크 --
@@ -108,7 +109,7 @@ public class HoleManager : MonoBehaviour
                 PlayAnimation(); // 애니메이션 실행
                 Destroy(other.gameObject);
                 GameManager.SpeedBallChance = 2;
-                SkillGuideManager.summonGuidePaper("치는 힘 증가");
+                SkillGuideManager.summonGuidePaper("다음에 치는 힘 증가");
                 break;
 
             case "OB_Shield":
