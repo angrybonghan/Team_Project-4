@@ -1,33 +1,48 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    [Header("¹°¸® ¼³Á¤")]
-    public float forceMultiplier = 5f; // °ø ÆÄ¿ö ¹èÀ²
-    public float maxForce = 4f; // ÃÖ´ë °ø ÆÄ¿ö
-    public float minLaunchDragMagnitude = 0.25f; // ÃÖ¼Ò ¸¶¿ì½º µå·¡±× ±æÀÌ
+    public static BallController instance { get; private set; }
 
-    [Header("½Ã°¢Àû ¿ä¼Ò ¼³Á¤")]
-    public GameObject VisualUI; // µå·¡±×ÇÒ¶§¸¸ ³ª¿Ã ¿ÀºêÁ§Æ®µéÀÇ ¾ö¸¶ UI
-    public GameObject arrowIndicator; // È­»ìÇ¥
-    public GameObject dotLineIndicator; // È­»ìÇ¥ ²¿¸®¿¡ ³ª¿Ã Á¡¼±
-    public GameObject stick; // ´ç±¸ ¸·´ë±â
-    public GameObject stickPower; // ´ç±¸ ¸·´ë±â¿¡ Ç¥½ÃµÉ ÆÄ¿ö °ÔÀÌÁö
-    public float minStickPowerX = -0.5f; //ÃÖ°í, ÃÖ¼Ò ¸·´ë±â ÆÄ¿ö À§Ä¡
+    [Header("ë¬¼ë¦¬ ì„¤ì •")]
+    public float forceMultiplier = 5f; // ê³µ íŒŒì›Œ ë°°ìœ¨
+    public float maxForce = 4f; // ìµœëŒ€ ê³µ íŒŒì›Œ
+    public float minLaunchDragMagnitude = 0.25f; // ìµœì†Œ ë§ˆìš°ìŠ¤ ë“œë˜ê·¸ ê¸¸ì´
+
+    [Header("ì‹œê°ì  ìš”ì†Œ ì„¤ì •")]
+    public GameObject VisualUI; // ë“œë˜ê·¸í• ë•Œë§Œ ë‚˜ì˜¬ ì˜¤ë¸Œì íŠ¸ë“¤ì˜ ì—„ë§ˆ UI
+    public GameObject arrowIndicator; // í™”ì‚´í‘œ
+    public GameObject dotLineIndicator; // í™”ì‚´í‘œ ê¼¬ë¦¬ì— ë‚˜ì˜¬ ì ì„ 
+    public GameObject stick; // ë‹¹êµ¬ ë§‰ëŒ€ê¸°
+    public GameObject stickPower; // ë‹¹êµ¬ ë§‰ëŒ€ê¸°ì— í‘œì‹œë  íŒŒì›Œ ê²Œì´ì§€
+    public float minStickPowerX = -0.5f; // ìµœê³ , ìµœì†Œ ë§‰ëŒ€ê¸° íŒŒì›Œ ìœ„ì¹˜
     public float maxStickPowerX = -2.1f;
-    public float arrowDistance = 0.75f; // È­»ìÇ¥°¡ ÃÖ´ë·Î ´Ã¾î³¯ ¼ö ÀÖ´Â °Å¸®
-    public float arrowSensitivity = 1.0f; // È­»ìÇ¥ ´Ã¾î³ª´Â °¨µµ
-    public float dotLineDistance = 0.3f; // Á¡ ½ºÇÁ¶óÀÌÆ® ±æÀÌ °¨¼Ò (¾ÈÇÏ¸é ³Ê¹« ±æ¾îÁü)
+    public float arrowDistance = 0.75f; // í™”ì‚´í‘œê°€ ìµœëŒ€ë¡œ ëŠ˜ì–´ë‚  ìˆ˜ ìˆëŠ” ê±°ë¦¬
+    public float arrowSensitivity = 1.0f; // í™”ì‚´í‘œ ëŠ˜ì–´ë‚˜ëŠ” ê°ë„
+    public float dotLineDistance = 0.3f; // ì  ìŠ¤í”„ë¼ì´íŠ¸ ê¸¸ì´ ê°ì†Œ (ì•ˆí•˜ë©´ ë„ˆë¬´ ê¸¸ì–´ì§)
 
-    [Header("ÇÃ·¹ÀÌ¾î °ø ÀÜ»ó")]
+    [Header("í”Œë ˆì´ì–´ ê³µ ì”ìƒ")]
     public GameObject playerBallAfterimage;
 
-    // Raycast¸¦ À§ÇÑ ·¹ÀÌ¾î ¸¶½ºÅ©
-    [Header("Raycast ¼³Á¤")]
-    public LayerMask obstacleLayer; // ·¹ÀÌÄ³½ºÆ® ·¹ÀÌ¾î
+    // ì‰´ë“œ ì ìš© ì‘ë™ì‹œê°„ (Inspectorì—ì„œ ì„¤ì •í•  ìˆ˜ ìˆë„ë¡ publicìœ¼ë¡œ ìœ ì§€)
+    // ì´ ê°’ì„ static ë³€ìˆ˜ì— í• ë‹¹í•˜ì—¬ static í•¨ìˆ˜ì—ì„œ ì ‘ê·¼ ê°€ëŠ¥í•˜ê²Œ í•©ë‹ˆë‹¤.
+    [Header("ì‰´ë“œ ì ìš© ì‘ë™ì‹œê°„")]
+    public float runTime_ = 0.2f;
+    public float operatingFrequency_ = 20;
 
-    [Header("Èû¿¡ µû¸¥ »ö»ó º¯È­")]
+    // static ë³€ìˆ˜ë“¤ (static í•¨ìˆ˜ì—ì„œ ì ‘ê·¼ ê°€ëŠ¥)
+    private static float staticRunTime; // runTime_ ê°’ì„ ë°›ì„ static ë³€ìˆ˜
+    private static float staticOperatingFrequency; // operatingFrequency_ ê°’ì„ ë°›ì„ static ë³€ìˆ˜
+    private static Transform shield;
+    private static Coroutine staticCurrentGetShieldCoroutine; // Coroutine ë³€ìˆ˜ë„ staticìœ¼ë¡œ ë³€ê²½
+    public static bool isShieldExistence = false;
+
+    // Raycastë¥¼ ìœ„í•œ ë ˆì´ì–´ ë§ˆìŠ¤í¬
+    [Header("Raycast ì„¤ì •")]
+    public LayerMask obstacleLayer; // ë ˆì´ìºìŠ¤íŠ¸ ë ˆì´ì–´
+
+    [Header("í˜ì— ë”°ë¥¸ ìƒ‰ìƒ ë³€í™”")]
     public Color minForceColor = Color.green;
     public Color maxForceColor = Color.red;
 
@@ -41,7 +56,28 @@ public class BallController : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null) // ì‹±ê¸€í†¤
+        {
+            instance = this;
+
+            // Awakeì—ì„œ Inspectorì—ì„œ ì„¤ì •ëœ ê°’ì„ static ë³€ìˆ˜ì— í• ë‹¹
+            staticRunTime = runTime_;
+            staticOperatingFrequency = operatingFrequency_;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return; // Destroy í›„ì—ëŠ” ë” ì´ìƒ ì§„í–‰í•˜ì§€ ì•Šë„ë¡ ì¶”ê°€
+        }
+
         rb = GetComponent<Rigidbody2D>();
+
+        // shieldê°€ nullì¼ ê²½ìš°ì—ë§Œ GetChild(0)ë¡œ ì°¾ë„ë¡ ë°©ì–´ ì½”ë“œ ì¶”ê°€
+        if (shield == null && transform.childCount > 0)
+        {
+            shield = transform.GetChild(0);
+        }
+        // ì´ ê²½ìš° ì‰´ë“œ ê´€ë ¨ ê¸°ëŠ¥ì´ ì‘ë™í•˜ì§€ ì•Šì„ ìˆ˜ ìˆìŒì„ ì•Œë¦¼
     }
 
     void Start()
@@ -53,6 +89,8 @@ public class BallController : MonoBehaviour
         {
             VisualUI.SetActive(false);
         }
+
+        unShield();
     }
 
     void Update()
@@ -76,72 +114,68 @@ public class BallController : MonoBehaviour
 
         if (isDragging)
         {
-            // ¸¶¿ì½º À§Ä¡¸¦ ±¸ÇÏ°í, ½ÃÀÛ À§Ä¡¿¡¼­ »©¼­ µå·¡±× °Å¸®¸¦ ±¸ÇÔ
+            // ë§ˆìš°ìŠ¤ ìœ„ì¹˜ë¥¼ êµ¬í•˜ê³ , ì‹œì‘ ìœ„ì¹˜ì—ì„œ ë¹¼ì„œ ë“œë˜ê·¸ ê±°ë¦¬ë¥¼ êµ¬í•¨
             Vector2 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 dragVector = startMousePos - currentMousePos;
             float rawDragMagnitude = dragVector.magnitude;
 
-            
-            if (rawDragMagnitude >= minLaunchDragMagnitude) // ÇÑ¹ø ÃÖ¼Ò ±æÀÌ¸¦ ³Ñ¾ú´ÂÁö È®ÀÎ
+            if (rawDragMagnitude >= minLaunchDragMagnitude) // í•œë²ˆ ìµœì†Œ ê¸¸ì´ë¥¼ ë„˜ì—ˆëŠ”ì§€ í™•ì¸
             {
                 hasReachedMinDrag = true;
             }
-            else if (hasReachedMinDrag && rawDragMagnitude < minLaunchDragMagnitude) // ÃÖ¼Ò ±æÀÌ¸¦ ³Ñ°í ´Ù½Ã µ¹¾Æ¿À¸é Ãë¼Ò
+            else if (hasReachedMinDrag && rawDragMagnitude < minLaunchDragMagnitude) // ìµœì†Œ ê¸¸ì´ë¥¼ ë„˜ê³  ë‹¤ì‹œ ëŒì•„ì˜¤ë©´ ì·¨ì†Œ
             {
-                // UI ²ô°í ¾îÂ¼°íÀúÂ¼°í ´ÙÇÔ
+                // UI ë„ê³  ì–´ì©Œê³ ì €ì©Œê³  ë‹¤í•¨
                 isDragging = false;
                 hasReachedMinDrag = false;
 
-                if (VisualUI != null) 
+                if (VisualUI != null)
                 {
                     VisualUI.SetActive(false);
                 }
                 return;
             }
 
-            float currentDragMagnitude = Mathf.Min(rawDragMagnitude, maxForce); // ¸¶¿ì½º µå·¡±× ±æÀÌ
+            float currentDragMagnitude = Mathf.Min(rawDragMagnitude, maxForce); // ë§ˆìš°ìŠ¤ ë“œë˜ê·¸ ê¸¸ì´
             float forceRatio = currentDragMagnitude / maxForce;
-            //Debug.Log($"currentDragMagnitude = {currentDragMagnitude}");
-            //Debug.Log($"forceRatio = {forceRatio}");
 
             Vector2 clampedDirection = dragVector.normalized;
             float angle = Mathf.Atan2(clampedDirection.y, clampedDirection.x) * Mathf.Rad2Deg;
             Color lerpedColor = Color.Lerp(minForceColor, maxForceColor, forceRatio);
 
-            // ·¹ÀÌÄ³½ºÆ®
-            Vector2 raycastOrigin = transform.position; // ·¹ÀÌ À§Ä¡ °áÁ¤
+            // ë ˆì´ìºìŠ¤íŠ¸
+            Vector2 raycastOrigin = transform.position; // ë ˆì´ ìœ„ì¹˜ ê²°ì •
             float raycastDistance = Mathf.Min(currentDragMagnitude * forceMultiplier * arrowSensitivity, arrowDistance * forceMultiplier);
-            // ¡è ·¹ÀÌ ±æÀÌ¿¡ ¸®¹ÌÆ® °ÉÀ½
+            // ë ˆì´ ê¸¸ì´ì— ë¦¬ë¯¸íŠ¸ ê±¸ìŒ
 
-            // ·¹ÀÌ ¹ß½Î!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!@@@@
+            // ë ˆì´ ë°œì‹¸
             RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, clampedDirection, raycastDistance, obstacleLayer);
 
-            Vector3 arrowTargetPosition; // È­»ìÇ¥°¡ ¹ÚÈù À§Ä¡, ¾È ¹ÚÇûÀ¸¸é ÃÖ´ë ±æÀÌ À§Ä¡
-            float actualLineLength; // ½ÇÁ¦ Á¡¼± ±æÀÌ
-            // ¿©±â¼­ º¯¼ö ¼±¾ğÇÏ´Â ÀÌÀ¯ ¸ğ¸£°ÚÀ¸¸é ÀÌ½ÃÇö DMÀ¸·Î ¹°¾îº¸¼À ¤·¤·
-            // ¾Æ´Ï´Ù ±×³É ¿©±â¼­ ¸»ÇÏ°ÚÀ½
-            // ¹Ø¿¡ if ¾È¿¡¼­ µÎ°³ÀÇ µ¶¸³ÀûÀÎ ÀÛµ¿À» ÇØ¾ßÇÏÀİ¾Æ ÀÌ »§@»§ÅÊ¾Æ~~
+            Vector3 arrowTargetPosition; // í™”ì‚´í‘œê°€ ë°•íŒ ìœ„ì¹˜, ì•ˆ ë°•í˜”ìœ¼ë©´ ìµœëŒ€ ê¸¸ì´ ìœ„ì¹˜
+            float actualLineLength; // ì‹¤ì œ ì ì„  ê¸¸ì´
+            // ì—¬ê¸°ì„œ ë³€ìˆ˜ ì„ ì–¸í•˜ëŠ” ì´ìœ  ëª¨ë¥´ê² ìœ¼ë©´ ì´ì‹œí˜„ DMìœ¼ë¡œ ë¬¼ì–´ë³´ì…ˆ ã…‡ã…‡
+            // ì•„ë‹ˆë‹¤ ê·¸ëƒ¥ ì—¬ê¸°ì„œ ë§í•˜ê² ìŒ
+            // ë°‘ì— if ì•ˆì—ì„œ ë‘ê°œì˜ ë…ë¦½ì ì¸ ì‘ë™ì„ í•´ì•¼í•˜ì–ì•„ ì´ ë¹µë¹µíƒ±ì•„~~
 
             if (hit.collider != null)
             {
-                // Ãæµ¹ ÁöÁ¡¿¡¼­ ¸ØÃä´Ï´Ù.
+                // ì¶©ëŒ ì§€ì ì—ì„œ ë©ˆì¶¥ë‹ˆë‹¤.
                 arrowTargetPosition = hit.point;
                 actualLineLength = (hit.point - raycastOrigin).magnitude;
-                //Debug.Log($"È­»ìÇ¥°¡ {hit.collider.name}¿¡ Ãæµ¹ÇÔ"); ¡ç °Á Å×½ºÆ®¿ë ·Î±×
             }
             else
             {
-                // Ãæµ¹ÇÏÁö ¾ÊÀ¸¸é ÃÖ´ëÄ¡·Î ¼³Á¤
+                // ì¶©ëŒí•˜ì§€ ì•Šìœ¼ë©´ ìµœëŒ€ì¹˜ë¡œ ì„¤ì •
                 arrowTargetPosition = raycastOrigin + (Vector2)clampedDirection * raycastDistance;
                 actualLineLength = raycastDistance;
             }
 
-            // È­»ìÇ¥ Á¦¾î
+            // í™”ì‚´í‘œ ì œì–´
             if (arrowIndicator != null)
             {
                 arrowIndicator.SetActive(true);
                 arrowIndicator.transform.rotation = Quaternion.Euler(0, 0, angle);
-                arrowIndicator.transform.position = arrowTargetPosition; // ·¹ÀÌÄ³½ºÆ® ÃÖÁ¾À§Ä¡
+                arrowIndicator.transform.position = arrowTargetPosition; // ë ˆì´ìºìŠ¤íŠ¸ ìµœì¢…ìœ„ì¹˜
 
                 SpriteRenderer arrowRenderer = arrowIndicator.GetComponent<SpriteRenderer>();
                 if (arrowRenderer != null)
@@ -150,7 +184,7 @@ public class BallController : MonoBehaviour
                 }
             }
 
-            // Á¡¼± Á¦¾î
+            // ì ì„  ì œì–´
             if (dotLineIndicator != null)
             {
                 dotLineIndicator.SetActive(true);
@@ -160,26 +194,26 @@ public class BallController : MonoBehaviour
                 SpriteRenderer dotRenderer = dotLineIndicator.GetComponent<SpriteRenderer>();
                 if (dotRenderer != null)
                 {
-                    // Á¡¼± ±æÀÌ´Â ½ÇÁ¦ °è»êµÈ ±æÀÌ¸¦ »ç¿ëÇÕ´Ï´Ù.
+                    // ì ì„  ê¸¸ì´ëŠ” ì‹¤ì œ ê³„ì‚°ëœ ê¸¸ì´ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.
                     dotRenderer.size = new Vector2(actualLineLength * dotLineDistance, dotRenderer.size.y);
                     dotRenderer.color = lerpedColor;
                 }
             }
 
-            // ´ç±¸¸·´ë Á¦¾î
+            // ë‹¹êµ¬ë§‰ëŒ€ ì œì–´
             if (stick != null)
             {
                 stick.transform.rotation = Quaternion.Euler(0, 0, angle);
             }
 
-            // ´ç±¸¸·´ë ÆÄ¿ö °ÔÀÌÁö Á¦¾î
+            // ë‹¹êµ¬ë§‰ëŒ€ íŒŒì›Œ ê²Œì´ì§€ ì œì–´
             if (stickPower != null)
             {
                 stickPower.transform.localPosition = new Vector3(Mathf.Lerp(minStickPowerX, maxStickPowerX, forceRatio), stickPower.transform.localPosition.y, stickPower.transform.localPosition.z);
             }
         }
 
-        // µå·¡±× Á¾·á
+        // ë“œë˜ê·¸ ì¢…ë£Œ
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             endMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -211,8 +245,6 @@ public class BallController : MonoBehaviour
                 rb.AddForce(dragVector * forceMultiplier, ForceMode2D.Impulse);
             }
 
-            
-
             if (VisualUI != null)
             {
                 VisualUI.SetActive(false);
@@ -239,5 +271,61 @@ public class BallController : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public static void unShield()
+    {
+        if (staticCurrentGetShieldCoroutine != null)
+        {
+            instance.StopCoroutine(staticCurrentGetShieldCoroutine);
+            staticCurrentGetShieldCoroutine = null;
+        }
+
+        shield.localScale = new Vector3(4f, 4f, 4f);
+        shield.localEulerAngles = new Vector3(shield.localEulerAngles.x, shield.localEulerAngles.y, 225f);
+        shield.gameObject.SetActive(false);
+
+        isShieldExistence = false;
+    }
+
+    public static void GetShield()
+    {
+        // ì¤‘ë‹¨í•˜ê³  ìƒˆë¡œ ì‹œì‘ (ì½”ë£¨í‹´ ìˆìœ¼ë©´)
+        if (staticCurrentGetShieldCoroutine != null)
+        {
+            unShield();
+        }
+
+        shield.gameObject.SetActive(true);
+        staticCurrentGetShieldCoroutine = instance.StartCoroutine(SmoothShieldTransform(staticRunTime));
+        isShieldExistence = true;
+    }
+
+    private static IEnumerator SmoothShieldTransform(float duration)
+    {
+        Vector3 startScale = shield.localScale;
+        Vector3 targetScale = new Vector3(1f, 1f, 1f);
+
+        Quaternion startRotation = shield.localRotation;
+        Quaternion targetRotation = Quaternion.Euler(shield.localEulerAngles.x, shield.localEulerAngles.y, 45f);
+
+        float timeElapsed = 0f;
+        float stepDuration = 1f / staticOperatingFrequency; // ê° ë‹¨ê³„ì˜ ì§€ì† ì‹œê°„
+
+        while (timeElapsed < duration)
+        {
+            timeElapsed += stepDuration;
+            float normalizedTime = Mathf.Min(timeElapsed / duration, 1f); // 0ì—ì„œ 1ê¹Œì§€ì˜ ì§„í–‰
+            shield.localScale = Vector3.Lerp(startScale, targetScale, normalizedTime);
+            shield.localRotation = Quaternion.Slerp(startRotation, targetRotation, normalizedTime); // (Lerpë„ ê°€ëŠ¥)
+
+            yield return new WaitForSeconds(stepDuration);
+        }
+
+        // ë¶€ë™ ì†Œìˆ˜ì  ì˜¤ì°¨
+        shield.localScale = targetScale;
+        shield.localRotation = targetRotation;
+
+        staticCurrentGetShieldCoroutine = null;
     }
 }

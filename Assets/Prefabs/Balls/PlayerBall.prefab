@@ -148,6 +148,8 @@ MonoBehaviour:
   arrowSensitivity: 1
   dotLineDistance: 0.9
   playerBallAfterimage: {fileID: 7895975073601629277, guid: 08ecc96b20b535245acbbe430ad1a631, type: 3}
+  runTime_: 0.3
+  operatingFrequency_: 20
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -507,7 +509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4598590092931447895
 Transform:
   m_ObjectHideFlags: 0

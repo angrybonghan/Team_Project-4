@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
                     }
 
                     displayBall.DisplayBallReset();
+
                     if (scoredBallInChalk > 1) // 들어간 공 - 1 만큼 초크 회복 (콤보)
                     {
                         while (scoredBallInChalk > 1)
@@ -147,7 +148,7 @@ public class GameManager : MonoBehaviour
                     {
 
                         attemptsText.text = "X";
-                        //StartCoroutine(fadeOutScreenForGameover());
+                        GameOver();
                     }
 
                     // 플레이어 공이 벽을 뚫었거나 (버그)
