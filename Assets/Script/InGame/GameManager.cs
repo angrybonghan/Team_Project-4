@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.Linq;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -269,8 +270,11 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
+        if (!DataManager.isGameActionable)
+        {
+            return;
+        }
 
-        canPlay=false;
         attemptsLeft++;
 
         RandomPickChance--;
@@ -289,6 +293,17 @@ public class GameManager : MonoBehaviour
         GameObject selectedHoleObject = allHoles[randomHoleIndex];
 
         selectedBallObject.transform.position = selectedHoleObject.transform.position;
+
+        StartCoroutine(UpdateForRandomBall());
+    }
+
+    IEnumerator UpdateForRandomBall()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            yield return null;
+        }
+        canPlay = false;
     }
 
 }

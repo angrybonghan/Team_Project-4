@@ -26,7 +26,6 @@ public class BallController : MonoBehaviour
     public GameObject playerBallAfterimage;
 
     // 쉴드 적용 작동시간 (Inspector에서 설정할 수 있도록 public으로 유지)
-    // 이 값을 static 변수에 할당하여 static 함수에서 접근 가능하게 합니다.
     [Header("쉴드 적용 작동시간")]
     public float runTime_ = 0.2f;
     public float operatingFrequency_ = 20;
@@ -53,6 +52,7 @@ public class BallController : MonoBehaviour
 
     private bool isDragging = false;
     private bool hasReachedMinDrag = false;
+    private bool isUIVisible = false; // VisualUI가 현재 보이는지 여부를 추적하는 변수 추가
 
     private void Awake()
     {
@@ -77,7 +77,6 @@ public class BallController : MonoBehaviour
         {
             shield = transform.GetChild(0);
         }
-        // 이 경우 쉴드 관련 기능이 작동하지 않을 수 있음을 알림
     }
 
     void Start()
@@ -88,6 +87,7 @@ public class BallController : MonoBehaviour
         if (VisualUI != null)
         {
             VisualUI.SetActive(false);
+            isUIVisible = false; // 초기 상태는 보이지 않음
         }
 
         unShield();
@@ -104,26 +104,37 @@ public class BallController : MonoBehaviour
 
             isDragging = true;
             hasReachedMinDrag = false;
+            isUIVisible = false; // 드래그 시작 시 UI는 아직 안 보임
             startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (VisualUI != null)
-            {
-                VisualUI.SetActive(true);
-            }
+            // 여기에 VisualUI.SetActive(true)는 더 이상 놓지 않습니다.
         }
 
         if (isDragging)
         {
-            // 마우스 위치를 구하고, 시작 위치에서 빼서 드래그 거리를 구함
             Vector2 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 dragVector = startMousePos - currentMousePos;
             float rawDragMagnitude = dragVector.magnitude;
 
-            if (rawDragMagnitude >= minLaunchDragMagnitude) // 한번 최소 길이를 넘었는지 확인
+            // VisualUI를 띄울 최소 드래그 거리를 계산
+            float minUIVisibleDragMagnitude = minLaunchDragMagnitude / 5f;
+
+            // 드래그가 minUIVisibleDragMagnitude를 넘었고, UI가 아직 보이지 않는 경우 활성화
+            if (rawDragMagnitude >= minUIVisibleDragMagnitude && !isUIVisible)
+            {
+                if (VisualUI != null)
+                {
+                    VisualUI.SetActive(true);
+                    isUIVisible = true; // UI가 보인다고 상태 업데이트
+                }
+            }
+
+
+            if (rawDragMagnitude >= minLaunchDragMagnitude)
             {
                 hasReachedMinDrag = true;
             }
-            else if (hasReachedMinDrag && rawDragMagnitude < minLaunchDragMagnitude) // 최소 길이를 넘고 다시 돌아오면 취소
+            else if (hasReachedMinDrag && rawDragMagnitude < minLaunchDragMagnitude)
             {
                 // UI 끄고 어쩌고저쩌고 다함
                 isDragging = false;
@@ -132,99 +143,92 @@ public class BallController : MonoBehaviour
                 if (VisualUI != null)
                 {
                     VisualUI.SetActive(false);
+                    isUIVisible = false; // UI가 보이지 않는다고 상태 업데이트
                 }
                 return;
             }
 
-            float currentDragMagnitude = Mathf.Min(rawDragMagnitude, maxForce); // 마우스 드래그 길이
-            float forceRatio = currentDragMagnitude / maxForce;
-
-            Vector2 clampedDirection = dragVector.normalized;
-            float angle = Mathf.Atan2(clampedDirection.y, clampedDirection.x) * Mathf.Rad2Deg;
-            Color lerpedColor = Color.Lerp(minForceColor, maxForceColor, forceRatio);
-
-            // 레이캐스트
-            Vector2 raycastOrigin = transform.position; // 레이 위치 결정
-            float raycastDistance = Mathf.Min(currentDragMagnitude * forceMultiplier * arrowSensitivity, arrowDistance * forceMultiplier);
-            // 레이 길이에 리미트 걸음
-
-            // 레이 발싸
-            RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, clampedDirection, raycastDistance, obstacleLayer);
-
-            Vector3 arrowTargetPosition; // 화살표가 박힌 위치, 안 박혔으면 최대 길이 위치
-            float actualLineLength; // 실제 점선 길이
-            // 여기서 변수 선언하는 이유 모르겠으면 이시현 DM으로 물어보셈 ㅇㅇ
-            // 아니다 그냥 여기서 말하겠음
-            // 밑에 if 안에서 두개의 독립적인 작동을 해야하잖아 이 빵빵탱아~~
-
-            if (hit.collider != null)
+            // UI가 활성화된 경우에만 나머지 시각적 업데이트 로직 실행
+            if (isUIVisible)
             {
-                // 충돌 지점에서 멈춥니다.
-                arrowTargetPosition = hit.point;
-                actualLineLength = (hit.point - raycastOrigin).magnitude;
-            }
-            else
-            {
-                // 충돌하지 않으면 최대치로 설정
-                arrowTargetPosition = raycastOrigin + (Vector2)clampedDirection * raycastDistance;
-                actualLineLength = raycastDistance;
-            }
+                float currentDragMagnitude = Mathf.Min(rawDragMagnitude, maxForce);
+                float forceRatio = currentDragMagnitude / maxForce;
 
-            // 화살표 제어
-            if (arrowIndicator != null)
-            {
-                arrowIndicator.SetActive(true);
-                arrowIndicator.transform.rotation = Quaternion.Euler(0, 0, angle);
-                arrowIndicator.transform.position = arrowTargetPosition; // 레이캐스트 최종위치
+                Vector2 clampedDirection = dragVector.normalized;
+                float angle = Mathf.Atan2(clampedDirection.y, clampedDirection.x) * Mathf.Rad2Deg;
+                Color lerpedColor = Color.Lerp(minForceColor, maxForceColor, forceRatio);
 
-                SpriteRenderer arrowRenderer = arrowIndicator.GetComponent<SpriteRenderer>();
-                if (arrowRenderer != null)
+                Vector2 raycastOrigin = transform.position;
+                float raycastDistance = Mathf.Min(currentDragMagnitude * forceMultiplier * arrowSensitivity, arrowDistance * forceMultiplier);
+
+                RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, clampedDirection, raycastDistance, obstacleLayer);
+
+                Vector3 arrowTargetPosition;
+                float actualLineLength;
+
+                if (hit.collider != null)
                 {
-                    arrowRenderer.color = lerpedColor;
+                    arrowTargetPosition = hit.point;
+                    actualLineLength = (hit.point - raycastOrigin).magnitude;
                 }
-            }
-
-            // 점선 제어
-            if (dotLineIndicator != null)
-            {
-                dotLineIndicator.SetActive(true);
-                dotLineIndicator.transform.position = transform.position;
-                dotLineIndicator.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-                SpriteRenderer dotRenderer = dotLineIndicator.GetComponent<SpriteRenderer>();
-                if (dotRenderer != null)
+                else
                 {
-                    // 점선 길이는 실제 계산된 길이를 사용합니다.
-                    dotRenderer.size = new Vector2(actualLineLength * dotLineDistance, dotRenderer.size.y);
-                    dotRenderer.color = lerpedColor;
+                    arrowTargetPosition = raycastOrigin + (Vector2)clampedDirection * raycastDistance;
+                    actualLineLength = raycastDistance;
                 }
-            }
 
-            // 당구막대 제어
-            if (stick != null)
-            {
-                stick.transform.rotation = Quaternion.Euler(0, 0, angle);
-            }
+                if (arrowIndicator != null)
+                {
+                    arrowIndicator.SetActive(true);
+                    arrowIndicator.transform.rotation = Quaternion.Euler(0, 0, angle);
+                    arrowIndicator.transform.position = arrowTargetPosition;
 
-            // 당구막대 파워 게이지 제어
-            if (stickPower != null)
-            {
-                stickPower.transform.localPosition = new Vector3(Mathf.Lerp(minStickPowerX, maxStickPowerX, forceRatio), stickPower.transform.localPosition.y, stickPower.transform.localPosition.z);
+                    SpriteRenderer arrowRenderer = arrowIndicator.GetComponent<SpriteRenderer>();
+                    if (arrowRenderer != null)
+                    {
+                        arrowRenderer.color = lerpedColor;
+                    }
+                }
+
+                if (dotLineIndicator != null)
+                {
+                    dotLineIndicator.SetActive(true);
+                    dotLineIndicator.transform.position = transform.position;
+                    dotLineIndicator.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+                    SpriteRenderer dotRenderer = dotLineIndicator.GetComponent<SpriteRenderer>();
+                    if (dotRenderer != null)
+                    {
+                        dotRenderer.size = new Vector2(actualLineLength * dotLineDistance, dotRenderer.size.y);
+                        dotRenderer.color = lerpedColor;
+                    }
+                }
+
+                if (stick != null)
+                {
+                    stick.transform.rotation = Quaternion.Euler(0, 0, angle);
+                }
+
+                if (stickPower != null)
+                {
+                    stickPower.transform.localPosition = new Vector3(Mathf.Lerp(minStickPowerX, maxStickPowerX, forceRatio), stickPower.transform.localPosition.y, stickPower.transform.localPosition.z);
+                }
             }
         }
 
-        // 드래그 종료
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             endMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 dragVector = startMousePos - endMousePos;
 
+            if (VisualUI != null)
+            {
+                VisualUI.SetActive(false); // 드래그 종료 시 UI 비활성화
+                isUIVisible = false; // 상태 업데이트
+            }
+
             if (dragVector.magnitude < minLaunchDragMagnitude)
             {
-                if (VisualUI != null)
-                {
-                    VisualUI.SetActive(false);
-                }
                 isDragging = false;
                 hasReachedMinDrag = false;
                 return;
@@ -245,24 +249,19 @@ public class BallController : MonoBehaviour
                 rb.AddForce(dragVector * forceMultiplier, ForceMode2D.Impulse);
             }
 
-            if (VisualUI != null)
-            {
-                VisualUI.SetActive(false);
-            }
-
             isDragging = false;
             hasReachedMinDrag = false;
             GameManager.canPlay = false;
 
+            Debug.Log("S 1");
 
             BlackHoleBall[] blackHoleBalls = FindObjectsOfType<BlackHoleBall>();
 
             if (blackHoleBalls.Length == 0)
             {
-                return; // 더 이상 진행할 필요가 없으므로 함수를 종료합니다.
+                return;
             }
 
-            // 찾은 각 BlackHoleBall에 대해 BlackHoleStart() 함수를 호출합니다.
             foreach (BlackHoleBall blackHole in blackHoleBalls)
             {
                 blackHole.BlackHoleStart();
@@ -304,7 +303,6 @@ public class BallController : MonoBehaviour
 
     public static void GetShield()
     {
-        // 중단하고 새로 시작 (코루틴 있으면)
         if (staticCurrentGetShieldCoroutine != null)
         {
             unShield();
@@ -324,19 +322,18 @@ public class BallController : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(shield.localEulerAngles.x, shield.localEulerAngles.y, 45f);
 
         float timeElapsed = 0f;
-        float stepDuration = 1f / staticOperatingFrequency; // 각 단계의 지속 시간
+        float stepDuration = 1f / staticOperatingFrequency;
 
         while (timeElapsed < duration)
         {
             timeElapsed += stepDuration;
-            float normalizedTime = Mathf.Min(timeElapsed / duration, 1f); // 0에서 1까지의 진행
+            float normalizedTime = Mathf.Min(timeElapsed / duration, 1f);
             shield.localScale = Vector3.Lerp(startScale, targetScale, normalizedTime);
-            shield.localRotation = Quaternion.Slerp(startRotation, targetRotation, normalizedTime); // (Lerp도 가능)
+            shield.localRotation = Quaternion.Slerp(startRotation, targetRotation, normalizedTime);
 
             yield return new WaitForSeconds(stepDuration);
         }
 
-        // 부동 소수점 오차
         shield.localScale = targetScale;
         shield.localRotation = targetRotation;
 
