@@ -300,6 +300,7 @@ MonoBehaviour:
   boardMaxY_: 2
   attemptsLeft_: 25
   attemptsText_: {fileID: 723616020}
+  RandomBallattemptsText: {fileID: 3420561165639467812}
   victoryAnimation: {fileID: 5767937590128293990, guid: 6a297dc9296ec444491eebec0bd9f6cc, type: 3}
   RandomPickAnimation: {fileID: 2086946608513956243, guid: 84d029928c116ab40967f4b43cf8963f, type: 3}
   RandomPickChance: 3
@@ -4187,6 +4188,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
+--- !u!114 &3420561165639467812 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2423816342071632274, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
+  m_PrefabInstance: {fileID: 3420561165639467811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3926367355771495180
 PrefabInstance:
   m_ObjectHideFlags: 0

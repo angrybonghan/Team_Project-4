@@ -1219,7 +1219,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &876575724
 RectTransform:
@@ -2288,7 +2288,7 @@ GameObject:
   - component: {fileID: 1727501837}
   - component: {fileID: 1727501836}
   m_Layer: 0
-  m_Name: Button Manager
+  m_Name: MainMenuButton Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

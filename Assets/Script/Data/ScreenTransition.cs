@@ -29,7 +29,7 @@ public class ScreenTransition : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(FadeOut(1f));
+        StartCoroutine(FadeOut(0.5f));
     }
 
     

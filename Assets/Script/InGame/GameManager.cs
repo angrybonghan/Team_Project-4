@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI attemptsText_;
     public static TextMeshProUGUI attemptsText;
 
+    public TextMeshProUGUI RandomBallattemptsText;
+
     [Header("게임 승리 애니메이션")]
     public GameObject victoryAnimation;
 
@@ -276,9 +278,8 @@ public class GameManager : MonoBehaviour
         }
 
         attemptsLeft++;
-
         RandomPickChance--;
-        SkillGuideManager.summonGuidePaper($"랜덤 볼! ({RandomPickChance}번 남음)");
+        RandomBallattemptsText.text = $"x{RandomPickChance}";
 
         BallDeceleration[] allBalls = FindObjectsOfType<BallDeceleration>();
 
@@ -293,17 +294,6 @@ public class GameManager : MonoBehaviour
         GameObject selectedHoleObject = allHoles[randomHoleIndex];
 
         selectedBallObject.transform.position = selectedHoleObject.transform.position;
-
-        StartCoroutine(UpdateForRandomBall());
-    }
-
-    IEnumerator UpdateForRandomBall()
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            yield return null;
-        }
-        canPlay = false;
     }
 
 }

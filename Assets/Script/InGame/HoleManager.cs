@@ -127,6 +127,7 @@ public class HoleManager : MonoBehaviour
                 Debug.LogError("[???] 태그가 뭣도 아닌 것이 구멍에 들어옴");
                 break;
         }
+        GameManager.canPlay = false;
     }
 
     void PlayAnimation()

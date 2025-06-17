@@ -109,7 +109,6 @@ public class BallController : MonoBehaviour
             hasReachedMinDrag = false;
             isUIVisible = false; // 드래그 시작 시 UI는 아직 안 보임
             startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Instantiate(CrossMarker,startMousePos,transform.rotation);
             // 여기에 VisualUI.SetActive(true)는 더 이상 놓지 않습니다.
         }
 
@@ -128,6 +127,7 @@ public class BallController : MonoBehaviour
                 if (VisualUI != null)
                 {
                     VisualUI.SetActive(true);
+                    Instantiate(CrossMarker, startMousePos, transform.rotation);
                     isUIVisible = true; // UI가 보인다고 상태 업데이트
                 }
             }
