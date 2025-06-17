@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +7,7 @@ public class ScreenTransition : MonoBehaviour
 {
     public static ScreenTransition Instance { get; private set; }
 
-    public static bool isActive = true;
+    public static bool isTransitioning = true;
     private float operatingFrequency = 30; // 작동 주기
     private SpriteRenderer spriteRenderer;
     private Coroutine currentTransitionCoroutine;
@@ -34,7 +35,7 @@ public class ScreenTransition : MonoBehaviour
     
     IEnumerator FadeOut(float runTime)
     {
-        isActive=true;
+        isTransitioning=true;
         float sleepTime = runTime / operatingFrequency;
         float alphaAdditions = 1f / operatingFrequency;
         Instance.transform.position = Vector3.zero;
@@ -47,17 +48,17 @@ public class ScreenTransition : MonoBehaviour
 
             yield return new WaitForSeconds(sleepTime);
         }
-        isActive = false;
+        isTransitioning = false;
     }
 
     public static void Goto(string targetScene, float fadeInTime, float fadeOutTime)
     {
-        if (isActive)
+        if (isTransitioning)
         {
             return;
         }
 
-        isActive = true;
+        isTransitioning = true;
         DataManager.isGameActionable = false;
 
         Instance.currentTransitionCoroutine = Instance.StartCoroutine(Instance.Transition(targetScene, fadeInTime, fadeOutTime));
@@ -107,7 +108,7 @@ public class ScreenTransition : MonoBehaviour
 
 
 
-        isActive = false;
+        isTransitioning = false;
         Instance.currentTransitionCoroutine = null;
     }
 }

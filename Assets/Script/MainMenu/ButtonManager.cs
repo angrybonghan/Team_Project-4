@@ -9,7 +9,7 @@ public class ButtonManager : MonoBehaviour
 
     public void onStartButtonClicked()
     {
-        if (ScreenTransition.isActive)
+        if (ScreenTransition.isTransitioning)
         {
             return;
         }
