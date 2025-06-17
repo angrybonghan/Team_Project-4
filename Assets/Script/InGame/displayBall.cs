@@ -60,6 +60,7 @@ public class displayBall : MonoBehaviour
     {
         if (existingDisplayBallCount > 1 && GameManager.scoredBallInChalk > 1)
         {
+            SoundManager.PlaySound(6);
             ComboText.text = $"[초크 {existingDisplayBallCount - 1}개 회복됨]";
             Instance.comboCoroutine = Instance.StartCoroutine(Instance.comboAnimation());
         }

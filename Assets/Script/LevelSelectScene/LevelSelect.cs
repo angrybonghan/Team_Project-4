@@ -10,9 +10,14 @@ public class LevelSelect : MonoBehaviour
     [Header("카메라")]
     public GameObject Camera;
     public int CameraSpeed = 5;
+    [Header("빨간 코인")]
+    public Sprite RedCoin;
+    [Header("뛰는 코인")]
+    public GameObject JumpingCoin;
 
     private Vector3 levelPos;
     private Vector3 CameraTargetPos;
+    private int levelAccess;
 
     void Awake()
     {
@@ -22,7 +27,19 @@ public class LevelSelect : MonoBehaviour
     }
     private void Start()
     {
-        CoinSet(); // 초기 코인 형태 설정
+        levelAccess = DataManager.GetLevelAccess()-1;
+        for (int i = 0; i < levelCoin.Length; i++)
+        {
+            if (i > levelAccess)
+            {
+                GameObject coin = levelCoin[i];
+                SpriteRenderer spriteRenderer = coin.GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = RedCoin;
+            }
+        }
+
+
+        CoinSet();
     }
 
 
@@ -80,7 +97,17 @@ public class LevelSelect : MonoBehaviour
         {
             coin.SetActive(true);
         }
-        levelCoin[selectedLevel - 1].SetActive(false);
+
+        if (selectedLevel - 1 < DataManager.GetLevelAccess())
+        {
+            JumpingCoin.SetActive(true);
+            levelCoin[selectedLevel - 1].SetActive(false);
+        }
+        else
+        {
+            JumpingCoin.SetActive(false);
+            levelCoin[selectedLevel - 1].SetActive(true);
+        }
 
         levelPos = levelCoin[selectedLevel - 1].transform.position;
         transform.position = levelPos;

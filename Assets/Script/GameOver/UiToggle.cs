@@ -12,7 +12,9 @@ public class UiToggle : MonoBehaviour
 
     IEnumerator UIToggle()
     {
-        yield return Sleep(1.8);
+        yield return Sleep(1.1f);
+        SoundManager.PlaySound(5);
+        yield return Sleep(0.7f);
         UI.SetActive(true);
     }
 

@@ -3072,9 +3072,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d3c04669d9e7a4c8b89aed253d18b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button_: {fileID: 0}
-  dialogue_: {fileID: 8300000, guid: f4f3dc93bcf619741986eaca24b26624, type: 3}
-  GuideText_: {fileID: 8300000, guid: 1919baaa77c149b4f927b96a3e8c0847, type: 3}
+  button: {fileID: 0}
+  dialogue: {fileID: 8300000, guid: 610013c7561c14d43b0fbe59ee50c50a, type: 3}
+  GuideText: {fileID: 8300000, guid: 1919baaa77c149b4f927b96a3e8c0847, type: 3}
+  RandomBall: {fileID: 8300000, guid: afe832d0f948c154e9d4a177413edc48, type: 3}
+  Tick: {fileID: 8300000, guid: ba37a7ce50097934c8ed049d6a5a65ff, type: 3}
+  Blast: {fileID: 8300000, guid: c41eaef06b11cbc49a8f9df1de0c1aad, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

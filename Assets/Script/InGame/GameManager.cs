@@ -286,6 +286,8 @@ public class GameManager : MonoBehaviour
         RandomPickChance--;
         RandomBallattemptsText.text = $"x{RandomPickChance}";
 
+        SoundManager.PlaySound(4);
+
         BallDeceleration[] allBalls = FindObjectsOfType<BallDeceleration>();
 
         int randomBallIndex = Random.Range(0, allBalls.Length);
