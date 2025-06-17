@@ -40,8 +40,12 @@ public class GameManager : MonoBehaviour
 
     [Header("랜덤 볼 애니메이션")]
     public GameObject RandomPickAnimation;
+
     [Header("랜덤 볼 기회")]
     public int RandomPickChance = 3;
+
+    [Header("카오스 볼 애니메이션")]
+    public GameObject ChaosAnimation;
 
     public static bool canPlay = true;  // 전체 공이 정지해 게임 플레이가 가능한가?
     public static bool isGameOver = false; // 게임 오버되었는가?
@@ -199,6 +203,7 @@ public class GameManager : MonoBehaviour
                             Vector3 newPosition = shuffledPositions[i];
 
                             currentBall.transform.position = newPosition;
+                            Instantiate(ChaosAnimation, currentBall.transform.position, currentBall.transform.rotation);
                         }
                     }
 

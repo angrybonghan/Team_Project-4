@@ -304,6 +304,7 @@ MonoBehaviour:
   victoryAnimation: {fileID: 5767937590128293990, guid: 6a297dc9296ec444491eebec0bd9f6cc, type: 3}
   RandomPickAnimation: {fileID: 2086946608513956243, guid: 84d029928c116ab40967f4b43cf8963f, type: 3}
   RandomPickChance: 3
+  ChaosAnimation: {fileID: 3572956304315453626, guid: 2aec9c6177cb7a64cb3184f1050bf878, type: 3}
 --- !u!4 &454702635
 Transform:
   m_ObjectHideFlags: 0

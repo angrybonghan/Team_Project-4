@@ -80,6 +80,7 @@ public class DialogueManager : MonoBehaviour
         for (int i = 0; i <= fullText.Length; i++)
         {
             if (dialogueTextUI != null) dialogueTextUI.text = fullText.Substring(0, i);
+            SoundManager.PlaySound(2);
             yield return new WaitForSeconds(0.05f);
 
             // 타이핑 도중 스페이스바를 누르면 바로 전체 텍스트 표시
