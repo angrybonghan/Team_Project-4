@@ -25,6 +25,9 @@ public class BallController : MonoBehaviour
     [Header("플레이어 공 잔상")]
     public GameObject playerBallAfterimage;
 
+    [Header("크로스 마커")]
+    public GameObject CrossMarker;
+
     // 쉴드 적용 작동시간 (Inspector에서 설정할 수 있도록 public으로 유지)
     [Header("쉴드 적용 작동시간")]
     public float runTime_ = 0.2f;
@@ -106,7 +109,7 @@ public class BallController : MonoBehaviour
             hasReachedMinDrag = false;
             isUIVisible = false; // 드래그 시작 시 UI는 아직 안 보임
             startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+            Instantiate(CrossMarker,startMousePos,transform.rotation);
             // 여기에 VisualUI.SetActive(true)는 더 이상 놓지 않습니다.
         }
 

@@ -18,6 +18,5 @@ public class GuideLeftButton : MonoBehaviour
     public void OnButtonClick()
     {
         pauseControl.GotoP1();
-        Debug.Log("P- 1");
     }
 }
