@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5143675936845232056}
   - component: {fileID: 4430214250993795945}
+  - component: {fileID: 5457871866534371529}
   - component: {fileID: 4791471407285258651}
   - component: {fileID: 3022681150737442465}
   - component: {fileID: 6160549650802622817}
@@ -156,6 +157,19 @@ MonoBehaviour:
     m_Bits: 0
   minForceColor: {r: 0, g: 1, b: 0, a: 1}
   maxForceColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &5457871866534371529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334762793683459121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd25c854da8a944dbb0bc5b2a99903b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deceleration: 0.5
 --- !u!114 &4791471407285258651
 MonoBehaviour:
   m_ObjectHideFlags: 0

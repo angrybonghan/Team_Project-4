@@ -98,12 +98,12 @@ public class ScreenTransition : MonoBehaviour
         }
         transform.position = new Vector3(9999999999999, 9999999999999999, transform.position.z);
 
-
-        switch (targetScene)
+        if (
+            targetScene == "SelectStage" ||
+            targetScene == "Stage_8"
+            )
         {
-            case "SelectStage":
-                DataManager.isGameActionable = true;
-                break;
+            DataManager.isGameActionable = true;
         }
 
 

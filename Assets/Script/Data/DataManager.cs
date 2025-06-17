@@ -29,6 +29,8 @@ public class DataManager : MonoBehaviour
         }
         LoadData();
         isGameActionable=false;
+
+        SetLevelAccess(8);
     }
 
     private void Update()

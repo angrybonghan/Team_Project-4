@@ -46,13 +46,13 @@ public class HoleManager : MonoBehaviour
                 PlayAnimation();
                 Destroy(other.gameObject);
 
-                if (GameManager.isBallEight)
+                if (BossGameManager.isBallEight)
                 {
-                    GameManager.isGameWin = true;
+                    BossGameManager.isGameOver = true;
                 }
                 else
                 {
-                    GameManager.isGameOver = true;
+                    BossGameManager.isGameOver = true;
                 }
                 break;
 
