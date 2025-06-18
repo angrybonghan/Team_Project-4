@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 3022681150737442465}
   - component: {fileID: 6160549650802622817}
   - component: {fileID: 5274329702081201410}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerBall
   m_TagString: PlayerBall
   m_Icon: {fileID: 0}

@@ -16,8 +16,8 @@ public class BulletBallBullet : MonoBehaviour
     public GameObject hitEffectPrefab;
 
     [Header("애니메이션 시간, 주기")]
-    public float introAnimationDuration = 1.0f; // 기존 RunTime -> introAnimationDuration으로 변경
-    public int animationSteps = 30; // 기존 operatingFrequency -> animationSteps로 변경
+    public float introAnimationDuration = 0.35f;
+    public int animationSteps = 30;
 
     private LineRenderer lineRenderer;
     private SpriteRenderer spriteRenderer;
@@ -125,6 +125,7 @@ public class BulletBallBullet : MonoBehaviour
         }
 
         // 대기 후 오브젝트 파괴
+        CameraMovement.Shake(0.1f, 0.2f, 0.05f);
         yield return new WaitForSeconds(destroyDelay);
         Destroy(gameObject);
     }

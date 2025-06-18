@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     public static bool isGameWin = false; // 게임 승리했는가?
     public static bool isChaosBallActivate = false; // 카오스 볼 작동
     public static bool isBallEight; // 공이 8에 도달했는가
+    public static bool BossSkip = false;
 
     public static int SpeedBallChance = 0;
     public static int ballNumber;   // 전체 공의 숫자 (레벨) 수치
@@ -126,12 +127,15 @@ public class GameManager : MonoBehaviour
                 CheckAllBalls();
                 if (!anyBallMoving)
                 {
-                    if (boss)
+                    if (boss && !BossSkip)
                     {
                         DataManager.isGameActionable = false;
                         BossSkillManager.NextTurn();
                     }
+
+                    BossSkip = false;
                     canPlay = true;
+
                     ballNumber += scoredBallInChalk; // 공 숫자 지정
                     attemptsLeft--;
 
@@ -234,20 +238,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void CheckAllBalls() // 공이 움직이는지?
+    void CheckAllBalls()
     {
-        anyBallMoving = false; // 안전빵 리셋
+        anyBallMoving = false;
 
         BallDeceleration[] allBilliardGameObjects = FindObjectsOfType<BallDeceleration>();
-        // 두 GameObject 배열을 하나로 합침 (Concat)
+
+        if (allBilliardGameObjects.Length == 0)
+        {
+            return;
+        }
 
         foreach (BallDeceleration ball in allBilliardGameObjects)
         {
-            Rigidbody2D rb = ball.GetComponent<Rigidbody2D>(); // 볼에서 Rigidbody2D 뽑
-            if (rb != null && Mathf.Abs(rb.velocity.magnitude) >= 0.5f) // 해당 볼이 움직이고 있는지 확인
+            Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+            if (rb != null && rb.IsAwake())
             {
-                anyBallMoving = true; // 하나라도 움직이면 true
-                break; // 하나 움직였음으로 다른건 체크 필요 없, foreach 폭파
+                anyBallMoving = true;
+                break;
             }
         }
     }

@@ -51,7 +51,7 @@ MonoBehaviour:
   destroyDelay: 0.1
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   hitEffectPrefab: {fileID: 6317322372508857115, guid: f1e94b30a5e858d419fd0d43a01edd26, type: 3}
   introAnimationDuration: 0.4
   animationSteps: 30

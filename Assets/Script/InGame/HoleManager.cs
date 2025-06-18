@@ -128,6 +128,10 @@ public class HoleManager : MonoBehaviour
                 break;
         }
         GameManager.canPlay = false;
+        if (BossSkillManager.bossAcivate)
+        {
+            GameManager.BossSkip = true;
+        }
     }
 
     void PlayAnimation()

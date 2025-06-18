@@ -57,6 +57,7 @@ public class BossSkillManager : MonoBehaviour
 
 
     public static bool gotoNextTurn = false;
+    public static bool bossAcivate = false;
 
     private void Start()
     {
@@ -72,6 +73,7 @@ public class BossSkillManager : MonoBehaviour
         if (gotoNextTurn)
         {
             gotoNextTurn=false;
+            bossAcivate = true;
 
 
             GameObject[] bossHoles = GameObject.FindGameObjectsWithTag("BossHole");
@@ -116,6 +118,9 @@ public class BossSkillManager : MonoBehaviour
     {
         if (AllBulletBall.Count >= 1)
         {
+
+            yield return CameraMovement.LerpGoto(new Vector3(0, -1, -10), 1.94f, 0.125f);
+
             Quaternion[] directions = new Quaternion[]
             {
                 Quaternion.Euler(0, 0, 90),  // 위쪽
@@ -131,7 +136,37 @@ public class BossSkillManager : MonoBehaviour
                     Instantiate(BulletBallBullet, AllBulletBall[i].transform.position, directions[x]);
                 }
             }
+            yield return new WaitForSeconds(0.6f);
+
+            while (true) //내부에서 break 조건으로 제어
+            {
+                bool anyBallCurrentlyMoving = false;
+                BallDeceleration[] allBilliardGameObjects = FindObjectsOfType<BallDeceleration>();
+
+                foreach (BallDeceleration ball in allBilliardGameObjects)
+                {
+                    Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+                    if (rb != null && rb.IsAwake())
+                    {
+                        anyBallCurrentlyMoving = true;
+                        break;
+                    }
+                }
+
+                if (anyBallCurrentlyMoving)
+                {
+                    yield return new WaitForFixedUpdate();
+                }
+                else 
+                {
+                    break;
+                }
+            }
+
+            yield return new WaitForSeconds(0.5f);
         }
+        
+        
 
         if (BossCooldown3 <= 0)
         {
@@ -158,7 +193,7 @@ public class BossSkillManager : MonoBehaviour
                 Instantiate(BulletBall, potentialHolePositions[0], Quaternion.identity);
                 Instantiate(BulletBallEffect, potentialHolePositions[0], Quaternion.identity);
                 yield return CameraMovement.LerpGoto(new Vector3(potentialHolePositions[0].x, potentialHolePositions[0].y, -10f), 0.5f, 0.2f);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.75f);
             }
         }
 
@@ -211,6 +246,7 @@ public class BossSkillManager : MonoBehaviour
 
         CameraMovement.Goto(new Vector3(0, 0, -10), 3);
         DataManager.isGameActionable = true;
+        bossAcivate = false;
         UI.SetActive(true);
     }
 
