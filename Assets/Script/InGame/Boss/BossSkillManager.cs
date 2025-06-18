@@ -232,39 +232,39 @@ public class BossSkillManager : MonoBehaviour
         }
     }
 
-    public void SetBossAnimation(int Animation)
+    public void SetBossAnimation(int AnimationKey)
     {
         if (transform.childCount > 0)
         {
             Destroy(transform.GetChild(0).gameObject);
         }
 
-        if (Animation == 1)
+        if (AnimationKey == 1)
         {
             GameObject newAnimation = Instantiate(BossIdle);
             newAnimation.transform.SetParent(this.transform);
         }
-        else if (Animation == 2)
+        else if (AnimationKey == 2)
         {
             GameObject newAnimation = Instantiate(BossGunUp);
             newAnimation.transform.SetParent(this.transform);
         }
-        else if (Animation == 3)
+        else if (AnimationKey == 3)
         {
             GameObject newAnimation = Instantiate(BossGunShot);
             newAnimation.transform.SetParent(this.transform);
         }
-        else if (Animation == 4)
+        else if (AnimationKey == 4)
         {
             GameObject newAnimation = Instantiate(BossGunSpin);
             newAnimation.transform.SetParent(this.transform);
         }
-        else if (Animation == 5)
+        else if (AnimationKey == 5)
         {
             GameObject newAnimation = Instantiate(BossDead);
             newAnimation.transform.SetParent(this.transform);
         }
-        else if (Animation == 6)
+        else if (AnimationKey == 6)
         {
             GameObject newAnimation = Instantiate(BossBallThrow);
             newAnimation.transform.SetParent(this.transform);

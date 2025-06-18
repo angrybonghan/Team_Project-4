@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -87,7 +86,12 @@ public class pauseControl : MonoBehaviour
                 currentSceneName == "GameOver"
                 ) return;
 
-            if (currentSceneName == "SelectStage") ScreenTransition.Goto("MainMenu", 0.5f, 0.5f);
+            if (currentSceneName == "SelectStage")
+            {
+                ScreenTransition.Goto("MainMenu", 0.5f, 0.5f);
+                return;
+            }
+
 
             BG.SetActive(true);
 
