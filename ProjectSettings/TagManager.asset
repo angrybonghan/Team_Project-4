@@ -17,6 +17,8 @@ TagManager:
   - OB_Shield
   - OB_NoFunction
   - BossHole
+  - SkillGuide
+  - BulletBallTagMarker
   layers:
   - Default
   - TransparentFX

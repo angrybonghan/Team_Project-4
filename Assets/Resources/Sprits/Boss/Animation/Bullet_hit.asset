@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6940cdda447048efa58605bd546f9920, type: 3}
+  m_Name: Bullet_hit
+  m_EditorClassIdentifier: 
+  Frames:
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: c0594b4ee1b3adf4085774c0ee18feb1, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 298ef83ba60821c4d9fdfbd5c0ba97b1, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 9ba63aadc1f650e41a5df250ca56f0f5, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: a34dd8821b42c3246a53839f04f6ee2d, type: 3}

@@ -155,7 +155,6 @@ public class CameraMovement : MonoBehaviour
         return currentCameraShakeCoroutine;
     }
 
-    // ShakeCoroutine: 새로운 작동 방식에 맞춰 완전히 변경됩니다.
     private static IEnumerator ShakeCoroutine(float intensity, float duration, float frequency)
     {
         isShaking = true;

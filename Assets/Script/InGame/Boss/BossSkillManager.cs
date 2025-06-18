@@ -44,11 +44,12 @@ public class BossSkillManager : MonoBehaviour
     public GameObject BulletBall;
     [Header("총알 볼 생성 이펙트")]
     public GameObject BulletBallEffect;
-
-    public static int BulletBallCount = 0;
+    [Header("총알 볼이 생성하는 총알")]
+    public GameObject BulletBallBullet;
 
     private List<Vector3> potentialHolePositions = new List<Vector3>();
     private List<GameObject> activeAims = new List<GameObject>();
+    private List<GameObject> AllBulletBall = new List<GameObject>();
 
     private int BossCooldown1;
     private int BossCooldown2;
@@ -72,6 +73,7 @@ public class BossSkillManager : MonoBehaviour
         {
             gotoNextTurn=false;
 
+
             GameObject[] bossHoles = GameObject.FindGameObjectsWithTag("BossHole");
             if (bossHoles.Length > 0)
             {
@@ -85,7 +87,15 @@ public class BossSkillManager : MonoBehaviour
             BossCooldown2--;
             BossCooldown3--;
 
-            if (BossCooldown1 != 0 && BossCooldown2 != 0 && BossCooldown3 != 0)
+            AllBulletBall.Clear();
+            GameObject[] foundBulletBalls = GameObject.FindGameObjectsWithTag("BulletBallTagMarker");
+            foreach (GameObject ball in foundBulletBalls)
+            {
+                AllBulletBall.Add(ball);
+            }
+            //AllBulletBall = new GameObject.FindGameObjectsWithTag("BulletBallTagMarker");
+
+            if (BossCooldown1 != 0 && BossCooldown2 != 0 && BossCooldown3 != 0 && AllBulletBall.Count == 0)
             {
                 DataManager.isGameActionable = true;
             }
@@ -104,6 +114,25 @@ public class BossSkillManager : MonoBehaviour
 
     IEnumerator activateSkill()
     {
+        if (AllBulletBall.Count >= 1)
+        {
+            Quaternion[] directions = new Quaternion[]
+            {
+                Quaternion.Euler(0, 0, 90),  // 위쪽
+                Quaternion.Euler(0, 0, 0),   // 오른쪽
+                Quaternion.Euler(0, 0, 270), // 아래쪽
+                Quaternion.Euler(0, 0, 180)  // 왼쪽
+            };
+
+            for (int i = 0; i < AllBulletBall.Count; i++)
+            {
+                for (int x = 0; x < 4; x++)
+                {
+                    Instantiate(BulletBallBullet, AllBulletBall[i].transform.position, directions[x]);
+                }
+            }
+        }
+
         if (BossCooldown3 <= 0)
         {
 
@@ -111,10 +140,13 @@ public class BossSkillManager : MonoBehaviour
 
         if (BossCooldown2 <= 0)
         {
+            // GameObject.FindGameObjectsWithTag("BulletBallTagMarker").Length < 2
+            // ↑ 얘는 안된대;;
+
             BossCooldown2 = BossSkill2;
-            if (BulletBallCount < 2)
+            GameObject[] foundBulletBalls = GameObject.FindGameObjectsWithTag("BulletBallTagMarker");
+            if (foundBulletBalls.Length < 2)
             {
-                BulletBallCount++;
                 yield return CameraMovement.LerpGoto(new Vector3(0, 1.25f, -10), 1.5f, 0.4f);
                 SetBossAnimation(6);
                 yield return new WaitForSeconds(1.4f);
@@ -122,7 +154,7 @@ public class BossSkillManager : MonoBehaviour
                 yield return new WaitForSeconds(0.25f);
 
                 SetBossAnimation(1);
-                CalculatePotentialHolePositions(1);
+                CalculateSummonPositions(1);
                 Instantiate(BulletBall, potentialHolePositions[0], Quaternion.identity);
                 Instantiate(BulletBallEffect, potentialHolePositions[0], Quaternion.identity);
                 yield return CameraMovement.LerpGoto(new Vector3(potentialHolePositions[0].x, potentialHolePositions[0].y, -10f), 0.5f, 0.2f);
@@ -136,7 +168,7 @@ public class BossSkillManager : MonoBehaviour
             BossCooldown1 = BossSkill1;
 
             int holeRandomCount = Random.Range(2, 4);
-            CalculatePotentialHolePositions(holeRandomCount);
+            CalculateSummonPositions(holeRandomCount);
 
             for (int i = 0; i < holeRandomCount; i++)
             {
@@ -183,7 +215,7 @@ public class BossSkillManager : MonoBehaviour
     }
 
 
-    public void CalculatePotentialHolePositions(int count)
+    public void CalculateSummonPositions(int count)
     {
         // 기존에 저장된 위치들 초기화
         potentialHolePositions.Clear();
