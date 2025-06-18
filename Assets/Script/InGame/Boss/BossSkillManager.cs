@@ -256,12 +256,14 @@ public class BossSkillManager : MonoBehaviour
                         aimCount = 10;
                         break;
                 }
-                yield return CameraMovement.LerpGoto(new Vector3(0, -1, -10), 1.94f, 0.25f);
+                yield return CameraMovement.LerpGoto(new Vector3(0, -1.25f, -10), 1.7f, 0.25f);
 
                 CalculateSummonPositions(aimCount);
+                PatternThreeAims.Clear();
                 for (int i = 0; i < aimCount; i++)
                 {
                     GameObject newAim = Instantiate(Aim, potentialHolePositions[i], Quaternion.identity);
+                    newAim.transform.localScale = new Vector3(0.25f, 0.25f, 1f);
                     PatternThreeAims.Add(newAim);
                     yield return new WaitForSeconds(0.1f);
                 }
