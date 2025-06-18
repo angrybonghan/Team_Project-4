@@ -2362,7 +2362,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lerpOperatingFrequency: 60
-  shakeNoiseScale: 0.5
 --- !u!1 &1938992257
 GameObject:
   m_ObjectHideFlags: 0
@@ -3904,13 +3903,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UI: {fileID: 1839711115}
   BossSkill1: 1
-  BossSkill2: 3
+  BossSkill2: 1
   BossSkill3: 2
   BossIdle: {fileID: 7398114395481771568, guid: 2c8accb059f1a5a40806c203c09ce359, type: 3}
   BossGunUp: {fileID: 3737494912424151638, guid: ca56f43c592f0d54c86e4984580404d5, type: 3}
   BossGunShot: {fileID: 1661069472880615656, guid: b18436fb6b8cf3e47aa4526ab294af20, type: 3}
   BossGunSpin: {fileID: 6132424394426881547, guid: 5d2f9125364a3fb4089c6bf35369c9c9, type: 3}
   BossDead: {fileID: 1661069472880615656, guid: b18436fb6b8cf3e47aa4526ab294af20, type: 3}
+  BossBallThrow: {fileID: 6785765764923910184, guid: 65113e49147fd5041a8b0467901e671e, type: 3}
   holePrefab: {fileID: 8225883079666606369, guid: 13940c678db12be40884d7279422d2e8, type: 3}
   Aim: {fileID: 2270792774127272927, guid: cdec3e33955cbaf408b1499163d35734, type: 3}
   FireToHole: {fileID: 3884368272757276014, guid: 71247552ad9bbfd449330aa336166c54, type: 3}
@@ -3919,6 +3919,7 @@ MonoBehaviour:
   maxY: -2.5
   minY: -0.2
   minDistanceToBall: 0.2
+  BulletBall: {fileID: 5567716565104466789, guid: f6d9b753d62b1c745adb4253672d047d, type: 3}
 --- !u!4 &2041367892
 Transform:
   m_ObjectHideFlags: 0

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6940cdda447048efa58605bd546f9920, type: 3}
+  m_Name: Boss_BallThrow
+  m_EditorClassIdentifier: 
+  Frames:
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 15526e84833a88b4dbf63c33c57fa612, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 358b97d1f38a26b42933eafe7122257a, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: f9a686a5adf8ac245b7a49f5a28c9e75, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 0abe21356d5cdb740b1de69117b0f2d7, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 57f94e5dd5542274cbf841a0258dafea, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: af809348e78f14c45a8e57de9eb9577c, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 1661cea5a722152459061d19e67ce591, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: eb89893e6d0d19f4eaacde301497820c, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: d392fd70dadf00d46ad5ef19cd18d43f, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 73e9cce94f2f55d4faebe65dcd1b50a4, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: f5fe01584fed8de4f8b6f7606ff88726, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: c32d31ba625bcf7419724b07c5221893, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 41020489b86140341a16a7f53ef70bb5, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 52cf105a1ab561e4ab7ff2b0965bf1e8, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 40f7a48c6ae9c004eb360f4a8f6eee9f, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 842875ee7cb2af047af43da48de3924a, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 5047dc7d1b659bf41a94a3149f0e1aff, type: 3}

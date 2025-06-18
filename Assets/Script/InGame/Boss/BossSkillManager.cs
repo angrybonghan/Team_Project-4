@@ -22,6 +22,8 @@ public class BossSkillManager : MonoBehaviour
     public GameObject BossGunSpin;
     [Header("보스 Dead")]
     public GameObject BossDead;
+    [Header("보스 BallThrow")]
+    public GameObject BossBallThrow;
 
     [Header("생성할 보스 구멍 프리팹")]
     public GameObject holePrefab;
@@ -37,6 +39,12 @@ public class BossSkillManager : MonoBehaviour
     public float minY = -0.2f;
     [Header("구멍과 공의 최소 거리")]
     public float minDistanceToBall = 0.2f;
+
+    [Header("총알 볼")]
+    public GameObject BulletBall;
+
+
+    public static int BulletBallCount = 0;
 
     private List<Vector3> potentialHolePositions = new List<Vector3>();
     private List<GameObject> activeAims = new List<GameObject>();
@@ -95,6 +103,32 @@ public class BossSkillManager : MonoBehaviour
 
     IEnumerator activateSkill()
     {
+        if (BossCooldown3 <= 0)
+        {
+
+        }
+
+        if (BossCooldown2 <= 0)
+        {
+            BossCooldown2 = BossSkill2;
+            if (BulletBallCount < 2)
+            {
+                BulletBallCount++;
+                yield return CameraMovement.LerpGoto(new Vector3(0, 1.25f, -10), 1.5f, 0.4f);
+                SetBossAnimation(6);
+                yield return new WaitForSeconds(1.4f);
+                CameraMovement.Shake(0.1f, 0.2f, 0.05f);
+                yield return new WaitForSeconds(0.25f);
+
+                SetBossAnimation(1);
+                CalculatePotentialHolePositions(1);
+                GameObject NewBulletBall = Instantiate(BulletBall, potentialHolePositions[0], Quaternion.identity);
+                yield return CameraMovement.LerpGoto(new Vector3(potentialHolePositions[0].x, potentialHolePositions[0].y, -10f), 0.5f, 0.2f);
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+
         if (BossCooldown1 <= 0)
         {
             BossCooldown1 = BossSkill1;
@@ -226,6 +260,11 @@ public class BossSkillManager : MonoBehaviour
         else if (Animation == 5)
         {
             GameObject newAnimation = Instantiate(BossDead);
+            newAnimation.transform.SetParent(this.transform);
+        }
+        else if (Animation == 6)
+        {
+            GameObject newAnimation = Instantiate(BossBallThrow);
             newAnimation.transform.SetParent(this.transform);
         }
     }
