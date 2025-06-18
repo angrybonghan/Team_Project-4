@@ -86,8 +86,8 @@ public class HoleManager : MonoBehaviour
                 {
                     Vector3 CopyPos = new Vector3
                         (
-                        UnityEngine.Random.Range(-1f, 1f),
-                        UnityEngine.Random.Range(-1f, 1f),
+                        UnityEngine.Random.Range(GameManager.boardMaxX - 1, GameManager.boardMinX + 1),
+                        UnityEngine.Random.Range(GameManager.boardMaxY - 1, GameManager.boardMinY + 1),
                         0
                         );
                     GameObject EightBall = Instantiate(eightBallPrefabs, CopyPos, transform.rotation);
