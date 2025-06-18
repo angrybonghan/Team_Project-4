@@ -57,7 +57,9 @@ public class DialogueTrigger : MonoBehaviour
             case "Stage_5":
                 StartDialogue(5, 0);
                 break;
-
+            case "Stage_8":
+                StartDialogue(2, 0);
+                break;
         }
     }
 

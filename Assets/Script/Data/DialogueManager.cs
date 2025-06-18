@@ -113,6 +113,11 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
+        if (isDialogueActive && Input.GetKeyDown(KeyCode.X))
+        {
+            EndDialogue();
+        }
+
         if (isDialogueActive && Input.GetKeyDown(KeyCode.Space)) // 대화가 활성화된 상태에서 스페이스바 누름
         {
             if (isTypingComplete) // 타이핑이 완료된 경우에만 다음 대사로 진행

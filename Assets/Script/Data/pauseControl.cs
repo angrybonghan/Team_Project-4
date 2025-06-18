@@ -85,10 +85,10 @@ public class pauseControl : MonoBehaviour
             if (
                 currentSceneName == "MainMenu"||
                 currentSceneName == "GameOver"
-                )
-            {
-                return;
-            }
+                ) return;
+
+            if (currentSceneName == "SelectStage") ScreenTransition.Goto("MainMenu", 0.5f, 0.5f);
+
             BG.SetActive(true);
 
             if (!isGuidebookActivation && !isPauseScreenActivation)

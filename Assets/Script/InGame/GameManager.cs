@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using System.Linq;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -59,6 +58,7 @@ public class GameManager : MonoBehaviour
 
 
     private bool anyBallMoving;  // 아무 공이나 움직이는가
+    private bool boss = false;
 
     private void Awake()
     {
@@ -83,6 +83,11 @@ public class GameManager : MonoBehaviour
         SpeedBallChance = 0;
         attemptsText.text = attemptsLeft.ToString();
         DataManager.SetPreviousLevel(nextLevelNumber-1);
+
+        if (SceneManager.GetActiveScene().name == "Stage_8")
+        {
+            boss = true;
+        }
     }
 
 
@@ -122,6 +127,11 @@ public class GameManager : MonoBehaviour
                 CheckAllBalls();
                 if (!anyBallMoving)
                 {
+                    if (boss)
+                    {
+                        DataManager.isGameActionable = false;
+                        BossSkillManager.NextTurn();
+                    }
                     canPlay = true;
                     ballNumber += scoredBallInChalk; // 공 숫자 지정
                     attemptsLeft--;
@@ -164,6 +174,10 @@ public class GameManager : MonoBehaviour
                         playerBallPosition.y < boardMinY || playerBallPosition.y > boardMaxY)
                     {
                         playerBall.transform.position = Vector2.zero; //Vector2.zero = 원점 (X0,Y0)
+                        if (boss)
+                        {
+                            playerBall.transform.position = new Vector2(0f, -1f);
+                        }
                     }
 
                     if (scoredBallInChalk != 0 && !isBallEight) // 공이 하나도 들어가지 않았거나 이미 8볼일 경우 무시

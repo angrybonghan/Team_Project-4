@@ -247,7 +247,7 @@ PrefabInstance:
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 454702634}
+      objectReference: {fileID: 0}
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: animationPrefabs
       value: 
@@ -271,7 +271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 454702635}
-  - component: {fileID: 454702634}
+  - component: {fileID: 454702636}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -279,32 +279,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &454702634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454702633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bffd95423a17c3947ba9f494d5166d12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nextLevelNumber: 2
-  displayBallMarker: {fileID: 184631588}
-  playerBall_: {fileID: 1645240438}
-  boardMinX_: -2.5
-  boardMaxX_: 2.5
-  boardMinY_: -3
-  boardMaxY_: 2
-  attemptsLeft_: 25
-  attemptsText_: {fileID: 723616020}
-  RandomBallattemptsText: {fileID: 3420561165639467812}
-  victoryAnimation: {fileID: 5767937590128293990, guid: 6a297dc9296ec444491eebec0bd9f6cc, type: 3}
-  RandomPickAnimation: {fileID: 2086946608513956243, guid: 84d029928c116ab40967f4b43cf8963f, type: 3}
-  RandomPickChance: 3
-  ChaosAnimation: {fileID: 3572956304315453626, guid: 2aec9c6177cb7a64cb3184f1050bf878, type: 3}
 --- !u!4 &454702635
 Transform:
   m_ObjectHideFlags: 0
@@ -320,6 +294,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &454702636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454702633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273d7b0485fba1c4dbdfcd0349d00b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextLevelNumber: 2
+  displayBallMarker: {fileID: 184631588}
+  playerBall_: {fileID: 1645240438}
+  boardMinX_: -2.5
+  boardMaxX_: 2.5
+  boardMinY_: -3
+  boardMaxY_: 2
+  attemptsLeft_: 10
+  attemptsText_: {fileID: 723616020}
+  RandomBallattemptsText: {fileID: 3420561165639467812}
+  victoryAnimation: {fileID: 5767937590128293990, guid: 6a297dc9296ec444491eebec0bd9f6cc, type: 3}
+  RandomPickAnimation: {fileID: 2086946608513956243, guid: 84d029928c116ab40967f4b43cf8963f, type: 3}
+  RandomPickChance: 3
+  ChaosAnimation: {fileID: 3572956304315453626, guid: 2aec9c6177cb7a64cb3184f1050bf878, type: 3}
 --- !u!1001 &488062825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -862,7 +862,7 @@ PrefabInstance:
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 454702634}
+      objectReference: {fileID: 0}
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: animationPrefabs
       value: 
@@ -940,7 +940,7 @@ PrefabInstance:
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 454702634}
+      objectReference: {fileID: 0}
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: animationPrefabs
       value: 
@@ -1492,7 +1492,7 @@ PrefabInstance:
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 454702634}
+      objectReference: {fileID: 0}
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: animationPrefabs
       value: 
@@ -1721,7 +1721,7 @@ PrefabInstance:
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 454702634}
+      objectReference: {fileID: 0}
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: animationPrefabs
       value: 
@@ -2071,7 +2071,7 @@ PrefabInstance:
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 454702634}
+      objectReference: {fileID: 0}
     - target: {fileID: 8205435282470923623, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
       propertyPath: animationPrefabs
       value: 
@@ -4071,7 +4071,7 @@ PrefabInstance:
     - target: {fileID: 1574408209712941287, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 454702634}
+      objectReference: {fileID: 454702636}
     - target: {fileID: 1574408209712941287, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RandomPick

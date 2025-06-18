@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HoleManager : MonoBehaviour
+public class BossHoleManager : MonoBehaviour
 {
     [Header("이 구멍의 애니메이션 프리팹")]
     public GameObject animationPrefabs;
@@ -16,13 +16,13 @@ public class HoleManager : MonoBehaviour
         switch (other.tag)
         {
             case "MergeBall":   // 이 구멍에 머지볼이 들어옴
+                PlayAnimation(other.gameObject); // 애니메이션 실행 함수
                 Destroy(other.gameObject);
-                PlayAnimation(); // 애니메이션 실행 함수
-                GameManager.scoredBallInChalk ++; //현재 초크에 들어간 공의 수를 늘리기
-                displayBall.DisplayBallCount ++;
+                GameManager.scoredBallInChalk++; //현재 초크에 들어간 공의 수를 늘리기
+                displayBall.DisplayBallCount++;
                 break;
             case "PlayerBall":  // 플레이어 공이 구멍에 들어가면 그냥 저멀리 보내버림
-
+                PlayAnimation(other.gameObject);
                 if (BallController.isShieldExistence) // 방어막이 있을 경우, 점수를 1 올려 상쇄
                 {
                     SkillGuideManager.summonGuidePaper("초크 추가 감소 방어됨!");
@@ -39,16 +39,16 @@ public class HoleManager : MonoBehaviour
                 rb = other.GetComponent<Rigidbody2D>();
                 other.transform.position = new Vector2(999999, 999999);
                 rb.velocity = Vector2.zero;
-                PlayAnimation();
+                
                 break;
 
             case "8Ball":
-                PlayAnimation();
+                PlayAnimation(other.gameObject);
                 Destroy(other.gameObject);
 
                 if (GameManager.isBallEight)
                 {
-                    GameManager.isGameWin = true;
+                    GameManager.isGameOver = true;
                 }
                 else
                 {
@@ -57,16 +57,16 @@ public class HoleManager : MonoBehaviour
                 break;
 
             case "OB_Level_Up": //레벨 업 볼
+                PlayAnimation(other.gameObject); // 애니메이션 실행
                 Destroy(other.gameObject);
-                PlayAnimation(); // 애니메이션 실행
                 GameManager.scoredBallInChalk += 2; //현재 초크에 들어간 공의 수를 두개 늘리기
                 displayBall.DisplayBallCount += 2;
                 SkillGuideManager.summonGuidePaper("보드에 볼 두 개 추가");
                 break;
 
             case "OB_Level_Down":   //레벨 다운 볼
+                PlayAnimation(other.gameObject); // 애니메이션 실행
                 Destroy(other.gameObject);
-                PlayAnimation(); // 애니메이션 실행
                 GameManager.isBallEight = false;
                 if (GameManager.ballNumber >= 2)    // 공 레벨이 0 아래로 내려가지는 않음
                 {
@@ -80,7 +80,7 @@ public class HoleManager : MonoBehaviour
                 break;
 
             case "OB_Copy":
-                PlayAnimation(); // 애니메이션 실행
+                PlayAnimation(other.gameObject); // 애니메이션 실행
 
                 for (int i = 0; i < 2; i++)
                 {
@@ -98,28 +98,28 @@ public class HoleManager : MonoBehaviour
                 break;
 
             case "OB_Chaos":
-                PlayAnimation(); // 애니메이션 실행
+                PlayAnimation(other.gameObject); // 애니메이션 실행
                 Destroy(other.gameObject);
                 GameManager.isChaosBallActivate = true;
                 SkillGuideManager.summonGuidePaper("뒤죽박죽");
                 break;
 
             case "OB_SpeedUp":
-                PlayAnimation(); // 애니메이션 실행
+                PlayAnimation(other.gameObject); // 애니메이션 실행
                 Destroy(other.gameObject);
                 GameManager.SpeedBallChance = 2;
                 SkillGuideManager.summonGuidePaper("다음에 치는 힘 증가");
                 break;
 
             case "OB_Shield":
-                PlayAnimation(); // 애니메이션 실행
+                PlayAnimation(other.gameObject); // 애니메이션 실행
                 Destroy(other.gameObject);
                 BallController.GetShield();
                 SkillGuideManager.summonGuidePaper("초크 감소 1회 방어");
                 break;
 
             case "OB_NoFunction":
-                PlayAnimation(); // 애니메이션 실행
+                PlayAnimation(other.gameObject); // 애니메이션 실행
                 Destroy(other.gameObject);
                 break;
 
@@ -130,8 +130,12 @@ public class HoleManager : MonoBehaviour
         GameManager.canPlay = false;
     }
 
-    void PlayAnimation()
+    void PlayAnimation(GameObject targetObject)
     {
-        Instantiate(animationPrefabs, transform.position, transform.rotation);
+        Vector2 spawnPosition = transform.position;
+        Vector2 direction = targetObject.transform.position - (Vector3)spawnPosition;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg+90;
+        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+        GameObject spawnedAnimation = Instantiate(animationPrefabs, spawnPosition, targetRotation);
     }
 }

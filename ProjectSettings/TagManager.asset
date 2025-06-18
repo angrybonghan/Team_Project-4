@@ -16,6 +16,7 @@ TagManager:
   - OB_SpeedUp
   - OB_Shield
   - OB_NoFunction
+  - BossHole
   layers:
   - Default
   - TransparentFX
