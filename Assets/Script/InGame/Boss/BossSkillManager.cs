@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossSkillManager : MonoBehaviour
@@ -48,12 +49,14 @@ public class BossSkillManager : MonoBehaviour
     public GameObject BulletBallBullet;
 
     private List<Vector3> potentialHolePositions = new List<Vector3>();
-    private List<GameObject> activeAims = new List<GameObject>();
+    private List<GameObject> PatternTwoAims = new List<GameObject>();
+    private List<GameObject> PatternThreeAims = new List<GameObject>();
     private List<GameObject> AllBulletBall = new List<GameObject>();
 
     private int BossCooldown1;
     private int BossCooldown2;
     private int BossCooldown3;
+    private int aimCount;
 
 
     public static bool gotoNextTurn = false;
@@ -165,13 +168,6 @@ public class BossSkillManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
         }
-        
-        
-
-        if (BossCooldown3 <= 0)
-        {
-
-        }
 
         if (BossCooldown2 <= 0)
         {
@@ -209,8 +205,8 @@ public class BossSkillManager : MonoBehaviour
             {
                 yield return CameraMovement.LerpGoto(new Vector3(potentialHolePositions[i].x, potentialHolePositions[i].y,-10f), 0.75f, 0.2f);
                 GameObject newAim = Instantiate(Aim, potentialHolePositions[i], Quaternion.identity);
-                activeAims.Add(newAim);
-                yield return new WaitForSeconds(0.25f);
+                PatternTwoAims.Add(newAim);
+                yield return new WaitForSeconds(0.255f);
             }
             yield return CameraMovement.LerpGoto(new Vector3(0,1.25f, -10), 1.5f, 0.4f);
             yield return new WaitForSeconds(0.1f);
@@ -236,15 +232,55 @@ public class BossSkillManager : MonoBehaviour
                 CameraMovement.Shake(0.2f, 0.25f, 0.05f);
                 Instantiate(FireToHole, potentialHolePositions[i],Quaternion.identity);
                 Instantiate(holePrefab, potentialHolePositions[i], Quaternion.identity);
-                Destroy(activeAims[i]); // 리스트에 저장된 Aim 오브젝트 파괴
-                activeAims[i] = null;
+                Destroy(PatternTwoAims[i]); // 리스트에 저장된 Aim 오브젝트 파괴
+                PatternTwoAims[i] = null;
                 yield return new WaitForSeconds(0.4f);
             }
-            activeAims.Clear();
-            yield return CameraMovement.LerpGoto(new Vector3(0, 0, -10), 3, 0.2f);
+            PatternTwoAims.Clear();
         }
 
-        CameraMovement.Goto(new Vector3(0, 0, -10), 3);
+        if (BossCooldown3 == 0)
+        {
+            if (GameManager.ballNumber >= 6)
+            {
+                int ballNumber = GameManager.ballNumber;
+                switch (ballNumber)
+                {
+                    case 6:
+                        aimCount = 3;
+                        break;
+                    case 7:
+                        aimCount = 5;
+                        break;
+                    case 8:
+                        aimCount = 10;
+                        break;
+                }
+                yield return CameraMovement.LerpGoto(new Vector3(0, -1, -10), 1.94f, 0.25f);
+
+                CalculateSummonPositions(aimCount);
+                for (int i = 0; i < aimCount; i++)
+                {
+                    GameObject newAim = Instantiate(Aim, potentialHolePositions[i], Quaternion.identity);
+                    PatternThreeAims.Add(newAim);
+                    yield return new WaitForSeconds(0.1f);
+                }
+
+            }
+            else
+            {
+                BossCooldown3 = BossSkill3;
+            }
+        }
+
+        if (BossCooldown3 <= -1)
+        {
+            BossCooldown3 = BossSkill3;
+
+
+        }
+
+        yield return CameraMovement.LerpGoto(new Vector3(0, 0, -10), 3, 0.2f);
         DataManager.isGameActionable = true;
         bossAcivate = false;
         UI.SetActive(true);

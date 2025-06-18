@@ -118,6 +118,9 @@ public class DataManager : MonoBehaviour
     public static void GameUnPause() // 일시정지 해제
     {
         Time.timeScale = 1f;
-        DataManager.isGameActionable = true;
+        if (!BossSkillManager.bossAcivate)
+        {
+            DataManager.isGameActionable = true;
+        }
     }
 }

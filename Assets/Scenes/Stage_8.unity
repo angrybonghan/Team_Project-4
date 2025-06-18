@@ -3918,9 +3918,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 1839711115}
-  BossSkill1: 1
-  BossSkill2: 2
-  BossSkill3: 2
+  BossSkill1: 4
+  BossSkill2: 1
+  BossSkill3: 1
   BossIdle: {fileID: 7398114395481771568, guid: 2c8accb059f1a5a40806c203c09ce359, type: 3}
   BossGunUp: {fileID: 3737494912424151638, guid: ca56f43c592f0d54c86e4984580404d5, type: 3}
   BossGunShot: {fileID: 1661069472880615656, guid: b18436fb6b8cf3e47aa4526ab294af20, type: 3}
