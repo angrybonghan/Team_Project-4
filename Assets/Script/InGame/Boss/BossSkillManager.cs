@@ -95,10 +95,10 @@ public class BossSkillManager : MonoBehaviour
 
     IEnumerator activateSkill()
     {
-        yield return null;
-
         if (BossCooldown1 <= 0)
         {
+            BossCooldown1 = BossSkill1;
+
             int holeRandomCount = Random.Range(2, 4);
             CalculatePotentialHolePositions(holeRandomCount);
 
