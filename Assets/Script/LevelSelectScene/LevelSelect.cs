@@ -75,16 +75,10 @@ public class LevelSelect : MonoBehaviour
             {
                 int levelAccess = DataManager.GetLevelAccess(); // 레벨 입장 가능 여부 판단
 
-                Debug.Log($"levelAccess : {levelAccess}");
-
                 if (selectedLevel <= levelAccess)
                 {
-                    DataManager.SetPreviousLevel(levelAccess);
+                    DataManager.SetPreviousLevel(selectedLevel);
                     ScreenTransition.Goto("Stage_" + selectedLevel, 0.5f, 0.5f);
-                }
-                else
-                {
-                    // 입장 권한이 없음 (이전 스테이지를 완료하지 못함)
                 }
             }
         }

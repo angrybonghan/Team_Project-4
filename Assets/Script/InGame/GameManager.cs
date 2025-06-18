@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour
         isChaosBallActivate = false;
         SpeedBallChance = 0;
         attemptsText.text = attemptsLeft.ToString();
-        DataManager.SetPreviousLevel(nextLevelNumber-1);
 
         if (SceneManager.GetActiveScene().name == "Stage_8")
         {

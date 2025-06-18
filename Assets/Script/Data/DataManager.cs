@@ -29,8 +29,6 @@ public class DataManager : MonoBehaviour
         }
         LoadData();
         isGameActionable=false;
-
-        SetLevelAccess(8);
     }
 
     private void Update()
@@ -81,13 +79,11 @@ public class DataManager : MonoBehaviour
 
     public static int GetLevelAccess() // 래벨 접근 권한 반환 (불러옴)
     {
-        LoadData();
         return levelAccess;
     }
 
     public static int GetPreviousLevel() // 이전 레벨 반환 (불러옴)
     {
-        LoadData();
         return previousLevel;
     }
 
@@ -96,11 +92,14 @@ public class DataManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(levelAccessKey, data);
         PlayerPrefs.Save();
+        LoadData();
+        levelAccess = data;
     }
     public static void SetPreviousLevel(int data) // 이전 레벨 지정
     {
         PlayerPrefs.SetInt(previousLevelKey, data);
         PlayerPrefs.Save();
+        previousLevel = data;
     }
 
     public void ResetData() // 데이터 리셋
@@ -108,7 +107,6 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetInt(levelAccessKey, 1);
         PlayerPrefs.SetInt(previousLevelKey, 1);
         PlayerPrefs.Save();
-        LoadData();
     }
 
     public static void GamePause() // 일시정지
