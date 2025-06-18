@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6940cdda447048efa58605bd546f9920, type: 3}
+  m_Name: Boss_GunUp
+  m_EditorClassIdentifier: 
+  Frames:
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: 1392e2c7c21cf7645b6d1221fa9794d3, type: 3}
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: 9ea1dc06b5284024a95199f083712085, type: 3}
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: c69157e5acec42841af679e0da76f917, type: 3}
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: 6c53ea8665fad4848ae97da831cae274, type: 3}

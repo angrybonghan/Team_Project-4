@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6940cdda447048efa58605bd546f9920, type: 3}
+  m_Name: Boss_GunSpin
+  m_EditorClassIdentifier: 
+  Frames:
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: ec9f8f4ca7d443b4f836fff6afaadaef, type: 3}
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: 451f5e83766065944854bb522a66ed21, type: 3}
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: 9e9d52cab81d28c45ad5f897417a3e0c, type: 3}
+  - DelayInMs: 70
+    Sprite: {fileID: 21300000, guid: f96d6d1d4a4519340b6c67a118daa1a0, type: 3}

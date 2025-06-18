@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class BossHoleManager : MonoBehaviour
 {
@@ -9,6 +10,31 @@ public class BossHoleManager : MonoBehaviour
     public GameObject eightBallPrefabs;
 
     private Rigidbody2D rb;
+
+    private Vector3 originalLocalScale;
+    private float scaleUpDuration = 0.2f;
+
+    private void Awake()
+    {
+        originalLocalScale = transform.localScale;
+        transform.localScale = Vector3.zero;
+        StartCoroutine(ScaleUpCoroutine(originalLocalScale, scaleUpDuration));
+    }
+
+    private IEnumerator ScaleUpCoroutine(Vector3 targetScale, float duration)
+    {
+        float elapsed = 0f;
+        Vector3 startScale = transform.localScale;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            transform.localScale = Vector3.Lerp(startScale, targetScale, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = targetScale;
+    }
 
 
     private void OnTriggerEnter2D(Collider2D other)
