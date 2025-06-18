@@ -42,7 +42,8 @@ public class BossSkillManager : MonoBehaviour
 
     [Header("ÃÑ¾Ë º¼")]
     public GameObject BulletBall;
-
+    [Header("ÃÑ¾Ë º¼ »ý¼º ÀÌÆåÆ®")]
+    public GameObject BulletBallEffect;
 
     public static int BulletBallCount = 0;
 
@@ -122,7 +123,8 @@ public class BossSkillManager : MonoBehaviour
 
                 SetBossAnimation(1);
                 CalculatePotentialHolePositions(1);
-                GameObject NewBulletBall = Instantiate(BulletBall, potentialHolePositions[0], Quaternion.identity);
+                Instantiate(BulletBall, potentialHolePositions[0], Quaternion.identity);
+                Instantiate(BulletBallEffect, potentialHolePositions[0], Quaternion.identity);
                 yield return CameraMovement.LerpGoto(new Vector3(potentialHolePositions[0].x, potentialHolePositions[0].y, -10f), 0.5f, 0.2f);
                 yield return new WaitForSeconds(0.5f);
             }

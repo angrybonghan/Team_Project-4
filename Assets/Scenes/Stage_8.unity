@@ -3903,7 +3903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UI: {fileID: 1839711115}
   BossSkill1: 1
-  BossSkill2: 1
+  BossSkill2: 2
   BossSkill3: 2
   BossIdle: {fileID: 7398114395481771568, guid: 2c8accb059f1a5a40806c203c09ce359, type: 3}
   BossGunUp: {fileID: 3737494912424151638, guid: ca56f43c592f0d54c86e4984580404d5, type: 3}
@@ -3920,6 +3920,7 @@ MonoBehaviour:
   minY: -0.2
   minDistanceToBall: 0.2
   BulletBall: {fileID: 5567716565104466789, guid: f6d9b753d62b1c745adb4253672d047d, type: 3}
+  BulletBallEffect: {fileID: 8623613538640493818, guid: 58412485128275144aef52b0dfb9b8dc, type: 3}
 --- !u!4 &2041367892
 Transform:
   m_ObjectHideFlags: 0

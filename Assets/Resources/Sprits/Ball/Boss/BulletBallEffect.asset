@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6940cdda447048efa58605bd546f9920, type: 3}
+  m_Name: BulletBallEffect
+  m_EditorClassIdentifier: 
+  Frames:
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: fde68d1062f4eae46a968521f0ed9488, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 50436d4682bf14c479c55516cd5688e3, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 70fa7973ce71e4a428497660ef5d7b5f, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 824c5243a7e202c42b1f2f8133eba5e8, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 887658345bb35e14c9d391f1c7888cee, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 1464c529079bbd14e8174e0f51eb4664, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: a0bcf8413fe01d344bbdc2f025437aea, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 6c18c9cdc4ac74e48a4205687c022493, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 8f2e06579d7fb2a4e8c824728a275fba, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 9f9c18c76160cc64d96223a822760677, type: 3}
