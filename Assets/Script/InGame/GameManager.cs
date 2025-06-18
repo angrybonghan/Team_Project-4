@@ -78,10 +78,13 @@ public class GameManager : MonoBehaviour
     {
         ballNumber = 1;
         scoredBallInChalk = 0;
+        SpeedBallChance = 0;
+
         isBallEight = false;
         canPlay = true;
         isChaosBallActivate = false;
-        SpeedBallChance = 0;
+        BossSkip = false;
+
         attemptsText.text = attemptsLeft.ToString();
 
         if (SceneManager.GetActiveScene().name == "Stage_8")
