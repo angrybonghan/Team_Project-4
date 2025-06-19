@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6940cdda447048efa58605bd546f9920, type: 3}
+  m_Name: Boss_Death
+  m_EditorClassIdentifier: 
+  Frames:
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: c882d76bd868de94a92b2a47bb8f3f70, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: ede923ed7b7ae1d46a48b46e27478373, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 717111d182cb25c438cf27ca2608e661, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: cbd683d8472abd64e8348aa7dae3a6e8, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 43200c45f3170f84fa3bdc56c29a5ff7, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 86f57a7ef13488945a990df035033c66, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 8904bbbcb2cb79e42804c6de222b1642, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 2b87bd3fd78a61a46bad29e58ec35af4, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 8327cd9fee416ec49921b50cf84e3d4e, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 9fd565dde00034e4aa1389a12e73c80f, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 3261a7d798c3a4446b62ab2e3fde6048, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: e831782eaa36fb547863f224ad7b2a9f, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 196c4d6908d98b74db32f3b139319e5b, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: eb8f413b183f1b6479e50897bcf88356, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 51db0155cffdfd54d9d9e3d310706557, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 011610ac69d2075449bf45963b6110ef, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 86a9640f6a2745e4e89f38fc799178fa, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 08f91eccdd036fb40a6196e5a09ea6b6, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 29b97034c9b8ad44ab66246f7bf4c4ba, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 1e1edbc0ea764794b9f914e1a79f0ad6, type: 3}
+  - DelayInMs: 100
+    Sprite: {fileID: 21300000, guid: 201a355793449f54e990e38f5e0e062d, type: 3}

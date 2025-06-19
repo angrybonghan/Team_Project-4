@@ -1,70 +1,77 @@
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+// SoundManager 클래스는 MonoBehaviour를 상속받지 않음.
+// 이렇게 하면 씬에 오브젝트로 존재할 필요 없이 순수 static 유틸리티 클래스가 됨.
+public static class SoundManager
 {
-    public static SoundManager Instance { get; private set; }
+    // static AudioSource는 PlaySound를 호출할 때 동적으로 생성하거나,
+    // 미리 씬에 배치된 AudioSource를 참조하여 사용할 수 있도록 해야 함.
+    // 여기서는 동적으로 생성하는 방식으로 구현함.
+    private static AudioSource _audioSource;
 
-    public static AudioSource audioSource { get; private set; } // 오디오 소스 컴포넌트 참조
-
-    [Header("1-버튼")]
-    public AudioClip button;
-    [Header("2-다이얼로그")]
-    public AudioClip dialogue;
-    [Header("3-가이드 텍스트")]
-    public AudioClip GuideText;
-    [Header("4-랜덤볼")]
-    public AudioClip RandomBall;
-    [Header("5-손가락 튕기기")]
-    public AudioClip Tick;
-    [Header("6-콤보")]
-    public AudioClip Blast;
-
-
-    void Awake()
+    // AudioSource가 없으면 생성하여 반환하는 프로퍼티
+    private static AudioSource GlobalAudioSource
     {
-        if (Instance == null) // 신 변경에도 유지하는 싱글톤
+        get
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (_audioSource == null)
+            {
+                // 게임 시작 시 이 SoundManager가 붙는 GameObject가 없을 수 있으므로,
+                // 새로운 임시 GameObject를 생성하여 AudioSource를 붙임.
+                // DontDestroyOnLoad를 사용하여 씬 전환에도 유지되도록 함.
+                GameObject soundGameObject = new GameObject("GlobalSoundManagerAudioSource");
+                _audioSource = soundGameObject.AddComponent<AudioSource>();
+                Object.DontDestroyOnLoad(soundGameObject);
+            }
+            return _audioSource;
         }
-        else
+    }
+
+    /// <summary>
+    /// 사운드 재생 : 오디오클립, 불륨, 피치
+    /// </summary>
+    /// <param name="clip">재생할 오디오 클립.</param>
+    /// <param name="volume">사운드 크기 (0.0f ~ 1.0f).</param>
+    /// <param name="pitch">피치 (0.0f ~ 3.0f, 기본 1.0f).</param>
+    public static void PlaySound(AudioClip clip, float volume = 1.0f, float pitch = 1.0f)
+    {
+        if (clip == null)
         {
-            Destroy(gameObject);
+            Debug.LogWarning("재생할 오디오 클립이 null.");
             return;
         }
 
-        // AudioSource 컴포넌트
-        audioSource = GetComponent<AudioSource>();
+        AudioSource source = GlobalAudioSource;
+
+        // PlayOneShot 전에 피치와 볼륨을 설정.
+        // PlayOneShot은 직접적인 volumeScale 인자를 제공하지만, pitch는 제공하지 않으므로
+        // AudioSource의 pitch를 설정하고 재생.
+        source.pitch = Mathf.Clamp(pitch, 0.01f, 3.0f);
+        source.volume = Mathf.Clamp01(volume);
+
+        source.PlayOneShot(clip, source.volume);
     }
 
-    public static void PlaySound(int soundType)
+    /// <summary>
+    /// SoundManager가 사용하는 AudioSource에서 재생되는 모든 소리를 즉시 정지.
+    /// </summary>
+    public static void StopSound()
     {
-        audioSource.pitch = 1f;
-
-        switch (soundType)
+        if (_audioSource != null && _audioSource.isPlaying)
         {
-            case 1:
-                audioSource.PlayOneShot(Instance.button);
-                break;
-            case 2:
-                audioSource.pitch = 0.7f;
-                audioSource.PlayOneShot(Instance.dialogue);
-                break;
-            case 3:
-                audioSource.PlayOneShot(Instance.GuideText);
-                break;
-            case 4:
-                audioSource.PlayOneShot(Instance.RandomBall);
-                break;
-            case 5:
-                audioSource.PlayOneShot(Instance.Tick);
-                break;
-            case 6:
-                audioSource.pitch = 1.5f;
-                audioSource.PlayOneShot(Instance.Blast);
-                break;
+            _audioSource.Stop();
         }
+    }
 
-        
+    // 선택 사항: GlobalAudioSource의 볼륨을 설정하는 static 메서드
+    public static void SetGlobalVolume(float volume)
+    {
+        GlobalAudioSource.volume = Mathf.Clamp01(volume);
+    }
+
+    // 선택 사항: GlobalAudioSource의 피치를 설정하는 static 메서드 (주로 모든 소리의 피치 변경 시)
+    public static void SetGlobalPitch(float pitch)
+    {
+        GlobalAudioSource.pitch = Mathf.Clamp(pitch, 0.01f, 3.0f);
     }
 }

@@ -306,9 +306,18 @@ public class GameManager : MonoBehaviour
 
     void GameWin()
     {
-        DataManager.SetLevelAccess(nextLevelNumber);
-        Instantiate(victoryAnimation);
-        ScreenTransition.Goto("SelectStage", 2.2f, 0.5f);
+        DataManager.isGameActionable = false;
+        if (boss)
+        {
+            ScreenTransition.Goto("Cutscene_ED", 0.5f, 0f);
+
+        }
+        else
+        {
+            DataManager.SetLevelAccess(nextLevelNumber);
+            Instantiate(victoryAnimation);
+            ScreenTransition.Goto("SelectStage", 2.2f, 0.5f);
+        }
     }
 
     public void RandomPick()
@@ -326,7 +335,6 @@ public class GameManager : MonoBehaviour
         RandomPickChance--;
         RandomBallattemptsText.text = $"x{RandomPickChance}";
 
-        SoundManager.PlaySound(4);
 
         BallDeceleration[] allBalls = FindObjectsOfType<BallDeceleration>();
 

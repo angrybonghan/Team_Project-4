@@ -24,7 +24,7 @@ public class UiToggle : MonoBehaviour
         if (!boss)
         {
             yield return Sleep(1.1f);
-            SoundManager.PlaySound(5);
+            // 손가락 스냅 사운드
             yield return Sleep(0.7f);
             UI.SetActive(true);
         }

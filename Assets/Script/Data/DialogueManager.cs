@@ -13,6 +13,9 @@ public class DialogueManager : MonoBehaviour
     public TMP_Text characterNameUI;  // 캐릭터 이름
     public TMP_Text dialogueTextUI;       // 대화 텍스트
 
+    [Header("사운드")]
+    public AudioClip keyClick;
+
     public static bool isDialogueActive = false;
 
     private DialogueSO currentDialogue;
@@ -80,7 +83,7 @@ public class DialogueManager : MonoBehaviour
         for (int i = 0; i <= fullText.Length; i++)
         {
             if (dialogueTextUI != null) dialogueTextUI.text = fullText.Substring(0, i);
-            SoundManager.PlaySound(2);
+            SoundManager.PlaySound(keyClick);
             yield return new WaitForSeconds(0.05f);
 
             // 타이핑 도중 스페이스바를 누르면 바로 전체 텍스트 표시
@@ -95,6 +98,8 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue() // 대화 종료 시 초기화
     {
+        StopAllCoroutines();
+
         isDialogueActive = false;
         isTypingComplete = false;
         currentDialogue = null;
@@ -118,11 +123,6 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        if (isDialogueActive && Input.GetKeyDown(KeyCode.X))
-        {
-            EndDialogue();
-        }
-
         if (isDialogueActive && Input.GetKeyDown(KeyCode.Space)) // 대화가 활성화된 상태에서 스페이스바 누름
         {
             if (isTypingComplete) // 타이핑이 완료된 경우에만 다음 대사로 진행
@@ -143,6 +143,11 @@ public class DialogueManager : MonoBehaviour
                 if (dialogueTextUI != null) dialogueTextUI.text = currentDialogue.DialogueText[currentDialogueIndex]; // 전체 텍스트 표시
                 isTypingComplete = true; // 타이핑 완료 상태로 설정
             }
+        }
+
+        if (isDialogueActive && Input.GetKeyDown(KeyCode.X))
+        {
+            EndDialogue(); // 모든 대화 건너뛰고 종료 함수 호출
         }
     }
 }

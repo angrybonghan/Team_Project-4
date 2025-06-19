@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossSkillManager : MonoBehaviour
@@ -29,6 +28,8 @@ public class BossSkillManager : MonoBehaviour
     public GameObject BossGunHit;
     [Header("보스 스턴")]
     public GameObject BossStun;
+    [Header("보스 사망 이미지")]
+    public GameObject BossDeadImage;
 
     [Header("생성할 보스 구멍 프리팹")]
     public GameObject holePrefab;
@@ -69,6 +70,7 @@ public class BossSkillManager : MonoBehaviour
     public static bool StartStun = false;
     public static bool EndStun = false;
     public static bool bossAcivate = false;
+    public static bool bossDeath = false;
 
     private void Start()
     {
@@ -84,6 +86,12 @@ public class BossSkillManager : MonoBehaviour
 
     void Update()
     {
+        if (bossDeath)
+        {
+            bossDeath = false;
+            StartCoroutine(PlayBossDeathAnimation());
+        }
+
         if (StartStun)
         {
             StartStun = false;
@@ -183,6 +191,12 @@ public class BossSkillManager : MonoBehaviour
         isStuned = true;
     }
 
+
+    public static void PlayBossDeath()
+    {
+        bossDeath = true;
+    }
+
     IEnumerator activateStun()
     {
         yield return CameraMovement.LerpGoto(new Vector3(0, 1.35f, -10), 1.35f, 0.3f);
@@ -221,6 +235,17 @@ public class BossSkillManager : MonoBehaviour
         isStuned = false;
         DataManager.isGameActionable = true;
         UI.SetActive(true);
+    }
+
+    IEnumerator PlayBossDeathAnimation()
+    {
+        yield return CameraMovement.LerpGoto(new Vector3(0, 1.3f, -10), 1.5f, 0.25f);
+        SetBossAnimation(5);
+        yield return CameraMovement.Shake(0.5f, 1, 0.1f);
+        yield return new WaitForSeconds(1.1f);
+        SetBossAnimation(9);
+        CameraMovement.LerpGoto(new Vector3(0.3f, 0.12f, -10), 0.1f, 1.4f);
+        ScreenTransition.Goto("Cutscene_ED", 1.5f, 0f);
     }
 
     IEnumerator activateSkill()
@@ -516,6 +541,11 @@ public class BossSkillManager : MonoBehaviour
         else if (AnimationKey == 8)
         {
             GameObject newAnimation = Instantiate(BossStun);
+            newAnimation.transform.SetParent(this.transform);
+        }
+        else if (AnimationKey == 9)
+        {
+            GameObject newAnimation = Instantiate(BossDeadImage);
             newAnimation.transform.SetParent(this.transform);
         }
     }

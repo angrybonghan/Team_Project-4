@@ -190,14 +190,14 @@ PrefabInstance:
     - target: {fileID: 1574408209712941287, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 454702636}
     - target: {fileID: 1574408209712941287, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: RandomPick
       objectReference: {fileID: 0}
     - target: {fileID: 1574408209712941287, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BossGameManager, Assembly-CSharp
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1574408209712941287, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3925,10 +3925,11 @@ MonoBehaviour:
   BossGunUp: {fileID: 3737494912424151638, guid: ca56f43c592f0d54c86e4984580404d5, type: 3}
   BossGunShot: {fileID: 1661069472880615656, guid: b18436fb6b8cf3e47aa4526ab294af20, type: 3}
   BossGunSpin: {fileID: 6132424394426881547, guid: 5d2f9125364a3fb4089c6bf35369c9c9, type: 3}
-  BossDead: {fileID: 1661069472880615656, guid: b18436fb6b8cf3e47aa4526ab294af20, type: 3}
+  BossDead: {fileID: 7166057407908331306, guid: cd6c168b1573e9c4990fcbb6a442b8be, type: 3}
   BossBallThrow: {fileID: 6785765764923910184, guid: 65113e49147fd5041a8b0467901e671e, type: 3}
   BossGunHit: {fileID: 2966823659745407918, guid: 1f572251825fded4f933cf3d60758dea, type: 3}
   BossStun: {fileID: 7024183670366531616, guid: 69331bd9ffa99ab4c917e11e604bb15b, type: 3}
+  BossDeadImage: {fileID: 8392396028587180760, guid: 5dc279f29dba48b4190d5159c20d6263, type: 3}
   holePrefab: {fileID: 8225883079666606369, guid: 13940c678db12be40884d7279422d2e8, type: 3}
   Aim: {fileID: 2270792774127272927, guid: cdec3e33955cbaf408b1499163d35734, type: 3}
   BulletPrefabs: {fileID: 3884368272757276014, guid: 71247552ad9bbfd449330aa336166c54, type: 3}

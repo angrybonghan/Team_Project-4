@@ -42,26 +42,39 @@ public class DialogueTrigger : MonoBehaviour
                 StartDialogue(1, 1);
                 break;
             case "Stage_1":
-                StartDialogue(1, 0);
+                StartDialogue(2, 0);
                 break;
 
             case "Stage_2":
-                StartDialogue(2, 0);
-                break;
-
-            case "Stage_3":
                 StartDialogue(3, 0);
                 break;
 
-            case "Stage_4":
+            case "Stage_3":
                 StartDialogue(4, 0);
                 break;
 
-            case "Stage_5":
+            case "Stage_4":
                 StartDialogue(5, 0);
                 break;
+
+            case "Stage_5":
+                StartDialogue(6, 0);
+                break;
+
+            case "Stage_6":
+                StartDialogue(7, 0);
+                break;
+
+            case "Stage_7":
+                StartDialogue(8, 0);
+                break;
+
             case "Stage_8":
-                StartDialogue(2, 0);
+                StartDialogue(9, 0);
+                break;
+
+            case "Cutscene_ED":
+                StartDialogue(10, 2);
                 break;
         }
     }

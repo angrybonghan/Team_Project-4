@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterImage:
   - {fileID: 0}
-  characterName: []
-  DialogueText: []
+  characterName:
+  - 888
+  DialogueText:
+  - 88

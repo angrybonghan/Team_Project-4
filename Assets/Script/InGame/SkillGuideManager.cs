@@ -45,7 +45,6 @@ public class SkillGuideManager : MonoBehaviour
             }
         }
         Instantiate(Instance.GuidePrefabs, Instance.transform.position, Instance.transform.rotation);
-        SoundManager.PlaySound(3);
     }
 
 
