@@ -87,6 +87,7 @@ public class pauseControl : MonoBehaviour
         // 절대 ESC 동작을 허용하지 않는 씬 (일시정지/가이드북, 씬 전환 불가)
         if (currentSceneName == "MainMenu" ||
             currentSceneName == "GameOver" ||
+            currentSceneName == "GameOverToBoss" ||
             currentSceneName == "Cutscene_ED"||
             currentSceneName == "Cutscene_OP")
         {

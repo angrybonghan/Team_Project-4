@@ -193,6 +193,13 @@ public class GameManager : MonoBehaviour
                         {
                             playerBall.transform.position = new Vector2(0f, -1f);
                         }
+
+                        string currentSceneName = SceneManager.GetActiveScene().name;
+                        if (currentSceneName == "Stage_5")
+                        {
+                            playerBall.transform.position = new Vector2(-1.2f, 0f);
+                        }
+
                     }
 
                     if (scoredBallInChalk != 0 && !isBallEight) // 공이 하나도 들어가지 않았거나 이미 8볼일 경우 무시
@@ -314,7 +321,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            DataManager.SetLevelAccess(nextLevelNumber);
+            if (DataManager.GetLevelAccess() < nextLevelNumber)
+            {
+                DataManager.SetLevelAccess(nextLevelNumber);
+            }
             Instantiate(victoryAnimation);
             ScreenTransition.Goto("SelectStage", 2.2f, 0.5f);
         }
