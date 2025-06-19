@@ -65,6 +65,8 @@ public class BossSkillManager : MonoBehaviour
     public AudioClip _BulletImpactSound;
     [Header("불 소리")]
     public AudioClip _FireSound;
+    [Header("보스 스턴 소리 (삐~)")]
+    public AudioClip _StunSound;
 
     private List<Vector3> potentialHolePositions = new List<Vector3>();
     private List<GameObject> PatternTwoAims = new List<GameObject>();
@@ -214,10 +216,13 @@ public class BossSkillManager : MonoBehaviour
     {
         yield return CameraMovement.LerpGoto(new Vector3(0, 1.35f, -10), 1.35f, 0.3f);
         SetBossAnimation(7);
+        SoundManager.PlaySound(_GunDrawSound);
         yield return new WaitForSeconds(0.75f);
         CameraMovement.Shake(0.05f, 0.15f, 0.025f);
+        SoundManager.PlaySound(_ShootSound);
         yield return new WaitForSeconds(0.1f);
         SetBossAnimation(8);
+        SoundManager.PlaySound(_StunSound);
         yield return new WaitForSeconds(0.5f);
         CameraMovement.LerpGoto(new Vector3(0, 0, -10), 3f, 0.4f);
         yield return new WaitForSeconds(0.65f);
@@ -239,7 +244,10 @@ public class BossSkillManager : MonoBehaviour
         CameraMovement.LerpGoto(new Vector3(-1.15f, 1.3f, -10), 0.9f, 0.15f);
         yield return new WaitForSeconds(0.28f);
         SetBossAnimation(4);
-        yield return new WaitForSeconds(0.56f);
+        SoundManager.PlaySound(_GunSpinSound);
+        yield return new WaitForSeconds(0.28f);
+        SoundManager.PlaySound(_GunSpinSound);
+        yield return new WaitForSeconds(0.28f);
         SetBossAnimation(1);
         CameraMovement.LerpGoto(new Vector3(0, 0, -10), 3, 0.45f);
         yield return new WaitForSeconds(0.3f);
@@ -404,6 +412,7 @@ public class BossSkillManager : MonoBehaviour
                 // PatternThreeAims 수만큼 반복 + PatternThreeAims[i] 참조하기 때문에 맞을수밖에 없긴함
                 if (BulletPrefabs != null)  
                 {
+                    
                     GameObject PatternThreeBullet = Instantiate(BulletPrefabs, PatternThreeAims[i].transform.position, Quaternion.identity);
                     PatternThreeBullet.transform.localScale = new Vector3(0.5f, 0.5f, 1);
                     Destroy(PatternThreeAims[i]);
@@ -446,6 +455,7 @@ public class BossSkillManager : MonoBehaviour
                 }
 
             }
+            PatternThreeAims.Clear();
             yield return new WaitForSeconds(0.5f);
             //transform.position = PatternThreeAims[0].transform.position;
         }
