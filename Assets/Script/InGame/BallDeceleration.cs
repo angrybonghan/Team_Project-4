@@ -15,7 +15,7 @@ public class BallDeceleration : MonoBehaviour
     void Update()
     {
         // °¨¼Ó
-        if (rb.velocity.magnitude > 0.5f)
+        if (rb.velocity.magnitude > 0.25f)
         {
             rb.velocity *= (1 - deceleration * Time.deltaTime);
 

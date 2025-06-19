@@ -19,16 +19,10 @@ EditorBuildSettings:
     guid: 2c69ea5e5abdc0f4abce3e3c198a50c3
   - enabled: 1
     path: Assets/Scenes/Stage_3.unity
-    guid: 53baa7b1ffef0a046afbe3a123f9b907
+    guid: 2736430e3b7526f4e9de55339c2d1117
   - enabled: 1
     path: Assets/Scenes/Stage_4.unity
-    guid: c1a370557187d3e4292e376ae76d528e
-  - enabled: 1
-    path: Assets/Scenes/Stage_6.unity
-    guid: f3c7c7c1173fdab4d8a96ef6b332a8f0
-  - enabled: 1
-    path: Assets/Scenes/Stage_8.unity
-    guid: 81803b2722ae9cb4cba47ff13d666756
+    guid: cbbd4fca4ca6a8b42a89b43990a6dd0d
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: c6202734039b0ef4fbf733a3643499f4
