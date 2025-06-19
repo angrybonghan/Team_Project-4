@@ -7,12 +7,14 @@ public class DataManager : MonoBehaviour
     // 데이터 저장 경로 상수
     private const string levelAccessKey = "levelAccess"; // 레벨 접근 권한 레벨
     private const string previousLevelKey = "previousLevel"; // 가장 최근 있었던 레벨
+    private const string playCutsceneOPKey = "playCutsceneOP"; // 오프닝 컷씬 재생 여부
 
     public static int levelAccess { get; private set; }
     public static int previousLevel { get; private set; }
 
-
     public static bool isGameActionable = false; // 전체 게임이 작동 가능한지 (일시정지 또는 게임오버)
+
+    public static bool PlayCutsceneOP { get; private set; } // 오프닝 컷씬 재생 여부 (읽기 전용으로 변경)
 
 
     void Awake()
@@ -29,12 +31,12 @@ public class DataManager : MonoBehaviour
         }
 
         LoadData();
-        isGameActionable=false;
+        isGameActionable = false;
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.E)&&Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.E) && Input.GetKeyDown(KeyCode.R))
         {
             ResetData();
             Debug.Log("데이터 리셋 작동");
@@ -77,6 +79,10 @@ public class DataManager : MonoBehaviour
             previousLevel = loadedPreviousLevel;
         }
 
+        int loadedPlayCutsceneOP = PlayerPrefs.GetInt(playCutsceneOPKey, 1);
+        PlayCutsceneOP = (loadedPlayCutsceneOP == 1);
+
+
         // 보정 발생
         if (needsSave)
         {
@@ -96,19 +102,33 @@ public class DataManager : MonoBehaviour
         return previousLevel;
     }
 
+    public static bool GetPlayCutsceneOP() // 오프닝 컷씬 재생 여부 반환 (불러옴)
+    {
+        return PlayCutsceneOP;
+    }
+
+
     // 저장
     public static void SetLevelAccess(int data) // 레벨 권한 지정
     {
         PlayerPrefs.SetInt(levelAccessKey, data);
         PlayerPrefs.Save();
-        LoadData();
         levelAccess = data;
     }
+
     public static void SetPreviousLevel(int data) // 이전 레벨 지정
     {
         PlayerPrefs.SetInt(previousLevelKey, data);
         PlayerPrefs.Save();
         previousLevel = data;
+    }
+
+    // PlayCutsceneOP 저장 메소드 추가
+    public static void SetPlayCutsceneOP(bool data)
+    {
+        PlayerPrefs.SetInt(playCutsceneOPKey, data ? 1 : 0); // bool을 int로 변환 (true=1, false=0)
+        PlayerPrefs.Save();
+        PlayCutsceneOP = data; // 즉시 반영
     }
 
     public void ResetData() // 데이터 리셋
@@ -117,6 +137,9 @@ public class DataManager : MonoBehaviour
         levelAccess = 1;
         PlayerPrefs.SetInt(previousLevelKey, 1);
         previousLevel = 1;
+        // PlayCutsceneOP도 리셋 시 초기값으로 설정 (예: 다시 재생되도록 true)
+        PlayerPrefs.SetInt(playCutsceneOPKey, 1); // 컷씬 다시 재생되도록
+        PlayCutsceneOP = true;
         PlayerPrefs.Save();
     }
 

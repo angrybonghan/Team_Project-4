@@ -292,8 +292,15 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        ScreenTransition.Goto("GameOver", 0.5f, 0f);
         DataManager.isGameActionable = false;
+        if (boss)
+        {
+            ScreenTransition.Goto("GameOverToBoss", 0.5f, 0f);
+        }
+        else
+        {
+            ScreenTransition.Goto("GameOver", 0.5f, 0f);
+        }
     }
 
 

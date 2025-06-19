@@ -114,11 +114,6 @@ public class BossSkillManager : MonoBehaviour
                     Destroy(bossHole);
                 }
             }
-
-            BossCooldown1--;
-            BossCooldown2--;
-            BossCooldown3--;
-
             AllBulletBall.Clear();
             GameObject[] foundBulletBalls = GameObject.FindGameObjectsWithTag("BulletBallTagMarker");
             foreach (GameObject ball in foundBulletBalls)
@@ -126,18 +121,32 @@ public class BossSkillManager : MonoBehaviour
                 AllBulletBall.Add(ball);
             }
 
-            if (BossCooldown1 <= 0 && BossCooldown2 <= 0 && AllBulletBall.Count >= 1)
-            {
-                DataManager.isGameActionable = true;
-            }
-            else if (BossCooldown3 <= 0 || GameManager.ballNumber >= 6)
-            {
-                DataManager.isGameActionable = true;
-            }
-            else
+            BossCooldown1--;
+            BossCooldown2--;
+            BossCooldown3--;
+            Debug.Log($"현재 보스 쿨다운: Skill1={BossCooldown1}, Skill2={BossCooldown2}, Skill3={BossCooldown3}");
+
+            if (BossCooldown1 <= 0 || BossCooldown2 <= 0 || AllBulletBall.Count >= 1)
             {
                 UI.SetActive(false);
                 StartCoroutine(activateSkill());
+                
+            }
+            else if (BossCooldown3 <= 0)
+            {
+                if (GameManager.ballNumber >= 6)
+                {
+                    UI.SetActive(false);
+                    StartCoroutine(activateSkill());
+                }
+                else
+                {
+                    DataManager.isGameActionable = true;
+                }
+            }
+            else
+            {
+                DataManager.isGameActionable = true;
             }
         }
     }
