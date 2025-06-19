@@ -13,6 +13,15 @@ public class ButtonManager : MonoBehaviour
         }
 
         GameObject Animation = Instantiate(animationPrefabs, transform.position, transform.rotation);
-        ScreenTransition.Goto("SelectStage", 0.6f, 0.6f);
+
+        if (DataManager.GetPlayCutsceneOP())
+        {
+            ScreenTransition.Goto("Cutscene_OP", 0.6f, 0.6f);
+        }
+        else
+        {
+            ScreenTransition.Goto("SelectStage", 0.6f, 0.6f);
+        }
+        
     }
 }

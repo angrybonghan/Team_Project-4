@@ -128,7 +128,7 @@ public class DataManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(playCutsceneOPKey, data ? 1 : 0); // bool을 int로 변환 (true=1, false=0)
         PlayerPrefs.Save();
-        PlayCutsceneOP = data; // 즉시 반영
+        PlayCutsceneOP = data;
     }
 
     public void ResetData() // 데이터 리셋
@@ -137,8 +137,7 @@ public class DataManager : MonoBehaviour
         levelAccess = 1;
         PlayerPrefs.SetInt(previousLevelKey, 1);
         previousLevel = 1;
-        // PlayCutsceneOP도 리셋 시 초기값으로 설정 (예: 다시 재생되도록 true)
-        PlayerPrefs.SetInt(playCutsceneOPKey, 1); // 컷씬 다시 재생되도록
+        PlayerPrefs.SetInt(playCutsceneOPKey, 1);
         PlayCutsceneOP = true;
         PlayerPrefs.Save();
     }

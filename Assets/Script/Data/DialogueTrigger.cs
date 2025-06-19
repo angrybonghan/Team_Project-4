@@ -38,6 +38,9 @@ public class DialogueTrigger : MonoBehaviour
     {
         switch (scene.name)
         {
+            case "Cutscene_OP":
+                StartDialogue(1, 1);
+                break;
             case "Stage_1":
                 StartDialogue(1, 0);
                 break;

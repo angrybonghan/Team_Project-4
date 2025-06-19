@@ -100,7 +100,7 @@ public class ScreenTransition : MonoBehaviour
 
         if (
             targetScene == "SelectStage" ||
-            targetScene == "Stage_8"
+            targetScene == "AnotherScene"
             ) DataManager.isGameActionable = true;
 
 

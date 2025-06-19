@@ -109,6 +109,11 @@ public class DialogueManager : MonoBehaviour
         {
             DataManager.isGameActionable = true;
         }
+        if (operationNumber == 1)
+        {
+            DataManager.SetPlayCutsceneOP(false);
+            ScreenTransition.Goto("SelectStage", 0f, 0.5f);
+        }
     }
 
     void Update()
