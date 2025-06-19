@@ -119,6 +119,11 @@ public class DialogueManager : MonoBehaviour
             DataManager.SetPlayCutsceneOP(false);
             ScreenTransition.Goto("SelectStage", 0f, 0.5f);
         }
+        if (operationNumber == 2)
+        {
+            DataManager.SetPlayCutsceneOP(false);
+            ScreenTransition.Goto("CreditScene", 1.5f, 0.5f);
+        }
     }
 
     void Update()

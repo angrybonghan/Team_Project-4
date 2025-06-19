@@ -13,12 +13,14 @@ public class BossHoleManager : MonoBehaviour
 
     private Vector3 originalLocalScale;
     private float scaleUpDuration = 0.2f;
+    private AudioClip HoleIn;
 
     private void Awake()
     {
         originalLocalScale = transform.localScale;
         transform.localScale = Vector3.zero;
         StartCoroutine(ScaleUpCoroutine(originalLocalScale, scaleUpDuration));
+        HoleIn = DataManager.HoleIn;
     }
 
     private IEnumerator ScaleUpCoroutine(Vector3 targetScale, float duration)
@@ -74,7 +76,7 @@ public class BossHoleManager : MonoBehaviour
 
                 if (GameManager.isBallEight)
                 {
-                    GameManager.isGameOver = true;
+                    GameManager.isGameWin = true;
                 }
                 else
                 {
@@ -164,6 +166,8 @@ public class BossHoleManager : MonoBehaviour
         {
             GameManager.BossSkip = true;
         }
+
+        SoundManager.PlaySound(HoleIn, 0.35f, Random.Range(0.75f,1.25f));
     }
 
     void PlayAnimation(GameObject targetObject)

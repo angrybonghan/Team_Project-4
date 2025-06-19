@@ -4,6 +4,12 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
 
+    public static AudioClip BallHit;
+    public AudioClip BallHit_;
+
+    public static AudioClip HoleIn;
+    public AudioClip HoleIn_;
+
     // 데이터 저장 경로 상수
     private const string levelAccessKey = "levelAccess"; // 레벨 접근 권한 레벨
     private const string previousLevelKey = "previousLevel"; // 가장 최근 있었던 레벨
@@ -32,6 +38,9 @@ public class DataManager : MonoBehaviour
 
         LoadData();
         isGameActionable = false;
+
+        BallHit = BallHit_;
+        HoleIn = HoleIn_;
     }
 
     private void Update()

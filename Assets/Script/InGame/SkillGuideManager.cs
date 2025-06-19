@@ -10,6 +10,9 @@ public class SkillGuideManager : MonoBehaviour
     public float interval = 0.45f;
     [Header("생성할 가이드 프리팹")]
     public GameObject GuidePrefabs;
+    [Header("소리")]
+    public static AudioClip GuideSound;
+    public AudioClip GuideSound_;
 
     public float detectionRadius = 0.1f;
     public static string guideText;
@@ -27,6 +30,7 @@ public class SkillGuideManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        GuideSound = GuideSound_;
     }
 
     public static void summonGuidePaper(string setGuideText)
@@ -45,6 +49,7 @@ public class SkillGuideManager : MonoBehaviour
             }
         }
         Instantiate(Instance.GuidePrefabs, Instance.transform.position, Instance.transform.rotation);
+        SoundManager.PlaySound(GuideSound,0.6f,0.6f);
     }
 
 

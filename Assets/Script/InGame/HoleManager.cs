@@ -9,7 +9,12 @@ public class HoleManager : MonoBehaviour
     public GameObject eightBallPrefabs;
 
     private Rigidbody2D rb;
+    private AudioClip HoleIn;
 
+    private void Start()
+    {
+        HoleIn = DataManager.HoleIn;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -138,6 +143,8 @@ public class HoleManager : MonoBehaviour
         {
             GameManager.BossSkip = true;
         }
+
+        SoundManager.PlaySound(HoleIn, 0.35f, Random.Range(0.75f, 1.25f));
     }
 
     void PlayAnimation()

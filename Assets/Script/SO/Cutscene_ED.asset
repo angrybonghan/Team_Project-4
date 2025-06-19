@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d52157b57505264e80df86df0ccc0c2, type: 3}
+  m_Name: Cutscene_ED
+  m_EditorClassIdentifier: 
+  characterImage:
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
+  - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 0}
+  characterName:
+  - "\uB098"
+  - "\uB098"
+  - "\uB098"
+  - "\uC601\uD63C"
+  - "\uB098"
+  - "\uC601\uD63C"
+  - "\uB098"
+  - "\uC601\uD63C"
+  - "\uC601\uD63C"
+  - "\uB098"
+  - "\uC601\uD63C"
+  - "\uB098"
+  - ' '
+  DialogueText:
+  - "\uD5C9... \uD5C9...."
+  - "\uBB34\uC2A8 \uC800\uB534 \uB188\uC774 \uB2E4 \uC788\uC5B4..."
+  - "\uD574\uCE58\uC6E0\uB098?"
+  - "\uC774\uC81C \uC601\uD63C \uD558\uB098\uC57C!"
+  - "\uBB50?"
+  - "\uC774\uC81C \uC601\uD63C \uD558\uB098 \uBAA8\uC558\uC5B4!"
+  - "\uC5B4.. \uADF8\uAC8C \uC5BC\uB9CC\uB370?"
+  - "2025\uB144 6\uC6D4 20\uC77C \uC624\uC804 11\uC2DC \uAE30\uC900 \uD658\uC728\uC740...."
+  - "3,200\uC6D0\uC774\uC57C."
+  - "... \uBB50?"
+  - "3,200\uC6D0\uC774\uC57C! (^^)b"
+  - "\uC73C\uC544\uC544\uC544\uC544\uC544\uC544\uC545!!!!!!!!!!!!!!!!!!!!!"
+  - "\uC55E\uC73C\uB85C \uC601\uD63C 7\uAC1C \uB0A8\uC558\uB2E4! \uC8FC\uC778\uACF5\uC758
+    \uC5C4\uCCAD\uB09C \uBAA8\uD5D8\uC774 \uC774\uC81C \uC2DC\uC791\uB41C\uB2E4..."

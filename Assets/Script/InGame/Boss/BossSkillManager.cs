@@ -104,6 +104,7 @@ public class BossSkillManager : MonoBehaviour
         if (bossDeath)
         {
             bossDeath = false;
+            UI.SetActive(false);
             StartCoroutine(PlayBossDeathAnimation());
         }
 
@@ -127,8 +128,6 @@ public class BossSkillManager : MonoBehaviour
             gotoNextTurn = false;
             bossAcivate = true;
 
-            Debug.Log("P - 11");
-
             GameObject[] bossHoles = GameObject.FindGameObjectsWithTag("BossHole");
             if (bossHoles.Length > 0)
             {
@@ -149,23 +148,11 @@ public class BossSkillManager : MonoBehaviour
             BossCooldown3--;
             Debug.Log($"현재 보스 쿨다운: Skill1={BossCooldown1}, Skill2={BossCooldown2}, Skill3={BossCooldown3}");
 
-            if (BossCooldown1 <= 0 || BossCooldown2 <= 0 || AllBulletBall.Count >= 1)
+            if (BossCooldown1 <= 0 || BossCooldown2 <= 0 || BossCooldown3 <=0 || AllBulletBall.Count >= 1)
             {
                 UI.SetActive(false);
                 StartCoroutine(activateSkill());
                 
-            }
-            else if (BossCooldown3 <= 0)
-            {
-                if (GameManager.ballNumber >= 6)
-                {
-                    UI.SetActive(false);
-                    StartCoroutine(activateSkill());
-                }
-                else
-                {
-                    DataManager.isGameActionable = true;
-                }
             }
             else
             {
@@ -462,35 +449,44 @@ public class BossSkillManager : MonoBehaviour
 
         if (BossCooldown3 <= 0)
         {
-            if (GameManager.ballNumber >= 6)
+            BossCooldown3 = BossSkill3;
+            int ballNumber = GameManager.ballNumber;
+            if (ballNumber < 5)
             {
-                BossCooldown3 = BossSkill3;
-                int ballNumber = GameManager.ballNumber;
+                aimCount = 1;
+            }
+            else
+            {
                 switch (ballNumber)
                 {
-                    case 6:
+                    case 5:
                         aimCount = 3;
                         break;
-                    case 7:
-                        aimCount = 10;
+                    case 6:
+                        aimCount = 5;
                         break;
-                    case 8:
+                    case 7:
                         aimCount = 20;
                         break;
-                }
-                yield return CameraMovement.LerpGoto(new Vector3(0, -1.25f, -10), 1.7f, 0.25f);
-
-                CalculateSummonPositions(aimCount);
-                PatternThreeAims.Clear();
-                for (int i = 0; i < aimCount; i++)
-                {
-                    GameObject newAim = Instantiate(Aim, potentialHolePositions[i], Quaternion.identity);
-                    newAim.transform.localScale = new Vector3(0.25f, 0.25f, 1f);
-                    PatternThreeAims.Add(newAim);
-                    SoundManager.PlaySound(_AimSound, 1, 1.2f);
-                    yield return new WaitForSeconds(0.1f);
+                    case 8:
+                        aimCount = 30;
+                        break;
                 }
             }
+            
+            yield return CameraMovement.LerpGoto(new Vector3(0, -1.25f, -10), 1.7f, 0.25f);
+
+            CalculateSummonPositions(aimCount);
+            PatternThreeAims.Clear();
+            for (int i = 0; i < aimCount; i++)
+            {
+                GameObject newAim = Instantiate(Aim, potentialHolePositions[i], Quaternion.identity);
+                newAim.transform.localScale = new Vector3(0.25f, 0.25f, 1f);
+                PatternThreeAims.Add(newAim);
+                SoundManager.PlaySound(_AimSound, 1, 1.2f);
+                yield return new WaitForSeconds(0.1f);
+            }
+            
         }
 
         yield return CameraMovement.LerpGoto(new Vector3(0, 0, -10), 3, 0.2f);
