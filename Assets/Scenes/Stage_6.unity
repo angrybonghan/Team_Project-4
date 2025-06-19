@@ -1647,7 +1647,7 @@ MonoBehaviour:
   boardMaxX_: 1.3
   boardMinY_: -1.3
   boardMaxY_: 1.3
-  attemptsLeft_: 14
+  attemptsLeft_: 9
   attemptsText_: {fileID: 1702660234}
   RandomBallattemptsText: {fileID: 1702660233}
   victoryAnimation: {fileID: 5767937590128293990, guid: 6a297dc9296ec444491eebec0bd9f6cc, type: 3}
@@ -2785,63 +2785,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2676136805120422857, guid: b0535095aa5ddc742a8a528dbb5cab5b, type: 3}
   m_PrefabInstance: {fileID: 973294988}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &978438053
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.613
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.391
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6402643019130663281, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_Name
-      value: Shock_Wave_Ball (3)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
 --- !u!1 &988853965
 GameObject:
   m_ObjectHideFlags: 0
@@ -4193,63 +4136,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &1471342762
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.552
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.432
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 144849294256768924, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6402643019130663281, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
-      propertyPath: m_Name
-      value: Shock_Wave_Ball (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 33a5bab63cbdf004f8bd6aa5e0b35c02, type: 3}
 --- !u!1 &1473028358
 GameObject:
   m_ObjectHideFlags: 0
@@ -7895,8 +7781,6 @@ SceneRoots:
   - {fileID: 4420805049022750231}
   - {fileID: 1922700152}
   - {fileID: 2140412254}
-  - {fileID: 1471342762}
-  - {fileID: 978438053}
   - {fileID: 620310259}
   - {fileID: 1491624699}
   - {fileID: 97807830}
