@@ -116,6 +116,11 @@ public class BulletBallBullet : MonoBehaviour
             {
                 Instantiate(hitEffectPrefab, hit.point, transform.rotation);
             }
+
+            if (hit.collider.CompareTag("PlayerBall"))
+            {
+                GameManager.attemptsLeft--;
+            }
         }
         else // 아무것도 맞히지 못했을 경우
         {

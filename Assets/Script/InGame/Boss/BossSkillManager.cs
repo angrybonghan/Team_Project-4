@@ -31,7 +31,7 @@ public class BossSkillManager : MonoBehaviour
     [Header("조준점 프리팹")]
     public GameObject Aim;
     [Header("공중에서 내려오는 총알")]
-    public GameObject FireToHole;
+    public GameObject BulletPrefabs;
 
     [Header("구멍 생성 범위")]
     public float minX = -2.5f;
@@ -214,35 +214,70 @@ public class BossSkillManager : MonoBehaviour
             SetBossAnimation(2);
             yield return new WaitForSeconds(0.28f);
 
-            for (int i = 0; i < holeRandomCount-1; i++)
+            for (int i = 0; i < holeRandomCount; i++)
             {
                 SetBossAnimation(3);
                 CameraMovement.Shake(0.1f, 0.1f, 0.05f);
-                yield return new WaitForSeconds(0.28f);
+                yield return new WaitForSeconds(0.21f);
+                Debug.Log("InLoop P-1");
             }
-
+            Debug.Log("P - 0");
             SetBossAnimation(4);
             yield return new WaitForSeconds(0.28f);
 
+            Debug.Log("P - 1");
+
             SetBossAnimation(1);
             yield return CameraMovement.LerpGoto(new Vector3(0, -1, -10), 1.94f, 0.125f);
+            Debug.Log("P - 2");
 
             for (int i = 0; i < holeRandomCount; i++)
             {
                 CameraMovement.Shake(0.2f, 0.25f, 0.05f);
-                Instantiate(FireToHole, potentialHolePositions[i],Quaternion.identity);
+                Instantiate(BulletPrefabs, potentialHolePositions[i],Quaternion.identity);
                 Instantiate(holePrefab, potentialHolePositions[i], Quaternion.identity);
                 Destroy(PatternTwoAims[i]); // 리스트에 저장된 Aim 오브젝트 파괴
                 PatternTwoAims[i] = null;
                 yield return new WaitForSeconds(0.4f);
+                Debug.Log("InLoop P-2");
             }
             PatternTwoAims.Clear();
+            Debug.Log("OUT");
+        }
+
+        if (PatternThreeAims.Count > 0)
+        {
+            yield return CameraMovement.LerpGoto(new Vector3(0, -1, -10), 1.9f, 0.125f);
+
+            for (int i = 0; i < PatternThreeAims.Count; i++)
+            {
+                // 이게 데채 왜 또 작동했는지 모르겠는데 일단됨 GG
+                // 근데 로직상 작동하는 게 맞음
+                // PatternThreeAims 수만큼 반복 + PatternThreeAims[i] 참조하기 때문에 맞을수밖에 없긴함
+                if (BulletPrefabs != null)  
+                {
+                    GameObject PatternThreeBullet = Instantiate(BulletPrefabs, PatternThreeAims[i].transform.position, Quaternion.identity);
+                    PatternThreeBullet.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+                    Destroy(PatternThreeAims[i]);
+                    PatternThreeAims[i] = null;
+                    CameraMovement.Shake(0.1f, 0.075f, 0.05f);
+                    yield return new WaitForSeconds(0.1f);
+                }
+                else
+                {
+                    Debug.LogError($"{i} 번째 루프 NULL");
+                }
+
+            }
+            yield return new WaitForSeconds(0.5f);
+            //transform.position = PatternThreeAims[0].transform.position;
         }
 
         if (BossCooldown3 == 0)
         {
             if (GameManager.ballNumber >= 6)
             {
+                BossCooldown3 = BossSkill3;
                 int ballNumber = GameManager.ballNumber;
                 switch (ballNumber)
                 {
@@ -269,10 +304,6 @@ public class BossSkillManager : MonoBehaviour
                 }
 
             }
-            else
-            {
-                BossCooldown3 = BossSkill3;
-            }
         }
 
         if (BossCooldown3 <= -1)
@@ -285,6 +316,9 @@ public class BossSkillManager : MonoBehaviour
         yield return CameraMovement.LerpGoto(new Vector3(0, 0, -10), 3, 0.2f);
         DataManager.isGameActionable = true;
         bossAcivate = false;
+        GameManager.canPlay = false;
+        GameManager.BossSkip = true;
+
         UI.SetActive(true);
     }
 
@@ -306,7 +340,7 @@ public class BossSkillManager : MonoBehaviour
             currentDecelerationBallPositions.Add(ball.transform.position);
         }
 
-        int maxAttempts = count * 100; // 무한 루프 방지를 위한 최대 시도 횟수
+        int maxAttempts = count * 100; // 무한 루프 방지를 위한 최대 시도 횟수 (원래의 백 배)
         int currentAttempt = 0; //현재 시도하는 루프 수
         int positionsCalculated = 0; // 계산된 위치의 수
 

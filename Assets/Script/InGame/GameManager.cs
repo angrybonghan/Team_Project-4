@@ -136,6 +136,7 @@ public class GameManager : MonoBehaviour
                         DataManager.isGameActionable = false;
                         BossSkillManager.NextTurn();
                     }
+                    if (BossSkip) attemptsLeft++; // 보스 스킵에 대한 라운드 업데이트에서 초크 상쇄
 
                     BossSkip = false;
                     canPlay = true;

@@ -37,6 +37,14 @@ public class DataManager : MonoBehaviour
         {
             ResetData();
             Debug.Log("데이터 리셋 작동");
+            ScreenTransition.Goto("SelectStage", 0.1f, 0.1f);
+        }
+
+        if (Input.GetKey(KeyCode.E) && Input.GetKeyDown(KeyCode.T))
+        {
+            SetLevelAccess(8);
+            Debug.Log("데이터 올인 작동");
+            ScreenTransition.Goto("SelectStage", 0.1f, 0.1f);
         }
     }
 
@@ -105,7 +113,9 @@ public class DataManager : MonoBehaviour
     public void ResetData() // 데이터 리셋
     {
         PlayerPrefs.SetInt(levelAccessKey, 1);
+        levelAccess = 1;
         PlayerPrefs.SetInt(previousLevelKey, 1);
+        previousLevel = 1;
         PlayerPrefs.Save();
     }
 
