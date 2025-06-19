@@ -2254,8 +2254,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueSO:
-  - {fileID: 11400000, guid: a46441f3781f9144cbe2fdf721ae4db2, type: 2}
-  - {fileID: 11400000, guid: a46441f3781f9144cbe2fdf721ae4db2, type: 2}
+  - {fileID: 11400000, guid: 12e9c00d2078c7049b4195867ffe883d, type: 2}
+  - {fileID: 11400000, guid: 12e9c00d2078c7049b4195867ffe883d, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
