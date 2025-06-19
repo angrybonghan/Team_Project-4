@@ -19,6 +19,7 @@ TagManager:
   - BossHole
   - SkillGuide
   - BulletBallTagMarker
+  - OB_Pistol
   layers:
   - Default
   - TransparentFX

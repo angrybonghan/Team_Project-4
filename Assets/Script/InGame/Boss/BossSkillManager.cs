@@ -25,6 +25,10 @@ public class BossSkillManager : MonoBehaviour
     public GameObject BossDead;
     [Header("보스 BallThrow")]
     public GameObject BossBallThrow;
+    [Header("보스 총 맞음")]
+    public GameObject BossGunHit;
+    [Header("보스 스턴")]
+    public GameObject BossStun;
 
     [Header("생성할 보스 구멍 프리팹")]
     public GameObject holePrefab;
@@ -58,8 +62,12 @@ public class BossSkillManager : MonoBehaviour
     private int BossCooldown3;
     private int aimCount;
 
+    public static int StunCooldown = 0;
 
+    public static bool isStuned = false;
     public static bool gotoNextTurn = false;
+    public static bool StartStun = false;
+    public static bool EndStun = false;
     public static bool bossAcivate = false;
 
     private void Start()
@@ -69,15 +77,34 @@ public class BossSkillManager : MonoBehaviour
         BossCooldown1 = BossSkill1;
         BossCooldown2 = BossSkill2;
         BossCooldown3 = BossSkill3;
+
+        StunCooldown = 0;
+        isStuned = false;
     }
 
     void Update()
     {
+        if (StartStun)
+        {
+            StartStun = false;
+            UI.SetActive(false);
+            StartCoroutine(activateStun());
+        }
+
+        if (EndStun)
+        {
+            EndStun = false;
+            UI.SetActive(false);
+            StartCoroutine(endStun());
+        }
+
+
         if (gotoNextTurn)
         {
-            gotoNextTurn=false;
+            gotoNextTurn = false;
             bossAcivate = true;
 
+            Debug.Log("P - 11");
 
             GameObject[] bossHoles = GameObject.FindGameObjectsWithTag("BossHole");
             if (bossHoles.Length > 0)
@@ -98,9 +125,12 @@ public class BossSkillManager : MonoBehaviour
             {
                 AllBulletBall.Add(ball);
             }
-            //AllBulletBall = new GameObject.FindGameObjectsWithTag("BulletBallTagMarker");
 
-            if (BossCooldown1 != 0 && BossCooldown2 != 0 && BossCooldown3 != 0 && AllBulletBall.Count == 0)
+            if (BossCooldown1 <= 0 && BossCooldown2 <= 0 && AllBulletBall.Count >= 1)
+            {
+                DataManager.isGameActionable = true;
+            }
+            else if (BossCooldown3 <= 0 || GameManager.ballNumber >= 6)
             {
                 DataManager.isGameActionable = true;
             }
@@ -114,7 +144,74 @@ public class BossSkillManager : MonoBehaviour
 
     public static void NextTurn()
     {
+        Debug.Log($"현 StunCooldown - {StunCooldown}");
+        if (isStuned)
+        {
+            StunCooldown--;
+            if (StunCooldown == 0)
+            {
+                EndStun = true;
+            }
+            else
+            {
+                DataManager.isGameActionable = true;
+            }
+            return;
+        }
+        Debug.Log($"P - 1");
         gotoNextTurn = true;
+    }
+
+    public static void StartBossStun(int SetStunLength)
+    {
+        if (isStuned || SetStunLength < 0) // 이미 스턴이거나 값이 잘못되면 무시
+        {
+            return;
+        }
+
+        StunCooldown += SetStunLength;
+        StartStun = true;
+        isStuned = true;
+    }
+
+    IEnumerator activateStun()
+    {
+        yield return CameraMovement.LerpGoto(new Vector3(0, 1.35f, -10), 1.35f, 0.3f);
+        SetBossAnimation(7);
+        yield return new WaitForSeconds(0.75f);
+        CameraMovement.Shake(0.05f, 0.15f, 0.025f);
+        yield return new WaitForSeconds(0.1f);
+        SetBossAnimation(8);
+        yield return new WaitForSeconds(0.5f);
+        CameraMovement.LerpGoto(new Vector3(0, 0, -10), 3f, 0.4f);
+        yield return new WaitForSeconds(0.65f);
+
+        DataManager.isGameActionable = true;
+        UI.SetActive(true);
+    }
+
+
+    IEnumerator endStun()
+    {
+        // 1-2-4-1
+        CameraMovement.Goto(new Vector3(0, 1.3f, -10), 1);
+        yield return CameraMovement.LerpGoto(new Vector3(0, 1.3f, -10), 0.7f, 1f);
+        SetBossAnimation(1);
+        yield return CameraMovement.LerpGoto(new Vector3(0, 1.3f, -10), 1.5f, 0.25f);
+        yield return new WaitForSeconds(0.3f);
+        SetBossAnimation(2);
+        CameraMovement.LerpGoto(new Vector3(-1.15f, 1.3f, -10), 0.9f, 0.15f);
+        yield return new WaitForSeconds(0.28f);
+        SetBossAnimation(4);
+        yield return new WaitForSeconds(0.56f);
+        SetBossAnimation(1);
+        CameraMovement.LerpGoto(new Vector3(0, 0, -10), 3, 0.45f);
+        yield return new WaitForSeconds(0.3f);
+
+
+        isStuned = false;
+        DataManager.isGameActionable = true;
+        UI.SetActive(true);
     }
 
     IEnumerator activateSkill()
@@ -273,7 +370,7 @@ public class BossSkillManager : MonoBehaviour
             //transform.position = PatternThreeAims[0].transform.position;
         }
 
-        if (BossCooldown3 == 0)
+        if (BossCooldown3 <= 0)
         {
             if (GameManager.ballNumber >= 6)
             {
@@ -304,13 +401,6 @@ public class BossSkillManager : MonoBehaviour
                 }
 
             }
-        }
-
-        if (BossCooldown3 <= -1)
-        {
-            BossCooldown3 = BossSkill3;
-
-
         }
 
         yield return CameraMovement.LerpGoto(new Vector3(0, 0, -10), 3, 0.2f);
@@ -407,6 +497,16 @@ public class BossSkillManager : MonoBehaviour
         else if (AnimationKey == 6)
         {
             GameObject newAnimation = Instantiate(BossBallThrow);
+            newAnimation.transform.SetParent(this.transform);
+        }
+        else if (AnimationKey == 7)
+        {
+            GameObject newAnimation = Instantiate(BossGunHit);
+            newAnimation.transform.SetParent(this.transform);
+        }
+        else if (AnimationKey == 8)
+        {
+            GameObject newAnimation = Instantiate(BossStun);
             newAnimation.transform.SetParent(this.transform);
         }
     }

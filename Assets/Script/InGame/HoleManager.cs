@@ -118,6 +118,12 @@ public class HoleManager : MonoBehaviour
                 SkillGuideManager.summonGuidePaper("초크 감소 1회 방어");
                 break;
 
+            case "OB_Pistol":
+                PlayAnimation(); // 애니메이션 실행
+                Destroy(other.gameObject);
+                GameManager.StunCount = 3;
+                break;
+
             case "OB_NoFunction":
                 PlayAnimation(); // 애니메이션 실행
                 Destroy(other.gameObject);

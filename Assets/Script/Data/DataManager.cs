@@ -27,6 +27,7 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         LoadData();
         isGameActionable=false;
     }

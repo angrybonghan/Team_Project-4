@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     public static int SpeedBallChance = 0;
     public static int ballNumber;   // 전체 공의 숫자 (레벨) 수치
     public static int scoredBallInChalk;   // 한 초크에 들어간 공의 수
+    public static int StunCount = 0;
 
 
     private bool anyBallMoving;  // 아무 공이나 움직이는가
@@ -134,9 +135,15 @@ public class GameManager : MonoBehaviour
                     if (boss && !BossSkip)
                     {
                         DataManager.isGameActionable = false;
+                        if (StunCount > 0)
+                        {
+                            BossSkillManager.StartBossStun(StunCount + 1);
+                            StunCount = 0;
+                        }
                         BossSkillManager.NextTurn();
                     }
                     if (BossSkip) attemptsLeft++; // 보스 스킵에 대한 라운드 업데이트에서 초크 상쇄
+
 
                     BossSkip = false;
                     canPlay = true;
