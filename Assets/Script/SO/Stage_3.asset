@@ -13,22 +13,20 @@ MonoBehaviour:
   m_Name: Stage_3
   m_EditorClassIdentifier: 
   characterImage:
-  - {fileID: 21300000, guid: 3cbe77b21c3a20c45a7780ab858c3cd6, type: 3}
-  - {fileID: 21300000, guid: d0924a74f315bc840a7d12f1367a2ea1, type: 3}
-  - {fileID: 21300000, guid: d0924a74f315bc840a7d12f1367a2ea1, type: 3}
-  - {fileID: 21300000, guid: d0924a74f315bc840a7d12f1367a2ea1, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
   characterName:
-  - "\uC8FC\uC778\uACF5"
+  - "\uB098"
   - "\uC601\uD63C"
+  - "\uB098"
   - "\uC601\uD63C"
-  - "\uC8FC\uC778\uACF5"
+  - "\uB098"
   DialogueText:
-  - "\uC804 \uD310\uC5D4 \uBB54 \uC774\uC0C1\uD55C \uACF5\uC774 \uB098\uC640\uC11C
-    \uB0A0 \uBC29\uD574\uD588\uB358\uB370 \uADF8\uAC74 \uBB50\uC57C? "
-  - "\uC544 \uADF8\uAC74 \uC635\uC158 \uBCFC\uC774\uB780\uAC70\uC57C \uAC01 \uBCFC\uB9C8\uB2E4
-    \uC800\uB9C8\uB2E4\uC758 \uB2A5\uB825\uC744 \uAC00\uC9C0\uACE0 \uC788\uC9C0 "
-  - "\uC545\uB9C8\uB4E4\uB3C4 \uC0C1\uB300\uBC29\uC774 \uC27D\uAC8C \uC774\uAE30\uC9C0
-    \uBABB\uD558\uB3C4\uB85D \uC5EC\uB7EC \uC218\uB97C \uC4F0\uBA70 \uBC29\uD574\uD558\uACE0
-    \uC788\uAC70\uB4E0 "
-  - "\uC5ED\uC2DC \uC545\uB9C8\uB2F5\uAC8C \uBE44\uC5F4\uD55C \uC218\uB97C \uC4F0\uB294
-    \uAD6C\uB9CC "
+  - "\uC774\uB7F0 \uB2F9\uAD6C\uB294 \uB204\uAC00 \uB9CC\uB4E0 \uAC70\uC57C?"
+  - "\uADF8\uB7EC\uAC8C;;"
+  - "\uADF8\uB7F0 \uAC83\uB3C4 \uBAB0\uB77C?"
+  - "\uB10C \uCD95\uAD6C\uB97C \uB204\uAC00 \uB9CC\uB4E4\uC5C8\uB294\uC9C0 \uC54C\uC544?"
+  - "\uADF8\uB7EC\uAC8C;;"

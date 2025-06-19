@@ -3915,12 +3915,12 @@ MonoBehaviour:
   dialogueSO:
   - {fileID: 11400000, guid: a46441f3781f9144cbe2fdf721ae4db2, type: 2}
   - {fileID: 11400000, guid: 12e9c00d2078c7049b4195867ffe883d, type: 2}
-  - {fileID: 11400000, guid: 42e713639cfad5b4288a1223c09132db, type: 2}
-  - {fileID: 11400000, guid: 42e713639cfad5b4288a1223c09132db, type: 2}
-  - {fileID: 11400000, guid: 42e713639cfad5b4288a1223c09132db, type: 2}
-  - {fileID: 11400000, guid: 42e713639cfad5b4288a1223c09132db, type: 2}
-  - {fileID: 11400000, guid: 42e713639cfad5b4288a1223c09132db, type: 2}
-  - {fileID: 11400000, guid: 42e713639cfad5b4288a1223c09132db, type: 2}
+  - {fileID: 11400000, guid: 6339dc9b82e442d43a092f95c29f0c77, type: 2}
+  - {fileID: 11400000, guid: 44460b83e81accd449a8edd0949fdd03, type: 2}
+  - {fileID: 11400000, guid: 701154ccbab91ae40a530b6b32fde488, type: 2}
+  - {fileID: 11400000, guid: 744792aa1faa0fd42a6cf9086b538222, type: 2}
+  - {fileID: 11400000, guid: 5ef38b54f97a4cf46a25722a58a50752, type: 2}
+  - {fileID: 11400000, guid: 71031b3031b57db4fa85173b8f8c39c9, type: 2}
   - {fileID: 11400000, guid: 42e713639cfad5b4288a1223c09132db, type: 2}
   - {fileID: 11400000, guid: bb85072cfec136f4b9d082858a094b47, type: 2}
 --- !u!4 &1710639670

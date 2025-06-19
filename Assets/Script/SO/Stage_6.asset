@@ -13,29 +13,18 @@ MonoBehaviour:
   m_Name: Stage_6
   m_EditorClassIdentifier: 
   characterImage:
-  - {fileID: 21300000, guid: 3cbe77b21c3a20c45a7780ab858c3cd6, type: 3}
-  - {fileID: 21300000, guid: d0924a74f315bc840a7d12f1367a2ea1, type: 3}
-  - {fileID: 21300000, guid: d0924a74f315bc840a7d12f1367a2ea1, type: 3}
-  - {fileID: 21300000, guid: d0924a74f315bc840a7d12f1367a2ea1, type: 3}
-  - {fileID: 21300000, guid: d0924a74f315bc840a7d12f1367a2ea1, type: 3}
-  - {fileID: 21300000, guid: d0924a74f315bc840a7d12f1367a2ea1, type: 3}
-  - {fileID: 21300000, guid: d0924a74f315bc840a7d12f1367a2ea1, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
   characterName:
-  - "\uC8FC\uC778\uACF5"
-  - "\uC8FC\uC778\uACF5"
-  - "1\uBCFC"
-  - "\uC8FC\uC778\uACF5"
-  - "1\uBCFC"
-  - "1\uBCFC"
-  - "\uC8FC\uC778\uACF5"
+  - "\uB098"
+  - "\uB098"
+  - "\uC601\uD63C"
+  - "\uB098"
   DialogueText:
-  - "\uC9C0\uAE08\uB3C4 \uB9CE\uC740 \uB3C8\uC744 \uB544\uAE34 \uD588\uC9C0\uB9CC.... "
-  - "\uC544\uC9C1 \uB0B4 \uBE5A\uC744 \uAC1A\uAE30\uC5D4 \uBAA8\uC790\uB974\uB2E8
-    \uB9D0\uC774\uC9C0.... "
-  - "\uD638\uC624... \uB108 \uC544\uC9C1\uB3C4 \uC0B4\uC544\uC788\uB294\uAC70\uB0D0...? "
-  - '!!! '
-  - "\uB108\uAC00 \uB9CC\uC57D \uC774 \uC2B9\uBD80 \uC774\uD6C4\uC5D0\uB3C4 \uC0B4\uC544\uC788\uB2E4\uBA74
-    \uB098\uC640 \uC88B\uC740 \uC2B9\uBD80\uB97C \uD560 \uAC83 \uAC19\uAD70... "
-  - "\uAE30\uB300\uD574 \uBCF4\uACA0\uB2E4\uACE0! \uC798 \uD574\uBD10\uB77C! "
-  - "\uC820\uC7A5... \uB204\uAD6C\uB9D8\uB300\uB85C \uC2B9\uBD80\uB97C \uAC78\uACE0
-    \uB09C\uB9AC\uC57C... "
+  - "\uC545\uB9C8\uB4E4\uC740 \uC5B4\uB514\uC11C \uB098\uC628 \uAC70\uC57C?"
+  - "\uC5B8\uC81C\uBD80\uD130 \uC788\uC5C8\uC9C0?"
+  - "\uB108\uAC19\uC740 \uB188\uC774 \uC8FD\uC5B4\uC11C \uC800\uB807\uAC8C \uB2E4\uC2DC
+    \uD0DC\uC5B4\uB098."
+  - ;;;;;;;;;;;;;;;;

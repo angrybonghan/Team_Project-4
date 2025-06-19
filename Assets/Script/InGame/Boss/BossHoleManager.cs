@@ -149,6 +149,7 @@ public class BossHoleManager : MonoBehaviour
             case "OB_Pistol":
                 PlayAnimation(other.gameObject); // 애니메이션 실행
                 Destroy(other.gameObject);
+                SkillGuideManager.summonGuidePaper("보스 기절!");
                 GameManager.StunCount = 3;
                 break;
 

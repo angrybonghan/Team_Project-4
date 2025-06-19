@@ -10,29 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d52157b57505264e80df86df0ccc0c2, type: 3}
-  m_Name: Stage_4
+  m_Name: Stage_2
   m_EditorClassIdentifier: 
   characterImage:
   - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
-  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
+  - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
   - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
   - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
   - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
   - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
   characterName:
   - "\uB098"
-  - "\uB098"
+  - "\uC601\uD63C"
   - "\uB098"
   - "\uC601\uD63C"
+  - "\uB098"
   - "\uC601\uD63C"
   - "\uB098"
   DialogueText:
-  - "\uC774\uAC83\uB4E4 \uC65C\uC774\uB9AC \uB3C8\uC774 \uC5C6\uC5B4?"
-  - "\uC545\uB9C8\uB4E4\uC740 \uC6D0\uB798 \uC601\uD63C\uBC16\uC5D0 \uAC78 \uAC8C
-    \uC5C6\uB294 \uAC70\uC9C0\uB4E4\uC778 \uAC70\uC57C?"
-  - "\uB0B4\uAC00 \uC800\uAC83\uB4E4 \uBAB8\uB6B1\uC544\uB9AC \uAC00\uC838\uC11C
-    \uBB50 \uD558\uB0D0\uACE0?"
-  - "\uC800\uAC83\uB4E4\uC774 \uB3C8\uC774 \uC788\uC5C8\uC73C\uBA74 \uC5EC\uAE30
-    \uC5C6\uC5C8\uACA0\uC9C0"
-  - "\uBC14\uBCF4\uC57C"
-  - "\uADF8\uB7EC\uAC8C;;"
+  - "\uC800 8\uB300\uAC00\uB9AC\uB791\uC740 \uC5B4\uB5BB\uAC8C \uC2F8\uC6CC\uC57C
+    \uD558\uC9C0?"
+  - "\uB108\uAC00 \uB300\uAC00\uB9AC\uC758 \uBC1C\uAC00\uB77D \uC815\uB3C4\uC758
+    \uBA85\uC131\uC740 \uC5BB\uC5B4\uC57C\uC9C0, \uC774 \uBC14\uBCF4\uC57C"
+  - "\uBB50? \uB9D0 \uB2E4\uD588\uC5B4?"
+  - "\uC774\uB798\uBD48\uB3C4 800\uC0B4\uC774\uB77C\uACE0."
+  - "\uBB50\uC57C. \uC800 8\uB300\uAC00\uB9AC \uB098\uC774\uAC00 \uBA87\uC774\uC57C?"
+  - "24\uC0B4\uC774\uB798."
+  - ???

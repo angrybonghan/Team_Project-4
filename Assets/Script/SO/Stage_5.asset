@@ -10,29 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d52157b57505264e80df86df0ccc0c2, type: 3}
-  m_Name: Stage_4
+  m_Name: Stage_5
   m_EditorClassIdentifier: 
   characterImage:
   - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
-  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
-  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
   - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
+  - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
   - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
   - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
   characterName:
   - "\uB098"
-  - "\uB098"
-  - "\uB098"
   - "\uC601\uD63C"
+  - "\uB098"
   - "\uC601\uD63C"
   - "\uB098"
   DialogueText:
-  - "\uC774\uAC83\uB4E4 \uC65C\uC774\uB9AC \uB3C8\uC774 \uC5C6\uC5B4?"
-  - "\uC545\uB9C8\uB4E4\uC740 \uC6D0\uB798 \uC601\uD63C\uBC16\uC5D0 \uAC78 \uAC8C
-    \uC5C6\uB294 \uAC70\uC9C0\uB4E4\uC778 \uAC70\uC57C?"
-  - "\uB0B4\uAC00 \uC800\uAC83\uB4E4 \uBAB8\uB6B1\uC544\uB9AC \uAC00\uC838\uC11C
-    \uBB50 \uD558\uB0D0\uACE0?"
-  - "\uC800\uAC83\uB4E4\uC774 \uB3C8\uC774 \uC788\uC5C8\uC73C\uBA74 \uC5EC\uAE30
-    \uC5C6\uC5C8\uACA0\uC9C0"
-  - "\uBC14\uBCF4\uC57C"
+  - "800\uB144 \uC804\uC740 \uC5B4\uB560\uC5B4?"
+  - "\uB10C \uAC00\uC7A5 \uC624\uB798\uB41C \uAE30\uC5B5\uC774 \uBB50\uC57C?"
+  - "\uD55C 7\uC0B4\uB54C \uCBE4...."
+  - "\uADF8\uB798\uB193\uACE0 800\uB144 \uC804\uC744 \uAE30\uC5B5\uD558\uB77C\uACE0
+    \uC2DC\uCF1C??"
   - "\uADF8\uB7EC\uAC8C;;"
