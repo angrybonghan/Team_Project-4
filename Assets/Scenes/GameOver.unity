@@ -992,6 +992,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8208855466414d4dac951cac234a148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GunShot: {fileID: 8300000, guid: f3191cf71f495c24ab052885aaae51f2, type: 3}
+  FingerSnap: {fileID: 8300000, guid: ba37a7ce50097934c8ed049d6a5a65ff, type: 3}
   UI: {fileID: 900255788}
 --- !u!114 &1040400603
 MonoBehaviour:

@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     private bool anyBallMoving;  // 아무 공이나 움직이는가
     private bool boss = false;
+    private AudioClip RandomItem;
 
     private void Awake()
     {
@@ -85,6 +86,8 @@ public class GameManager : MonoBehaviour
         canPlay = true;
         isChaosBallActivate = false;
         BossSkip = false;
+
+        RandomItem = DataManager.RandomItem;
 
         attemptsText.text = attemptsLeft.ToString();
 
@@ -340,6 +343,8 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
+
+        SoundManager.PlaySound(RandomItem, 0.5f);
 
         attemptsLeft++;
         RandomPickChance--;

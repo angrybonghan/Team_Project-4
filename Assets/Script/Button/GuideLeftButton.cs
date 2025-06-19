@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class GuideLeftButton : MonoBehaviour
 {
     private Button selfButton;
+    private AudioClip NextPage;
 
     void Awake()
     {
@@ -15,8 +16,14 @@ public class GuideLeftButton : MonoBehaviour
         selfButton.onClick.AddListener(OnButtonClick);
     }
 
+    private void Start()
+    {
+        NextPage = DataManager.NextPage;
+    }
+
     public void OnButtonClick()
     {
+        SoundManager.PlaySound(NextPage,1,0.7f);
         pauseControl.GotoP1();
     }
 }

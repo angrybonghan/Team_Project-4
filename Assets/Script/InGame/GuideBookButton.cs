@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class GuideBookButton : MonoBehaviour
 {
     private Button selfButton;
+    private AudioClip OpenBook;
 
     void Awake()
     {
@@ -15,8 +16,14 @@ public class GuideBookButton : MonoBehaviour
         selfButton.onClick.AddListener(OnButtonClick);
     }
 
+    private void Start()
+    {
+        OpenBook = DataManager.OpenBook;
+    }
+
     public void OnButtonClick()
     {
+        SoundManager.PlaySound(OpenBook, 1, 0.7f);
         pauseControl.TurnOnGuidebook();
     }
 

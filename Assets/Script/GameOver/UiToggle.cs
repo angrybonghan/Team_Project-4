@@ -4,8 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class UiToggle : MonoBehaviour
 {
-    private bool boss = false;
+    public AudioClip GunShot;
+    public AudioClip FingerSnap;
 
+    private bool boss = false;
 
     public GameObject UI;
 
@@ -24,13 +26,15 @@ public class UiToggle : MonoBehaviour
         if (!boss)
         {
             yield return Sleep(1.1f);
-            // 손가락 스냅 사운드
+            SoundManager.PlaySound(FingerSnap, 0.5f, 1.2f);
             yield return Sleep(0.7f);
             UI.SetActive(true);
         }
         else
         {
-            yield return Sleep(1f);
+            yield return Sleep(0.5f);
+            SoundManager.PlaySound(GunShot, 1f, 1f);
+            yield return Sleep(0.5f);
             UI.SetActive(true);
         }
     }

@@ -51,7 +51,7 @@ public class LevelSelect : MonoBehaviour
 
         if (DataManager.isGameActionable)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) // 왼쪽 화살표 : 선택된 스테이지 감소
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) // 왼쪽 화살표 : 선택된 스테이지 감소
             {
                 if (selectedLevel == 1)
                 {
@@ -61,7 +61,7 @@ public class LevelSelect : MonoBehaviour
                 CoinSet();
             }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow)) // 오른쪽 화살표 : 선택된 스테이지 증가
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) // 오른쪽 화살표 : 선택된 스테이지 증가
             {
                 if (selectedLevel == 8)
                 {
@@ -71,7 +71,7 @@ public class LevelSelect : MonoBehaviour
                 CoinSet();
             }
 
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) // 엔터 키
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space)) // 엔터 키
             {
                 int levelAccess = DataManager.GetLevelAccess(); // 레벨 입장 가능 여부 판단
 

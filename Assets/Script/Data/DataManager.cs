@@ -10,6 +10,15 @@ public class DataManager : MonoBehaviour
     public static AudioClip HoleIn;
     public AudioClip HoleIn_;
 
+    public static AudioClip RandomItem;
+    public AudioClip RandomItem_;
+
+    public static AudioClip OpenBook;
+    public AudioClip OpenBook_;
+
+    public static AudioClip NextPage;
+    public AudioClip NextPage_;
+
     // 데이터 저장 경로 상수
     private const string levelAccessKey = "levelAccess"; // 레벨 접근 권한 레벨
     private const string previousLevelKey = "previousLevel"; // 가장 최근 있었던 레벨
@@ -19,7 +28,6 @@ public class DataManager : MonoBehaviour
     public static int previousLevel { get; private set; }
 
     public static bool isGameActionable = false; // 전체 게임이 작동 가능한지 (일시정지 또는 게임오버)
-
     public static bool PlayCutsceneOP { get; private set; } // 오프닝 컷씬 재생 여부 (읽기 전용으로 변경)
 
 
@@ -41,6 +49,9 @@ public class DataManager : MonoBehaviour
 
         BallHit = BallHit_;
         HoleIn = HoleIn_;
+        RandomItem = RandomItem_;
+        OpenBook = OpenBook_;
+        NextPage = NextPage_;
     }
 
     private void Update()
