@@ -287,6 +287,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1915711040}
+    - target: {fileID: 2855909460523238127, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
+      propertyPath: m_SortingOrder
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3406660607537515060, guid: 7d542d2fca97b024ea946b07ef137bdd, type: 3}
       propertyPath: m_Name
       value: UI
@@ -612,6 +616,134 @@ Transform:
   - {fileID: 1910875162}
   - {fileID: 1320614528}
   - {fileID: 973294989}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &640840039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 640840041}
+  - component: {fileID: 640840040}
+  m_Layer: 0
+  m_Name: BGM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &640840040
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640840039}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a77c5ce111153a24d8eb5ce73ee89f60, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.103
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &640840041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640840039}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &744843967
@@ -3918,18 +4050,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 1839711115}
-  BossSkill1: 3
-  BossSkill2: 3
+  BossSkill1: 1
+  BossSkill2: 1
   BossSkill3: 1
   BossIdle: {fileID: 7398114395481771568, guid: 2c8accb059f1a5a40806c203c09ce359, type: 3}
   BossGunUp: {fileID: 3737494912424151638, guid: ca56f43c592f0d54c86e4984580404d5, type: 3}
   BossGunShot: {fileID: 1661069472880615656, guid: b18436fb6b8cf3e47aa4526ab294af20, type: 3}
   BossGunSpin: {fileID: 6132424394426881547, guid: 5d2f9125364a3fb4089c6bf35369c9c9, type: 3}
-  BossDead: {fileID: 7166057407908331306, guid: cd6c168b1573e9c4990fcbb6a442b8be, type: 3}
+  BossDead: {fileID: 4407771450954440913, guid: cd6c168b1573e9c4990fcbb6a442b8be, type: 3}
   BossBallThrow: {fileID: 6785765764923910184, guid: 65113e49147fd5041a8b0467901e671e, type: 3}
   BossGunHit: {fileID: 2966823659745407918, guid: 1f572251825fded4f933cf3d60758dea, type: 3}
   BossStun: {fileID: 7024183670366531616, guid: 69331bd9ffa99ab4c917e11e604bb15b, type: 3}
-  BossDeadImage: {fileID: 8392396028587180760, guid: 5dc279f29dba48b4190d5159c20d6263, type: 3}
+  BossDeadImage: {fileID: 4407771450954440913, guid: 951e4a72bc9b242478a6d18a9559a621, type: 3}
   holePrefab: {fileID: 8225883079666606369, guid: 13940c678db12be40884d7279422d2e8, type: 3}
   Aim: {fileID: 2270792774127272927, guid: cdec3e33955cbaf408b1499163d35734, type: 3}
   BulletPrefabs: {fileID: 3884368272757276014, guid: 71247552ad9bbfd449330aa336166c54, type: 3}
@@ -3941,6 +4073,12 @@ MonoBehaviour:
   BulletBall: {fileID: 5567716565104466789, guid: f6d9b753d62b1c745adb4253672d047d, type: 3}
   BulletBallEffect: {fileID: 8623613538640493818, guid: 58412485128275144aef52b0dfb9b8dc, type: 3}
   BulletBallBullet: {fileID: 3283845780790974283, guid: f892f044d7b584a43ada7b5ea745c848, type: 3}
+  _AimSound: {fileID: 8300000, guid: 9724126832c875a498f22b9469267fea, type: 3}
+  _GunDrawSound: {fileID: 8300000, guid: 2e0c1cf3fb757fe4abc12a977e7af972, type: 3}
+  _ShootSound: {fileID: 8300000, guid: f3191cf71f495c24ab052885aaae51f2, type: 3}
+  _GunSpinSound: {fileID: 8300000, guid: 49d91d52b241e3d4497570d53cd5551f, type: 3}
+  _BulletImpactSound: {fileID: 8300000, guid: e0bcb0dae7dc19d4bb6bf3650341088c, type: 3}
+  _FireSound: {fileID: 8300000, guid: 263fbac2e20e1f54992ca0cb51dbfa43, type: 3}
 --- !u!4 &2041367892
 Transform:
   m_ObjectHideFlags: 0
@@ -4152,3 +4290,4 @@ SceneRoots:
   - {fileID: 1300495448}
   - {fileID: 2018398685}
   - {fileID: 8926066688517277423}
+  - {fileID: 640840041}

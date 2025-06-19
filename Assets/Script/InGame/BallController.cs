@@ -98,6 +98,22 @@ public class BallController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (rb != null)
+            {
+                rb.velocity = Vector3.zero;
+            }
+
+            Vector3 mouseScreenPosition = Input.mousePosition;
+            mouseScreenPosition.z = Camera.main.WorldToScreenPoint(transform.position).z;
+            Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+            transform.position = mouseWorldPosition;
+
+            Debug.Log($"Z 키가 눌렸습니다. 오브젝트 '{gameObject.name}'의 속도를 0으로 설정하고, 마우스 위치 ({mouseWorldPosition})로 이동했습니다.");
+        }
+
+
         if (Input.GetMouseButtonDown(0))
         {
             if (!GameManager.canPlay || !DataManager.isGameActionable)

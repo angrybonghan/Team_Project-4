@@ -53,6 +53,19 @@ public class BossSkillManager : MonoBehaviour
     [Header("총알 볼이 생성하는 총알")]
     public GameObject BulletBallBullet;
 
+    [Header("조준점 소리")]
+    public AudioClip _AimSound;
+    [Header("총 드는 소리")]
+    public AudioClip _GunDrawSound;
+    [Header("총 쏘는 소리")]
+    public AudioClip _ShootSound;
+    [Header("총 돌리는 소리")]
+    public AudioClip _GunSpinSound;
+    [Header("총알 땅에 박히는 소리")]
+    public AudioClip _BulletImpactSound;
+    [Header("불 소리")]
+    public AudioClip _FireSound;
+
     private List<Vector3> potentialHolePositions = new List<Vector3>();
     private List<GameObject> PatternTwoAims = new List<GameObject>();
     private List<GameObject> PatternThreeAims = new List<GameObject>();
@@ -241,11 +254,11 @@ public class BossSkillManager : MonoBehaviour
     {
         yield return CameraMovement.LerpGoto(new Vector3(0, 1.3f, -10), 1.5f, 0.25f);
         SetBossAnimation(5);
-        yield return CameraMovement.Shake(0.5f, 1, 0.1f);
-        yield return new WaitForSeconds(1.1f);
+        yield return CameraMovement.Shake(0.01f, 1, 0.08f);
+        yield return new WaitForSeconds(1f);
         SetBossAnimation(9);
-        CameraMovement.LerpGoto(new Vector3(0.3f, 0.12f, -10), 0.1f, 1.4f);
-        ScreenTransition.Goto("Cutscene_ED", 1.5f, 0f);
+        CameraMovement.LerpGoto(new Vector3(0.3f, 0.12f, -10), 0.1f, 1.9f);
+        ScreenTransition.Goto("Cutscene_ED", 2f, 0.05f);
     }
 
     IEnumerator activateSkill()
@@ -270,7 +283,9 @@ public class BossSkillManager : MonoBehaviour
                     Instantiate(BulletBallBullet, AllBulletBall[i].transform.position, directions[x]);
                 }
             }
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.35f);
+            SoundManager.PlaySound(_ShootSound, 1, 0.7f);
+            yield return new WaitForSeconds(0.25f);
 
             while (true) //내부에서 break 조건으로 제어
             {
@@ -311,7 +326,9 @@ public class BossSkillManager : MonoBehaviour
             {
                 yield return CameraMovement.LerpGoto(new Vector3(0, 1.25f, -10), 1.5f, 0.4f);
                 SetBossAnimation(6);
-                yield return new WaitForSeconds(1.4f);
+                yield return new WaitForSeconds(1f);
+                SoundManager.PlaySound(_FireSound, 1, 1);
+                yield return new WaitForSeconds(0.4f);
                 CameraMovement.Shake(0.1f, 0.2f, 0.05f);
                 yield return new WaitForSeconds(0.25f);
 
@@ -319,6 +336,7 @@ public class BossSkillManager : MonoBehaviour
                 CalculateSummonPositions(1);
                 Instantiate(BulletBall, potentialHolePositions[0], Quaternion.identity);
                 Instantiate(BulletBallEffect, potentialHolePositions[0], Quaternion.identity);
+                SoundManager.PlaySound(_FireSound, 1, 2);
                 yield return CameraMovement.LerpGoto(new Vector3(potentialHolePositions[0].x, potentialHolePositions[0].y, -10f), 0.5f, 0.2f);
                 yield return new WaitForSeconds(0.75f);
             }
@@ -337,43 +355,42 @@ public class BossSkillManager : MonoBehaviour
                 yield return CameraMovement.LerpGoto(new Vector3(potentialHolePositions[i].x, potentialHolePositions[i].y,-10f), 0.75f, 0.2f);
                 GameObject newAim = Instantiate(Aim, potentialHolePositions[i], Quaternion.identity);
                 PatternTwoAims.Add(newAim);
+                SoundManager.PlaySound(_AimSound);
                 yield return new WaitForSeconds(0.255f);
             }
             yield return CameraMovement.LerpGoto(new Vector3(0,1.25f, -10), 1.5f, 0.4f);
             yield return new WaitForSeconds(0.1f);
 
             SetBossAnimation(2);
+            SoundManager.PlaySound(_GunDrawSound);
             yield return new WaitForSeconds(0.28f);
 
             for (int i = 0; i < holeRandomCount; i++)
             {
                 SetBossAnimation(3);
                 CameraMovement.Shake(0.1f, 0.1f, 0.05f);
+                SoundManager.PlaySound(_ShootSound);
                 yield return new WaitForSeconds(0.21f);
-                Debug.Log("InLoop P-1");
             }
-            Debug.Log("P - 0");
+            SoundManager.PlaySound(_GunSpinSound);
             SetBossAnimation(4);
             yield return new WaitForSeconds(0.28f);
 
-            Debug.Log("P - 1");
 
             SetBossAnimation(1);
             yield return CameraMovement.LerpGoto(new Vector3(0, -1, -10), 1.94f, 0.125f);
-            Debug.Log("P - 2");
 
             for (int i = 0; i < holeRandomCount; i++)
             {
                 CameraMovement.Shake(0.2f, 0.25f, 0.05f);
                 Instantiate(BulletPrefabs, potentialHolePositions[i],Quaternion.identity);
                 Instantiate(holePrefab, potentialHolePositions[i], Quaternion.identity);
+                SoundManager.PlaySound(_BulletImpactSound);
                 Destroy(PatternTwoAims[i]); // 리스트에 저장된 Aim 오브젝트 파괴
                 PatternTwoAims[i] = null;
                 yield return new WaitForSeconds(0.4f);
-                Debug.Log("InLoop P-2");
             }
             PatternTwoAims.Clear();
-            Debug.Log("OUT");
         }
 
         if (PatternThreeAims.Count > 0)
@@ -390,9 +407,38 @@ public class BossSkillManager : MonoBehaviour
                     GameObject PatternThreeBullet = Instantiate(BulletPrefabs, PatternThreeAims[i].transform.position, Quaternion.identity);
                     PatternThreeBullet.transform.localScale = new Vector3(0.5f, 0.5f, 1);
                     Destroy(PatternThreeAims[i]);
+
+                    //Collider[] hitColliders = Physics.OverlapSphere(PatternThreeAims[i].transform.position, 0.25f);
+                    //foreach (Collider hitCollider in hitColliders)
+                    //{
+                    //    // 감지된 콜라이더의 GameObject가 "PlayerBall" 태그를 가지고 있는지 확인
+                    //    if (hitCollider.gameObject.CompareTag("PlayerBall"))
+                    //    {
+                    //        GameManager.attemptsLeft--;
+                    //        GameManager.attemptsText.text = GameManager.attemptsLeft.ToString();
+                    //        Debug.Log("HIT!");
+                    //        break;
+                    //    }
+                    //}
+
+                    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(PatternThreeAims[i].transform.position, 0.175f);
+                    foreach (Collider2D hitCollider in hitColliders)
+                    {
+                        if (hitCollider.transform.CompareTag("PlayerBall"))
+                        {
+                            GameManager.attemptsLeft--;
+                            GameManager.attemptsText.text = GameManager.attemptsLeft.ToString();
+                            Debug.Log("HIT!");
+                            break;
+                        }
+                    }
+
+
                     PatternThreeAims[i] = null;
                     CameraMovement.Shake(0.1f, 0.075f, 0.05f);
-                    yield return new WaitForSeconds(0.1f);
+                    SoundManager.PlaySound(_ShootSound, 1, 1.4f);
+
+                    yield return new WaitForSeconds(0.05f);
                 }
                 else
                 {
@@ -416,10 +462,10 @@ public class BossSkillManager : MonoBehaviour
                         aimCount = 3;
                         break;
                     case 7:
-                        aimCount = 5;
+                        aimCount = 10;
                         break;
                     case 8:
-                        aimCount = 10;
+                        aimCount = 20;
                         break;
                 }
                 yield return CameraMovement.LerpGoto(new Vector3(0, -1.25f, -10), 1.7f, 0.25f);
@@ -431,9 +477,9 @@ public class BossSkillManager : MonoBehaviour
                     GameObject newAim = Instantiate(Aim, potentialHolePositions[i], Quaternion.identity);
                     newAim.transform.localScale = new Vector3(0.25f, 0.25f, 1f);
                     PatternThreeAims.Add(newAim);
+                    SoundManager.PlaySound(_AimSound, 1, 1.2f);
                     yield return new WaitForSeconds(0.1f);
                 }
-
             }
         }
 
@@ -548,5 +594,11 @@ public class BossSkillManager : MonoBehaviour
             GameObject newAnimation = Instantiate(BossDeadImage);
             newAnimation.transform.SetParent(this.transform);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 0.175f);
     }
 }

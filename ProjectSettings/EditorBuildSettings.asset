@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: fe571d090e4491e4c9df17ab61b01e1b
   - enabled: 1
+    path: Assets/Scenes/SelectStage.unity
+    guid: 7b5b4c13cb271064f86919ff49cc0644
+  - enabled: 1
     path: Assets/Scenes/Stage_1.unity
     guid: 9f2a826db450f8342b2d6e63d1261ff2
   - enabled: 1
@@ -30,12 +33,12 @@ EditorBuildSettings:
     path: Assets/Scenes/GameOver.unity
     guid: c6202734039b0ef4fbf733a3643499f4
   - enabled: 1
-    path: Assets/Scenes/Cutscene_OP.unity
-    guid: c63cd2df339292c468d30e5ffabd17a4
-  - enabled: 1
     path: Assets/Scenes/GameOverToBoss.unity
     guid: 3661fd2b4e538334dacbc20d52ca164a
   - enabled: 1
-    path: Assets/Scenes/SelectStage.unity
-    guid: 7b5b4c13cb271064f86919ff49cc0644
+    path: Assets/Scenes/Cutscene_OP.unity
+    guid: c63cd2df339292c468d30e5ffabd17a4
+  - enabled: 1
+    path: Assets/Scenes/Cutscene_ED.unity
+    guid: 9e3dff3ee24f96d488506df31a2e4b8e
   m_configObjects: {}

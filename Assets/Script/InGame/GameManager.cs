@@ -309,7 +309,7 @@ public class GameManager : MonoBehaviour
         DataManager.isGameActionable = false;
         if (boss)
         {
-            ScreenTransition.Goto("Cutscene_ED", 0.5f, 0f);
+            BossSkillManager.bossDeath = true;
 
         }
         else
