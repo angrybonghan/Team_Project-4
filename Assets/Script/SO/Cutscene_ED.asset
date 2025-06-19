@@ -25,7 +25,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
   - {fileID: 21300000, guid: 1f274ba4d55267748acc5e3746f9bf61, type: 3}
   - {fileID: 21300000, guid: 9fe30647c12f0514591d4845547aa040, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 3b1d8ea38c8d2cc4b828b1924582b8db, type: 3}
   characterName:
   - "\uB098"
   - "\uB098"
