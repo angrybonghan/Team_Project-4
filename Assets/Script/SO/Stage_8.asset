@@ -14,7 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterImage:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   characterName:
-  - 888
+  - "1\uBCFC"
+  - "1\uBCFC"
+  - "1\uBCFC"
   DialogueText:
-  - 88
+  - "\uC5EC\uAE30\uAE4C\uC9C0 \uC0B4\uC544\uC624\uB2E4\uB2C8... "
+  - "\uADF8 \uC9D1\uB150 \uD558\uB098\uB294 \uCE6D\uCC2C\uD574\uC8FC\uB9C8... "
+  - "\uD558\uC9C0\uB9CC \uB108\uC758 \uBAA9\uC228\uB3C4 \uC5EC\uAE30\uAE4C\uC9C0\uB2E4!!"
