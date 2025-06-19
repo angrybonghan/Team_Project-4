@@ -1259,7 +1259,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1727501836}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: onCreditButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &695213152
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1384,7 +1396,7 @@ GameObject:
   - component: {fileID: 1010980123}
   - component: {fileID: 1010980122}
   m_Layer: 5
-  m_Name: DataLoad
+  m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1453,7 +1465,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1727501836}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: QuitGameButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1010980123
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2338,7 +2362,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC124\uC815\n"
+  m_text: "\uD06C\uB808\uB527"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2369c98b1e787a74fa34d3b1d7b0b8fa, type: 2}
   m_sharedMaterial: {fileID: -7947926939669172431, guid: 2369c98b1e787a74fa34d3b1d7b0b8fa, type: 2}

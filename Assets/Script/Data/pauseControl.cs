@@ -82,35 +82,45 @@ public class pauseControl : MonoBehaviour
             return;
         }
 
-        // 특정 씬에서는 ESC 키 동작 제한
         string currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName == "MainMenu" || currentSceneName == "GameOver")
+
+        // 절대 ESC 동작을 허용하지 않는 씬 (일시정지/가이드북, 씬 전환 불가)
+        if (currentSceneName == "MainMenu" ||
+            currentSceneName == "GameOver" ||
+            currentSceneName == "Cutscene_ED"||
+            currentSceneName == "Cutscene_OP")
         {
             if (escapePressCoroutine != null)
             {
                 StopCoroutine(escapePressCoroutine);
                 escapePressCoroutine = null;
             }
-            return;
+            return; // 이 씬들에서는 어떤 ESC 입력도 무시하고 Update() 함수를 종료합니다.
         }
-        if (currentSceneName == "SelectStage")
+
+        // ESC를 누르면 MainMenu로 바로 이동하는 씬들 (SelectStage, CreditScene)
+        if (currentSceneName == "SelectStage" || currentSceneName == "CreditScene")
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                // 이 씬들에서 ESC를 누르면 바로 MainMenu로 이동합니다.
+                DataManager.GameUnPause(); // 씬 전환 전에 게임 일시 정지 상태를 해제합니다.
                 ScreenTransition.Goto("MainMenu", 0.5f, 0.5f);
             }
+            // 이 씬들에서는 길게 누르기 코루틴이 시작되거나 유지될 필요가 없으므로 중단합니다.
             if (escapePressCoroutine != null)
             {
                 StopCoroutine(escapePressCoroutine);
                 escapePressCoroutine = null;
             }
-            return;
+            return; // 이 씬들에서는 ESC 입력 시 위의 로직만 실행하고 Update() 함수를 종료합니다.
         }
 
-        // --- 실제 ESC 키 입력 감지 및 코루틴 시작/중단 ---
+        // --- 기본 게임 플레이 씬에서의 ESC 키 입력 감지 및 코루틴 시작/중단 ---
+        // (위의 조건문들을 통과한 씬들, 즉 일반적인 게임 플레이 씬에만 적용됩니다.)
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (escapePressCoroutine == null)
+            if (escapePressCoroutine == null) // 현재 ESC 코루틴이 실행 중이 아니라면 시작
             {
                 escapePressCoroutine = StartCoroutine(DetectEscapeLongPress());
             }
@@ -118,51 +128,46 @@ public class pauseControl : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            if (escapePressCoroutine != null)
+            if (escapePressCoroutine != null) // ESC 코루틴이 실행 중이었다면
             {
-                StopCoroutine(escapePressCoroutine);
-                escapePressCoroutine = null;
+                StopCoroutine(escapePressCoroutine); // 코루틴을 중단하고
+                escapePressCoroutine = null; // 참조를 해제합니다.
 
-                // 길게 누르기 동작이 실행되지 않았을 경우에만 짧게 누르기 동작 실행
-                // (코루틴 내에서 longPressDetected 플래그를 통해 이미 판단)
-                // 코루틴이 길게 눌러서 종료되지 않았다면, 짧게 누른 것으로 간주
-                // isLongPressHandled 플래그를 코루틴 내부에만 두는 경우 여기서 판단해야 함.
-                // 혹은, 코루틴에서 반환하는 값으로 판단하거나.
-                // 여기서는 안전하게 코루틴 종료 후 토글 로직을 호출.
+                // 길게 누르기 동작이 실행되지 않았다면 (코루틴이 씬 전환을 실행하지 않았다면)
+                // 짧게 누르기 동작 (일시정지/가이드북 토글)을 실행합니다.
                 TogglePauseOrGuidebookScreen();
             }
         }
     }
 
     /// <summary>
-    /// ESC 키 길게 누르기를 감지하는 코루틴.
+    /// ESC 키 길게 누르기를 감지하는 코루틴입니다.
     /// </summary>
     private IEnumerator DetectEscapeLongPress()
     {
         float timer = 0f;
 
-        // 키가 눌려있는 동안 타이머 증가 (Time.timeScale의 영향을 받지 않음)
-        // isPauseScreenActivation 상태를 밖에서 먼저 체크했으므로 여기서는 굳이 반복할 필요 없음
+        // ESC 키가 눌려있는 동안 타이머를 증가시킵니다 (Time.timeScale의 영향을 받지 않음).
         while (Input.GetKey(KeyCode.Escape))
         {
             timer += Time.unscaledDeltaTime;
 
+            // 타이머가 LONG_PRESS_DURATION을 초과하고 일시정지 화면이 활성화된 상태일 경우
             if (timer >= LONG_PRESS_DURATION && isPauseScreenActivation)
             {
-                // --- 길게 누르기 동작이 실행될 때의 수정된 부분 ---
-                // 씬 전환 전에 게임을 일시 정지 해제 (Time.timeScale을 1로 복구)
-                DataManager.GameUnPause(); // GameManager의 GameUnPause()가 Time.timeScale = 1로 설정할 것이라고 가정
+                // 씬 전환 전에 게임 일시 정지 상태를 해제합니다 (Time.timeScale을 1로 복구).
+                DataManager.GameUnPause();
 
-                // 일시정지 UI를 즉시 비활성화하여 화면 멈춤처럼 보이지 않게 함
+                // 일시정지 UI를 즉시 비활성화하여 화면 멈춤처럼 보이는 현상을 방지합니다.
                 BG.SetActive(false);
                 pauseScreen.SetActive(false);
                 isPauseScreenActivation = false;
 
-                // 씬 전환 실행
+                // "SelectStage" 씬으로 전환을 실행합니다.
                 ScreenTransition.Goto("SelectStage", 0.5f, 0.5f);
-                break; // 코루틴 종료
+                break; // 코루틴을 종료합니다.
             }
-            yield return null;
+            yield return null; // 다음 프레임까지 대기합니다.
         }
     }
 
@@ -171,29 +176,26 @@ public class pauseControl : MonoBehaviour
     /// </summary>
     private void TogglePauseOrGuidebookScreen()
     {
-        // 배경은 항상 토글 전에 활성화하는 것은 아니고, 상태에 따라 달라짐.
-        // 이 함수 자체가 토글 역할을 하므로, 내부에서 BG 활성화/비활성화를 적절히 처리해야 함.
-
-        if (!isGuidebookActivation && !isPauseScreenActivation) // 아무것도 활성화되어 있지 않을 때 (일시정지 켜기)
+        if (!isGuidebookActivation && !isPauseScreenActivation) // 아무것도 활성화되어 있지 않을 때 (일시정지 화면 켜기)
         {
-            BG.SetActive(true); // 배경 활성화
-            pauseScreen.SetActive(true);
+            BG.SetActive(true); // 배경을 활성화합니다.
+            pauseScreen.SetActive(true); // 일시정지 화면을 활성화합니다.
             isPauseScreenActivation = true;
-            DataManager.GamePause();
+            DataManager.GamePause(); // 게임을 일시 정지합니다.
         }
-        else if (isPauseScreenActivation) // 일시정지 화면이 활성화되어 있을 때 (일시정지 끄기)
+        else if (isPauseScreenActivation) // 일시정지 화면이 활성화되어 있을 때 (일시정지 화면 끄기)
         {
-            pauseScreen.SetActive(false);
+            pauseScreen.SetActive(false); // 일시정지 화면을 비활성화합니다.
             isPauseScreenActivation = false;
-            BG.SetActive(false); // 일시정지 화면이 꺼지면 배경도 끔
-            DataManager.GameUnPause();
+            BG.SetActive(false); // 배경도 비활성화합니다.
+            DataManager.GameUnPause(); // 게임을 재개합니다.
         }
         else if (isGuidebookActivation) // 가이드북이 활성화되어 있을 때 (가이드북 끄기)
         {
-            BG.SetActive(false); // 가이드북이 꺼지면 배경도 끔
-            Guide.SetActive(false);
+            BG.SetActive(false); // 배경을 비활성화합니다.
+            Guide.SetActive(false); // 가이드북을 비활성화합니다.
             isGuidebookActivation = false;
-            DataManager.GameUnPause();
+            DataManager.GameUnPause(); // 게임을 재개합니다.
         }
     }
 
