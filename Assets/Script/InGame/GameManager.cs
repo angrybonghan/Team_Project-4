@@ -100,16 +100,16 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            scoredBallInChalk++;
-            displayBall.DisplayBallCount++;
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    scoredBallInChalk++;
+        //    displayBall.DisplayBallCount++;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            SpeedBallChance = 2;
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    SpeedBallChance = 2;
+        //}
 
         if (DataManager.isGameActionable)
         {

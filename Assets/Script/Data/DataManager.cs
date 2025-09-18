@@ -52,23 +52,25 @@ public class DataManager : MonoBehaviour
         RandomItem = RandomItem_;
         OpenBook = OpenBook_;
         NextPage = NextPage_;
+
+        SetLevelAccess(8);
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.E) && Input.GetKeyDown(KeyCode.R))
-        {
-            ResetData();
-            Debug.Log("데이터 리셋 작동");
-            ScreenTransition.Goto("SelectStage", 0.1f, 0.1f);
-        }
+        //if (Input.GetKey(KeyCode.E) && Input.GetKeyDown(KeyCode.R))
+        //{
+        //    ResetData();
+        //    Debug.Log("데이터 리셋 작동");
+        //    ScreenTransition.Goto("SelectStage", 0.1f, 0.1f);
+        //}
 
-        if (Input.GetKey(KeyCode.E) && Input.GetKeyDown(KeyCode.T))
-        {
-            SetLevelAccess(8);
-            Debug.Log("데이터 올인 작동");
-            ScreenTransition.Goto("SelectStage", 0.1f, 0.1f);
-        }
+        //if (Input.GetKey(KeyCode.E) && Input.GetKeyDown(KeyCode.T))
+        //{
+        //    SetLevelAccess(8);
+        //    Debug.Log("데이터 올인 작동");
+        //    ScreenTransition.Goto("SelectStage", 0.1f, 0.1f);
+        //}
     }
 
     public static void LoadData() // 데이터 불러오기
